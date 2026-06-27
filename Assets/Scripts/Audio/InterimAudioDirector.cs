@@ -74,9 +74,11 @@ namespace Game.Audio
         [Header("Movement")]
         [SerializeField] private AudioClip walkLoop;
         [SerializeField] private AudioClip[] walkVariations;
+        [SerializeField, Min(1f)] private float walkFootstepBpm = 166f;
         [SerializeField] private AudioClip crouchWalkLoop;
         [SerializeField] private AudioClip runLoop;
         [SerializeField] private AudioClip[] runVariations;
+        [SerializeField, Min(1f)] private float runFootstepBpm = 166f;
         [SerializeField] private AudioClip slideLoop;
         [SerializeField] private AudioClip jumpClip;
         [SerializeField] private AudioClip doubleJumpClip;
@@ -116,6 +118,7 @@ namespace Game.Audio
         private readonly Dictionary<InterimAudioCue, float> lastCueTimes = new Dictionary<InterimAudioCue, float>();
         private float lastMovementReportTime = -99f;
         private InterimAudioCue currentMovementCue = InterimAudioCue.None;
+        private float nextFootstepTime = -99f;
         private int lastWalkVariationIndex = -1;
         private int lastRunVariationIndex = -1;
         private const float MovementReportTimeout = 0.18f;
@@ -313,6 +316,12 @@ namespace Game.Audio
             movementSource.loop = false;
             movementSource.pitch = Mathf.Clamp(speedRatio, 0.75f, 1.35f);
 
+            if (cue == InterimAudioCue.Walk || cue == InterimAudioCue.Run)
+            {
+                PlayFootstepIfDue(cue);
+                return;
+            }
+
             if (currentMovementCue == cue && movementSource.isPlaying) return;
 
             AudioClip clip = GetMovementClip(cue);
@@ -332,6 +341,37 @@ namespace Game.Audio
         {
             if (movementSource != null && movementSource.isPlaying) movementSource.Stop();
             currentMovementCue = InterimAudioCue.None;
+            nextFootstepTime = -99f;
+        }
+
+        private void PlayFootstepIfDue(InterimAudioCue cue)
+        {
+            float now = Time.unscaledTime;
+
+            if (currentMovementCue != cue)
+            {
+                if (movementSource.isPlaying) movementSource.Stop();
+                currentMovementCue = cue;
+                nextFootstepTime = now;
+            }
+
+            if (now < nextFootstepTime) return;
+
+            AudioClip clip = GetMovementClip(cue);
+            if (clip == null)
+            {
+                StopMovementLoop();
+                return;
+            }
+
+            movementSource.PlayOneShot(clip);
+            nextFootstepTime = now + (60f / GetFootstepBpm(cue));
+        }
+
+        private float GetFootstepBpm(InterimAudioCue cue)
+        {
+            if (cue == InterimAudioCue.Run) return Mathf.Max(1f, runFootstepBpm);
+            return Mathf.Max(1f, walkFootstepBpm);
         }
 
         private AudioClip GetMovementClip(InterimAudioCue cue)
