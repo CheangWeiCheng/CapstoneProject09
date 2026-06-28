@@ -563,7 +563,7 @@ namespace Game.Audio
             AssignIfEmpty(ref doubleJumpClip, "Spike (Launcher, Jump, Late 2nd Jump) - 2nd Jump");
             AssignIfEmpty(ref dashClip, "Dash");
             AssignIfEmpty(ref playerCrouchClip, "Player Crouch");
-            AssignIfEmpty(ref landClip, "Heavy Stone Land");
+            AssignIfEmpty(ref landClip, "Stone Land");
             AssignIfEmpty(ref heavyLandClip, "Heavy Stone Land");
             AssignIfEmpty(ref basicAttackClip, "Basic Attack");
             AssignIfEmpty(ref basicAttackHitClip, "Hit of Basic Attack");
