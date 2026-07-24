@@ -302,38 +302,36 @@ public class Chaser : MonoBehaviour, IEnemyAI
 
     IEnumerator Knockback()
     {
-        if (animator != null)
-        {
-            if (enemyBehaviour.currentState == EnemyBehaviour.EnemyState.Hitstun && enemyBehaviour.IsGrounded)
-            {
-                animator.SetTrigger("Hit");
-            }
-            else
-            {
-                animator.SetTrigger("Knockback");
-            }
-        }
-        
+        float groundedTimer = 0f;
+
         // Wait for linear velocity to be 0 and enemy to be grounded before switching back to idle
         while (currentState == State.Knockback)
         {
             // Wait a brief moment to allow physics to apply knockback force
-            yield return new WaitForSeconds(0.1f);
-            if (rb.linearVelocity.magnitude < 0.1f && enemyBehaviour.IsGrounded && enemyBehaviour.health > 0)
+            if (enemyBehaviour.IsGrounded && enemyBehaviour.health > 0)
             {
-                // Re-enable NavMesh agent and rigidbody
-                myAgent.enabled = true;
-                rb.isKinematic = true;
-                enemyBehaviour.currentState = EnemyBehaviour.EnemyState.Normal; // Reset enemy state to normal
-                if (targetTransform != null)
+                groundedTimer += Time.deltaTime;
+                
+                if (groundedTimer >= 0.1f && rb.linearVelocity.magnitude < 0.1f)
                 {
-                    SwitchState(State.FocusOnTarget);
+                    // Re-enable NavMesh agent and rigidbody
+                    myAgent.enabled = true;
+                    rb.isKinematic = true;
+                    enemyBehaviour.currentState = EnemyBehaviour.EnemyState.Normal; // Reset enemy state to normal
+                    if (targetTransform != null)
+                    {
+                        SwitchState(State.FocusOnTarget);
+                    }
+                    else
+                    {
+                        SwitchState(State.Idle);
+                    }
+                    yield break;
                 }
-                else
-                {
-                    SwitchState(State.Idle);
-                }
-                yield break;
+            }
+            else
+            {
+                groundedTimer = 0f; // Reset timer if not grounded
             }
 
             yield return null;

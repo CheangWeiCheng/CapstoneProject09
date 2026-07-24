@@ -396,37 +396,36 @@ public class ArcherAI : MonoBehaviour, IEnemyAI
 
     IEnumerator Knockback()
     {
-        if (animator != null)
-        {
-            if (enemyBehaviour.currentState == EnemyBehaviour.EnemyState.Hitstun && enemyBehaviour.IsGrounded)
-            {
-                animator.SetTrigger("Hit");
-            }
-            else
-            {
-                animator.SetTrigger("Knockback");
-            }
-        }
-        
+        float groundedTimer = 0f;
+
         // Wait for linear velocity to be 0 and enemy to be grounded before switching back to idle
         while (currentState == ArcherState.Knockback)
         {
             // Wait a brief moment to allow physics to apply knockback force
-            yield return new WaitForSeconds(0.1f);
-            if (rb.linearVelocity.magnitude < 0.1f && enemyBehaviour.IsGrounded && enemyBehaviour.health > 0)
+            if (enemyBehaviour.IsGrounded && enemyBehaviour.health > 0)
             {
-                // Re-enable NavMesh agent and rigidbody
-                agent.enabled = true;
-                rb.isKinematic = true;
-                if (player != null)
+                groundedTimer += Time.deltaTime;
+                
+                if (groundedTimer >= 0.1f && rb.linearVelocity.magnitude < 0.1f)
                 {
-                    currentState = ArcherState.MoveToRange;
+                    // Re-enable NavMesh agent and rigidbody
+                    agent.enabled = true;
+                    rb.isKinematic = true;
+                    enemyBehaviour.currentState = EnemyBehaviour.EnemyState.Normal; // Reset enemy state to normal
+                    if (player != null)
+                    {
+                        currentState = ArcherState.MoveToRange;
+                    }
+                    else
+                    {
+                        currentState = ArcherState.Idle;
+                    }
+                    yield break;
                 }
-                else
-                {
-                    currentState = ArcherState.Idle;
-                }
-                yield break;
+            }
+            else
+            {
+                groundedTimer = 0f;
             }
 
             yield return null;
