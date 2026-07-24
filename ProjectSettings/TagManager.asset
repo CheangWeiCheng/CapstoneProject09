@@ -7,6 +7,7 @@ TagManager:
   - Enemy
   - Hazard
   - Key
+  - Shop
   layers:
   - Default
   - TransparentFX

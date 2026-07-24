@@ -588,6 +588,11 @@ public class Attack : MonoBehaviour
         {
             playerController.SetSlideVelocity(Vector3.zero); // Kill slide speed if not holding a direction for more control during slam
         }
+
+        if (animator != null)
+        {
+            animator.SetTrigger("Wind-Up");
+        }
     }
 
     public void GroundSlam()
@@ -610,7 +615,6 @@ public class Attack : MonoBehaviour
         }
         
         weaponHitbox.ActivateHitbox();
-        // ... animation/effect logic ...
 
         // Start checking for landing to apply slide momentum
         groundSlamLandingCoroutine = StartCoroutine(CheckGroundSlamLanding());
@@ -664,7 +668,10 @@ public class Attack : MonoBehaviour
         currentAttackType = AttackType.Spike;
         weaponHitbox.ActivateHitbox();
         attackDurationTimer = currentWeapon.hitboxLifetime;
-        // ... animation/effect logic ...
+        if (animator != null)
+        {
+            animator.SetTrigger("Spike");
+        }
         
         float range = countsAsDashSlam ? dashRange : defaultRange;
         Collider[] hits = Physics.OverlapSphere(AttackOrigin, range, enemyLayer);
@@ -702,7 +709,10 @@ public class Attack : MonoBehaviour
         currentAttackType = AttackType.BoundSpike;
         weaponHitbox.ActivateHitbox();
         attackDurationTimer = currentWeapon.hitboxLifetime;
-        // ... animation/effect logic ...
+        if (animator != null)
+        {
+            animator.SetTrigger("Spike");
+        }
         
         float range = countsAsDashSlam ? dashRange : defaultRange;
         Collider[] hits = Physics.OverlapSphere(AttackOrigin, range, enemyLayer);
@@ -755,6 +765,11 @@ public class Attack : MonoBehaviour
         {
             currentAttackType = AttackType.WeakPush;
             ResetCombo();
+        }
+        
+        if (animator != null)
+        {
+            animator.SetTrigger("AerialPush");
         }
     }
 
