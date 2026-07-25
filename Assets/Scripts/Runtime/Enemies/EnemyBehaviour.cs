@@ -295,7 +295,7 @@ public class EnemyBehaviour : MonoBehaviour
         Animator enemyAnimator = GetComponent<Animator>();
         if (enemyAnimator != null)
         {
-            if (currentState == EnemyState.Hitstun)
+            if (currentState == EnemyState.Hitstun && health > 0)
             {
                 enemyAnimator.SetTrigger("Hit");
             }
