@@ -43,6 +43,9 @@ public class Attack : MonoBehaviour
     [HideInInspector] public float attackPressTime; // When the button was first pressed
     [HideInInspector] public int chargeLevel = 0; // 0 = none, 1 = level 1, 2 = level 2
 
+    [Header("Ground Slam")]
+    [SerializeField] GameObject shockwavePrefab;
+
     [Header("Hitbox Reference")]
     [HideInInspector] public Hitbox weaponHitbox;
 
@@ -658,6 +661,7 @@ public class Attack : MonoBehaviour
         cooldownTimer = shortCooldownTime;
         playerController.landedFromGroundSlam = true;
         playerController.slamJumpTimer = playerController.slamJumpTime;
+        Instantiate(shockwavePrefab, transform.position, transform.rotation);
     }
 
     private void Spike()
