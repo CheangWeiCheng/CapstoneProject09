@@ -587,6 +587,16 @@ public class Attack : MonoBehaviour
         countsAsDashSlam = playerController.WasRecentlyDashing(0.1f);
         windUpTimer = windUpDuration;
 
+        Collider[] hits = Physics.OverlapSphere(AttackOrigin, defaultRange, enemyLayer);
+        if (hits.Length > 0)
+        {
+            GameObject target = GetBestTarget(hits);
+            if (target != null)
+            {
+                playerController.LockOnTarget(target);
+            }
+        }
+
         if (playerController.moveInput.magnitude == 0 && !countsAsDashSlam)
         {
             playerController.SetSlideVelocity(Vector3.zero); // Kill slide speed if not holding a direction for more control during slam
@@ -661,7 +671,10 @@ public class Attack : MonoBehaviour
         cooldownTimer = shortCooldownTime;
         playerController.landedFromGroundSlam = true;
         playerController.slamJumpTimer = playerController.slamJumpTime;
-        Instantiate(shockwavePrefab, transform.position, transform.rotation);
+        if (shockwavePrefab != null)
+        {
+            Instantiate(shockwavePrefab, transform.position, transform.rotation);
+        }
     }
 
     private void Spike()
