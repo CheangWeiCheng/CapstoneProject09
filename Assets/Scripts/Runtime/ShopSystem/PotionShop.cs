@@ -6,7 +6,7 @@ public class PotionShop : MonoBehaviour
     [Header("Prices")]
     [SerializeField] private int healthPotionCost = 15;
     [SerializeField] private int damagePotionCost = 15;
-    [SerializeField] private int superHealthPotionCost = 50;
+    [SerializeField] private int superHealthPotionCost = 75;
 
     [Header("Shop Counter Text")]
     [SerializeField] private TextMeshProUGUI coinText;
@@ -87,7 +87,7 @@ public class PotionShop : MonoBehaviour
         if (PlayerInventory.Instance.SpendCoins(superHealthPotionCost))
         {
             PlayerInventory.Instance.AddSuperHealthPotion(1);
-            ShowMessage("Bought Max Health Potion.");
+            ShowMessage("Bought Full Health Potion.");
         }
         else
         {
