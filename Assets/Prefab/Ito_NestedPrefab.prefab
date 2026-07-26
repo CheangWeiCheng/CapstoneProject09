@@ -2828,7 +2828,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 2cc574b0ff6de524399087ac0b1bbc94, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5d77ad97c8e9871468a22554b221ec5b, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2904,7 +2904,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 8dbbb1bf8eaaba64da174d53e6a1a1e4, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8921c3de675c72840926940bd4c2e7bb, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3225,7 +3225,6 @@ Transform:
   - {fileID: 5175385689676872680}
   - {fileID: 39533323613762836}
   - {fileID: 2372360052976734298}
-  - {fileID: 6726298648135186669}
   - {fileID: 8302246936930664897}
   m_Father: {fileID: 473689002508606672}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3460,6 +3459,7 @@ MonoBehaviour:
   chargeLevel2Threshold: 1.25
   attackPressTime: 0
   chargeLevel: 0
+  shockwavePrefab: {fileID: 2189339154847340957, guid: 36f045af35393304099745ac9dd4397c, type: 3}
   weaponHitbox: {fileID: 0}
   currentAttackType: 0
   isFinisher: 0
@@ -21503,13 +21503,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6298491315621063930}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0.703, z: 0}
+  m_LocalRotation: {x: -0.00015427308, y: -0.707187, z: 0.00015423809, w: 0.7070266}
+  m_LocalPosition: {x: -0.11227751, y: -0.000044080894, z: 0.003938555}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 5385260563045067762}
-  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+  m_Father: {fileID: 2855983202369801041}
+  m_LocalEulerAnglesHint: {x: 0, y: -90.013, z: 0.025}
 --- !u!1 &6335925271315353735
 GameObject:
   m_ObjectHideFlags: 0
@@ -29456,7 +29456,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PotionShop
   healthPotionCost: 15
   damagePotionCost: 15
-  superHealthPotionCost: 75
+  superHealthPotionCost: 50
   coinText: {fileID: 5792140324616687705}
   healthPotionOwnedText: {fileID: 2698844120080213776}
   damagePotionOwnedText: {fileID: 4051366739946968455}
@@ -31322,6 +31322,7 @@ Transform:
   - {fileID: 1305417959956475849}
   - {fileID: 462136341564124978}
   - {fileID: 5475504197686301336}
+  - {fileID: 6726298648135186669}
   m_Father: {fileID: 5885024168416505404}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &9209459093145874107

@@ -18,6 +18,8 @@ public class EnemyBehaviour : MonoBehaviour
     [SerializeField] float collisionDamage = 5;
     [SerializeField] float timeTillDemise = 0.5f;
     float demiseTimer = 0f;
+    public float launchDelay = 0.05f;
+    public float launchTimer = 0f;
     bool beingPushed;
     Vector3 pushDirection;
     Vector3 softKnockback;
@@ -110,8 +112,15 @@ public class EnemyBehaviour : MonoBehaviour
             switch (currentState) // Handle state-specific logic when spiked into the ground
             {
                 case EnemyState.Spiked:
-                    currentState = EnemyState.Knockback;
-                    TakeDamage(collisionDamage);
+                    if (launchTimer > 0)
+                    {
+                        launchTimer -= Time.deltaTime;
+                        if (launchTimer <= 0)
+                        {
+                            currentState = EnemyState.Knockback;
+                            TakeDamage(collisionDamage);
+                        }
+                    }
                     break;
                 case EnemyState.Rebound:
                     currentState = EnemyState.Knockback;
@@ -281,6 +290,19 @@ public class EnemyBehaviour : MonoBehaviour
         if (enemyAI != null)
         {
             enemyAI.EnterKnockbackState();
+        }
+
+        Animator enemyAnimator = GetComponent<Animator>();
+        if (enemyAnimator != null)
+        {
+            if (currentState == EnemyState.Hitstun && health > 0)
+            {
+                enemyAnimator.SetTrigger("Hit");
+            }
+            else
+            {
+                enemyAnimator.SetTrigger("Knockback");
+            }
         }
     }
 

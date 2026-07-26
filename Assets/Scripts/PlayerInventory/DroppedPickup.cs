@@ -4,7 +4,8 @@ public enum PickupType
 {
     Coins,
     HealthPotion,
-    DamagePotion
+    DamagePotion,
+    FullHealthPotion
 }
 
 public class DroppedPickup : MonoBehaviour
@@ -20,9 +21,6 @@ public class DroppedPickup : MonoBehaviour
     [SerializeField] private bool bob = true;
     [SerializeField] private float bobSpeed = 2f;
     [SerializeField] private float bobHeight = 0.15f;
-
-    [Header("Lifetime")]
-    [SerializeField] private float lifeTime = 30f;
 
     private Vector3 startPosition;
     private bool collected = false;
@@ -47,14 +45,6 @@ public class DroppedPickup : MonoBehaviour
 
         rb.useGravity = false;
         rb.isKinematic = true;
-    }
-
-    private void Start()
-    {
-        if (lifeTime > 0f)
-        {
-            Destroy(gameObject, lifeTime);
-        }
     }
 
     private void Update()
@@ -114,6 +104,10 @@ public class DroppedPickup : MonoBehaviour
             case PickupType.DamagePotion:
                 PlayerInventory.Instance.AddDamagePotion(1);
                 Debug.Log("Picked up damage potion.");
+                break;
+            case PickupType.FullHealthPotion:
+                PlayerInventory.Instance.AddSuperHealthPotion(1);
+                Debug.Log("Picked up health potion.");
                 break;
         }
 
