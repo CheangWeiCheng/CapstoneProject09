@@ -14,6 +14,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
+using System.Collections;
 
 public class PlayerBehaviour : MonoBehaviour
 {
@@ -47,7 +48,13 @@ public class PlayerBehaviour : MonoBehaviour
 
     [SerializeField] TMP_Text congratulatoryText;
 
+    [SerializeField] float fadeToBlackTime = 1f;
+    [SerializeField] Image blackImage;
+    [SerializeField] float timeTillDeath = 2f;
+
     private Vector3 spawnPoint;
+
+    Animator animator;
 
     /// <summary>
     /// Initializes the player by setting up the UI texts and hiding the keycard image.
@@ -62,6 +69,7 @@ public class PlayerBehaviour : MonoBehaviour
         // fireAudioSource = GetComponent<AudioSource>();
         // congratulatoryText.gameObject.SetActive(false);
         spawnPoint = transform.position;
+        animator = GetComponent<Animator>();
     }
 
     /// <summary>
@@ -151,11 +159,61 @@ public class PlayerBehaviour : MonoBehaviour
             if (currentHealth <= 0)
             {
                 Debug.Log("You died.");
-                currentHealth = maxHealth;
-                healthUI.value = currentHealth;
-                transform.position = spawnPoint;
+                currentHealth = 0;
+                animator.SetBool("IsDead", true);
+                StartCoroutine(FadeInAndOutOfBlack(Color.black));
             }
         }
+    }
+
+    void Respawn()
+    {
+        animator.SetBool("IsDead", false);
+        currentHealth = maxHealth;
+        healthUI.value = currentHealth;
+        transform.position = spawnPoint;
+    }
+
+    private void SetPlayerEnabled(bool enabled)
+    {
+        GetComponent<PlayerInput>().enabled = enabled;
+        GetComponent<ThirdPersonController>().enabled = enabled;
+        GetComponent<Attack>().enabled = enabled;
+        // Add any other scripts that should be disabled
+    }
+
+    private IEnumerator FadeInAndOutOfBlack(Color color)
+    {
+        // Disable player input
+        SetPlayerEnabled(false);
+
+        // Fade to black
+        yield return new WaitForSeconds(timeTillDeath);
+        blackImage.enabled = true;
+        color.a = 0f;
+        
+        while (color.a < 1f)
+        {
+            color.a += Time.deltaTime / fadeToBlackTime;
+            blackImage.color = color;
+            yield return null;
+        }
+        color.a = 1f;
+        blackImage.color = color;
+        Respawn();
+        yield return new WaitForSeconds(fadeToBlackTime);
+
+        // Fade out of black        
+        while (color.a > 0f)
+        {
+            color.a -= Time.deltaTime / fadeToBlackTime;
+            blackImage.color = color;
+            yield return null;
+        }
+        color.a = 0f;
+        blackImage.color = color;
+        // Reenable player input
+        SetPlayerEnabled(true);
     }
 
     void OnTriggerEnter(Collider other)
@@ -172,6 +230,7 @@ public class PlayerBehaviour : MonoBehaviour
         {
             Destroy(other.gameObject);
             congratulatoryText.text = "Congrats! You win!!1!!one!!!";
+            StartCoroutine(FadeInAndOutOfBlack(Color.white));
         }
     }
 }
