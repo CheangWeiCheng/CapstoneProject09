@@ -51,6 +51,7 @@ public class PlayerBehaviour : MonoBehaviour
     [SerializeField] float fadeToBlackTime = 1f;
     [SerializeField] Image blackImage;
     [SerializeField] float timeTillDeath = 2f;
+    [HideInInspector] public bool isDead;
 
     private Vector3 spawnPoint;
 
@@ -184,6 +185,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     private IEnumerator FadeInAndOutOfBlack(Color color)
     {
+        isDead = true;
         // Disable player input
         SetPlayerEnabled(false);
 
@@ -200,6 +202,8 @@ public class PlayerBehaviour : MonoBehaviour
         }
         color.a = 1f;
         blackImage.color = color;
+        // Make Rigidbody kinematic right when the screen goes black to prevent being pushed when respawning
+        GetComponent<Rigidbody>().isKinematic = true;
         Respawn();
         yield return new WaitForSeconds(fadeToBlackTime);
 
@@ -212,8 +216,11 @@ public class PlayerBehaviour : MonoBehaviour
         }
         color.a = 0f;
         blackImage.color = color;
+        // Make Rigidbody not kinematic
+        GetComponent<Rigidbody>().isKinematic = false;
         // Reenable player input
         SetPlayerEnabled(true);
+        isDead = false;
     }
 
     void OnTriggerEnter(Collider other)

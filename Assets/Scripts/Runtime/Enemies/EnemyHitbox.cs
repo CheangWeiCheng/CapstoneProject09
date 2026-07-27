@@ -46,6 +46,10 @@ public class EnemyHitbox : MonoBehaviour
                     return;
                 }
             }
+            if (playerBehaviour != null && playerBehaviour.isDead)
+            {
+                return;
+            }
             if (playerHealth != null)
             {
                 playerHealth.ApplyDamage(playerBehaviour, DamageAmount);
