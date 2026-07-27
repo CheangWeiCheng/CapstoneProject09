@@ -56,6 +56,7 @@ public class PlayerBehaviour : MonoBehaviour
     private Vector3 spawnPoint;
 
     Animator animator;
+    Rigidbody rb;
 
     /// <summary>
     /// Initializes the player by setting up the UI texts and hiding the keycard image.
@@ -71,6 +72,7 @@ public class PlayerBehaviour : MonoBehaviour
         // congratulatoryText.gameObject.SetActive(false);
         spawnPoint = transform.position;
         animator = GetComponent<Animator>();
+        rb = GetComponent<Rigidbody>();
     }
 
     /// <summary>
@@ -183,9 +185,11 @@ public class PlayerBehaviour : MonoBehaviour
         // Add any other scripts that should be disabled
     }
 
-    private IEnumerator FadeInAndOutOfBlack(Color color)
+    public IEnumerator FadeInAndOutOfBlack(Color color)
     {
         isDead = true;
+        GetComponent<ThirdPersonController>().SetSlideVelocity(Vector3.zero);
+        rb.linearVelocity = Vector3.zero;
         // Disable player input
         SetPlayerEnabled(false);
 
@@ -203,7 +207,7 @@ public class PlayerBehaviour : MonoBehaviour
         color.a = 1f;
         blackImage.color = color;
         // Make Rigidbody kinematic right when the screen goes black to prevent being pushed when respawning
-        GetComponent<Rigidbody>().isKinematic = true;
+        rb.isKinematic = true;
         Respawn();
         yield return new WaitForSeconds(fadeToBlackTime);
 
@@ -217,7 +221,7 @@ public class PlayerBehaviour : MonoBehaviour
         color.a = 0f;
         blackImage.color = color;
         // Make Rigidbody not kinematic
-        GetComponent<Rigidbody>().isKinematic = false;
+        rb.isKinematic = false;
         // Reenable player input
         SetPlayerEnabled(true);
         isDead = false;
@@ -231,13 +235,6 @@ public class PlayerBehaviour : MonoBehaviour
             currentKeycard.Collect(this);
             keycardsCollected++;
             currentKeycard = null; // Reset current keycard after interaction
-        }
-
-        if (other.CompareTag("Finish"))
-        {
-            Destroy(other.gameObject);
-            congratulatoryText.text = "Congrats! You win!!1!!one!!!";
-            StartCoroutine(FadeInAndOutOfBlack(Color.white));
         }
     }
 }

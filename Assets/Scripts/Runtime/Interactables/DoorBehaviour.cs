@@ -48,14 +48,7 @@ public class DoorBehaviour : MonoBehaviour
             if (player.HasKeycard())
             {
                 // If the player has a keycard, unlock the door
-                isLocked = false;
-                if (lockVisual != null)
-                {
-                    lockVisual.SetActive(false);
-                }
-
-                Debug.Log("Door unlocked!");
-                ToggleDoor(); // Call the Interact method to open the door
+                UnlockDoor();
                 player.keycardsCollected--; // Decrease the player's keycard count
             }
             else
@@ -103,6 +96,18 @@ public class DoorBehaviour : MonoBehaviour
             isOpen = true;
         }
         transform.eulerAngles = doorRotation;
+    }
+
+    public void UnlockDoor()
+    {
+        isLocked = false;
+        if (lockVisual != null)
+        {
+            lockVisual.SetActive(false);
+        }
+
+        Debug.Log("Door unlocked!");
+        ToggleDoor(); // Call the Interact method to open the door
     }
 
     void OnTriggerEnter(Collider other)
