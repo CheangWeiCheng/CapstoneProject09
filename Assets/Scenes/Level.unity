@@ -1301,6 +1301,78 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 16f37d2037a00c140b070ef3f36be585, type: 3}
+--- !u!1 &169607377
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 169607379}
+  - component: {fileID: 169607378}
+  m_Layer: 0
+  m_Name: Objective Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &169607378
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 169607377}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 435a1a07a98ec66429bb43a93c9d2841, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ObjectiveManager
+  killCounter: {fileID: 1556116465}
+  materialInventory: {fileID: 486199255}
+  playerInventory: {fileID: 486199254}
+  objectiveHudRoot: {fileID: 958154131}
+  objectiveBackgroundObject: {fileID: 724401348}
+  objectiveTitleText: {fileID: 795400578}
+  objectiveProgressText: {fileID: 120078737}
+  objectiveRewardText: {fileID: 1464074127}
+  questPanel: {fileID: 1863921218}
+  currentQuestText: {fileID: 1400429169}
+  nextQuestText: {fileID: 797887349}
+  thirdQuestText: {fileID: 1923624279}
+  viewButtonObject: {fileID: 1966440885}
+  unviewButtonObject: {fileID: 1898748818}
+  eyeStateText: {fileID: 0}
+  startWithObjectiveHudVisible: 0
+  firstKillTarget: 3
+  secondKillTarget: 6
+  firstKillReward: 3
+  secondKillReward: 5
+  armorTarget: 2
+  sticksTarget: 2
+  clothTarget: 1
+  armorReward: 2
+  sticksReward: 2
+  clothReward: 2
+  craftAxeReward: 8
+  objectiveCompleteDelay: 2
+--- !u!4 &169607379
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 169607377}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &181138336 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8118034482167298341, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
@@ -2736,6 +2808,28 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 52a94d7b7d991c54fbca68e27136cdb4, type: 3}
+--- !u!114 &486199254 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7574180049386621662, guid: 52a94d7b7d991c54fbca68e27136cdb4, type: 3}
+  m_PrefabInstance: {fileID: 486199253}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebd5c665e4181cf42a84e431f46ea571, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::NewMonoBehaviourScript
+--- !u!114 &486199255 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8389710740953000822, guid: 52a94d7b7d991c54fbca68e27136cdb4, type: 3}
+  m_PrefabInstance: {fileID: 486199253}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9790ca098d458441912d55913695788, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MaterialInventory
 --- !u!4 &494808718 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2311342063275906659, guid: 16f37d2037a00c140b070ef3f36be585, type: 3}
@@ -123216,3 +123310,4 @@ SceneRoots:
   - {fileID: 1072910085}
   - {fileID: 1632123925}
   - {fileID: 98814508}
+  - {fileID: 169607379}
