@@ -1,5 +1,5 @@
 using UnityEngine;
-using TMPro;
+using UnityEngine.UI;
 using UnityEngine.AI;
 
 public interface IEnemyAI
@@ -41,7 +41,8 @@ public class EnemyBehaviour : MonoBehaviour
     [SerializeField] private float groundSphereRadius = 0.2f;
 
     [Header("UI")]
-    public TMP_Text healthText;
+    public Slider healthUI;
+    public Slider shieldUI;
 
     [Header("Kill Counter")]
     [SerializeField] private KillCounter killCounter;
@@ -97,10 +98,12 @@ public class EnemyBehaviour : MonoBehaviour
     void Start()
     {
         health = maxHealth;
+        healthUI.maxValue = maxHealth;
         if (isBoss)
         {
             currentShield = maxShield;
-            ShieldedHealthText(Color.green);
+            shieldUI.maxValue = maxShield;
+            ShieldedHealthText(true);
         }
         UpdateHealthText();
     }
@@ -200,10 +203,8 @@ public class EnemyBehaviour : MonoBehaviour
         {
             currentShield -= amount;
             amount /= 2; // Reduce damage to health when shield is active
-            if (currentShield <= 0)
-            {
-                ShieldedHealthText(Color.white); // Change health text color back to white when shield is depleted
-            }
+            if (currentShield <= 0) currentShield = 0;
+            ShieldedHealthText();
         }
 
         health -= amount;
@@ -231,7 +232,7 @@ public class EnemyBehaviour : MonoBehaviour
             // Trigger phase change for the boss
             isInPhaseTwo = true;
             currentShield = maxShield;
-            ShieldedHealthText(Color.green);
+            ShieldedHealthText(true);
             Debug.Log("Boss phase change triggered!");
         }
 
@@ -360,17 +361,24 @@ public class EnemyBehaviour : MonoBehaviour
     #region Feedback & Cleanup
     private void UpdateHealthText()
     {
-        if (healthText != null)
+        if (healthUI != null)
         {
-            healthText.text = health.ToString();
+            healthUI.value = health;
         }
     }
 
-    private void ShieldedHealthText(Color color)
+    private void ShieldedHealthText(bool replenishShield = false)
     {
-        if (healthText != null)
+        if (shieldUI != null)
         {
-            healthText.color = color;
+            if (replenishShield)
+            {
+                shieldUI.value = maxShield;
+            }
+            else
+            {
+                shieldUI.value = currentShield;
+            }
         }
     }
 

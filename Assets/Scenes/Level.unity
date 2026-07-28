@@ -171,6 +171,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7869646592362086079, guid: 82fe98d341b27634bac1af859b98b5c2, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7869646592362086079, guid: 82fe98d341b27634bac1af859b98b5c2, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -304,6 +312,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: felino_archer
       objectReference: {fileID: 0}
+    - target: {fileID: 6905551791657480011, guid: 16f37d2037a00c140b070ef3f36be585, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6905551791657480011, guid: 16f37d2037a00c140b070ef3f36be585, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8376601037030256978, guid: 16f37d2037a00c140b070ef3f36be585, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8376601037030256978, guid: 16f37d2037a00c140b070ef3f36be585, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -322,6 +346,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 197953217}
     m_Modifications:
+    - target: {fileID: 1375891567345608863, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1375891567345608863, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3221714927541643151, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
       propertyPath: m_Name
       value: felino_knight (3)
@@ -384,6 +416,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1045639956}
     m_Modifications:
+    - target: {fileID: 1375891567345608863, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1375891567345608863, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3221714927541643151, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
       propertyPath: m_Name
       value: felino_knight (22)
@@ -441,6 +481,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 15978985}
     m_Modifications:
+    - target: {fileID: 1375891567345608863, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1375891567345608863, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3221714927541643151, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
       propertyPath: m_Name
       value: felino_knight (11)
@@ -655,6 +703,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: felino_archer (19)
       objectReference: {fileID: 0}
+    - target: {fileID: 6905551791657480011, guid: 16f37d2037a00c140b070ef3f36be585, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6905551791657480011, guid: 16f37d2037a00c140b070ef3f36be585, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8376601037030256978, guid: 16f37d2037a00c140b070ef3f36be585, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8376601037030256978, guid: 16f37d2037a00c140b070ef3f36be585, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -677,6 +741,14 @@ PrefabInstance:
       propertyPath: killCounter
       value: 
       objectReference: {fileID: 1556116465}
+    - target: {fileID: 1375891567345608863, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1375891567345608863, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3221714927541643151, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
       propertyPath: m_Name
       value: felino_knight (3)
@@ -876,6 +948,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1045639956}
     m_Modifications:
+    - target: {fileID: 1375891567345608863, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1375891567345608863, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3221714927541643151, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
       propertyPath: m_Name
       value: felino_knight (25)
@@ -1072,6 +1152,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1045639956}
     m_Modifications:
+    - target: {fileID: 1375891567345608863, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1375891567345608863, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3221714927541643151, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
       propertyPath: m_Name
       value: felino_knight (26)
@@ -1133,6 +1221,14 @@ PrefabInstance:
       propertyPath: killCounter
       value: 
       objectReference: {fileID: 1556116465}
+    - target: {fileID: 1375891567345608863, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1375891567345608863, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3221714927541643151, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
       propertyPath: m_Name
       value: felino_knight (4)
@@ -1239,6 +1335,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: felino_archer (15)
       objectReference: {fileID: 0}
+    - target: {fileID: 6905551791657480011, guid: 16f37d2037a00c140b070ef3f36be585, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6905551791657480011, guid: 16f37d2037a00c140b070ef3f36be585, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8376601037030256978, guid: 16f37d2037a00c140b070ef3f36be585, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8376601037030256978, guid: 16f37d2037a00c140b070ef3f36be585, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1295,6 +1407,22 @@ PrefabInstance:
     - target: {fileID: 6722261008691078444, guid: 16f37d2037a00c140b070ef3f36be585, type: 3}
       propertyPath: m_Name
       value: felino_archer (8)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6905551791657480011, guid: 16f37d2037a00c140b070ef3f36be585, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6905551791657480011, guid: 16f37d2037a00c140b070ef3f36be585, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8376601037030256978, guid: 16f37d2037a00c140b070ef3f36be585, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8376601037030256978, guid: 16f37d2037a00c140b070ef3f36be585, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1440,6 +1568,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1045639956}
     m_Modifications:
+    - target: {fileID: 1375891567345608863, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1375891567345608863, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3221714927541643151, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
       propertyPath: m_Name
       value: felino_knight (24)
@@ -1501,6 +1637,14 @@ PrefabInstance:
       propertyPath: killCounter
       value: 
       objectReference: {fileID: 1556116465}
+    - target: {fileID: 1375891567345608863, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1375891567345608863, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3221714927541643151, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
       propertyPath: m_Name
       value: felino_knight (1)
@@ -1604,6 +1748,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6208316243057430770, guid: 82fe98d341b27634bac1af859b98b5c2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7869646592362086079, guid: 82fe98d341b27634bac1af859b98b5c2, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7869646592362086079, guid: 82fe98d341b27634bac1af859b98b5c2, type: 3}
+      propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -1802,6 +1954,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7869646592362086079, guid: 82fe98d341b27634bac1af859b98b5c2, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7869646592362086079, guid: 82fe98d341b27634bac1af859b98b5c2, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1815,6 +1975,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 197953217}
     m_Modifications:
+    - target: {fileID: 1375891567345608863, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1375891567345608863, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3221714927541643151, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
       propertyPath: m_Name
       value: felino_knight
@@ -1921,6 +2089,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7869646592362086079, guid: 82fe98d341b27634bac1af859b98b5c2, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7869646592362086079, guid: 82fe98d341b27634bac1af859b98b5c2, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -1983,6 +2159,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: felino_archer (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 6905551791657480011, guid: 16f37d2037a00c140b070ef3f36be585, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6905551791657480011, guid: 16f37d2037a00c140b070ef3f36be585, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8376601037030256978, guid: 16f37d2037a00c140b070ef3f36be585, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8376601037030256978, guid: 16f37d2037a00c140b070ef3f36be585, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2038,6 +2230,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6208316243057430770, guid: 82fe98d341b27634bac1af859b98b5c2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7869646592362086079, guid: 82fe98d341b27634bac1af859b98b5c2, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7869646592362086079, guid: 82fe98d341b27634bac1af859b98b5c2, type: 3}
+      propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -2128,6 +2328,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 15978985}
     m_Modifications:
+    - target: {fileID: 1375891567345608863, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1375891567345608863, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3221714927541643151, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
       propertyPath: m_Name
       value: felino_knight (10)
@@ -2185,6 +2393,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1045639956}
     m_Modifications:
+    - target: {fileID: 1375891567345608863, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1375891567345608863, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3221714927541643151, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
       propertyPath: m_Name
       value: felino_knight (31)
@@ -2291,6 +2507,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: felino_archer (16)
       objectReference: {fileID: 0}
+    - target: {fileID: 6905551791657480011, guid: 16f37d2037a00c140b070ef3f36be585, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6905551791657480011, guid: 16f37d2037a00c140b070ef3f36be585, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8376601037030256978, guid: 16f37d2037a00c140b070ef3f36be585, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8376601037030256978, guid: 16f37d2037a00c140b070ef3f36be585, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2309,6 +2541,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 15978985}
     m_Modifications:
+    - target: {fileID: 1375891567345608863, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1375891567345608863, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3221714927541643151, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
       propertyPath: m_Name
       value: felino_knight (19)
@@ -2366,6 +2606,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1045639956}
     m_Modifications:
+    - target: {fileID: 1375891567345608863, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1375891567345608863, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3221714927541643151, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
       propertyPath: m_Name
       value: felino_knight (21)
@@ -2423,6 +2671,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 15978985}
     m_Modifications:
+    - target: {fileID: 1375891567345608863, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1375891567345608863, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3221714927541643151, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
       propertyPath: m_Name
       value: felino_knight
@@ -2480,6 +2736,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 15978985}
     m_Modifications:
+    - target: {fileID: 1375891567345608863, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1375891567345608863, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3221714927541643151, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
       propertyPath: m_Name
       value: felino_knight (13)
@@ -2885,6 +3149,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7869646592362086079, guid: 82fe98d341b27634bac1af859b98b5c2, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7869646592362086079, guid: 82fe98d341b27634bac1af859b98b5c2, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3059,6 +3331,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: felino_archer (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 6905551791657480011, guid: 16f37d2037a00c140b070ef3f36be585, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6905551791657480011, guid: 16f37d2037a00c140b070ef3f36be585, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8376601037030256978, guid: 16f37d2037a00c140b070ef3f36be585, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8376601037030256978, guid: 16f37d2037a00c140b070ef3f36be585, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3158,6 +3446,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: felino_archer (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 6905551791657480011, guid: 16f37d2037a00c140b070ef3f36be585, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6905551791657480011, guid: 16f37d2037a00c140b070ef3f36be585, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8376601037030256978, guid: 16f37d2037a00c140b070ef3f36be585, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8376601037030256978, guid: 16f37d2037a00c140b070ef3f36be585, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9132159532475243391, guid: 16f37d2037a00c140b070ef3f36be585, type: 3}
       propertyPath: killCounter
       value: 
@@ -3229,6 +3533,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: felino_archer
       objectReference: {fileID: 0}
+    - target: {fileID: 6905551791657480011, guid: 16f37d2037a00c140b070ef3f36be585, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6905551791657480011, guid: 16f37d2037a00c140b070ef3f36be585, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8376601037030256978, guid: 16f37d2037a00c140b070ef3f36be585, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8376601037030256978, guid: 16f37d2037a00c140b070ef3f36be585, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3257,6 +3577,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 197953217}
     m_Modifications:
+    - target: {fileID: 1375891567345608863, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1375891567345608863, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3221714927541643151, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
       propertyPath: m_Name
       value: felino_knight (2)
@@ -3433,6 +3761,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: felino_archer (7)
       objectReference: {fileID: 0}
+    - target: {fileID: 6905551791657480011, guid: 16f37d2037a00c140b070ef3f36be585, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6905551791657480011, guid: 16f37d2037a00c140b070ef3f36be585, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8376601037030256978, guid: 16f37d2037a00c140b070ef3f36be585, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8376601037030256978, guid: 16f37d2037a00c140b070ef3f36be585, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3446,6 +3790,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 15978985}
     m_Modifications:
+    - target: {fileID: 1375891567345608863, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1375891567345608863, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3221714927541643151, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
       propertyPath: m_Name
       value: felino_knight (8)
@@ -3557,6 +3909,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: felino_archer (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 6905551791657480011, guid: 16f37d2037a00c140b070ef3f36be585, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6905551791657480011, guid: 16f37d2037a00c140b070ef3f36be585, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8376601037030256978, guid: 16f37d2037a00c140b070ef3f36be585, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8376601037030256978, guid: 16f37d2037a00c140b070ef3f36be585, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9132159532475243391, guid: 16f37d2037a00c140b070ef3f36be585, type: 3}
       propertyPath: killCounter
       value: 
@@ -3623,6 +3991,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: felino_archer
       objectReference: {fileID: 0}
+    - target: {fileID: 6905551791657480011, guid: 16f37d2037a00c140b070ef3f36be585, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6905551791657480011, guid: 16f37d2037a00c140b070ef3f36be585, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8376601037030256978, guid: 16f37d2037a00c140b070ef3f36be585, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8376601037030256978, guid: 16f37d2037a00c140b070ef3f36be585, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9132159532475243391, guid: 16f37d2037a00c140b070ef3f36be585, type: 3}
       propertyPath: killCounter
       value: 
@@ -3645,6 +4029,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 197953217}
     m_Modifications:
+    - target: {fileID: 1375891567345608863, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1375891567345608863, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3221714927541643151, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
       propertyPath: m_Name
       value: felino_knight (33)
@@ -3744,6 +4136,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6208316243057430770, guid: 82fe98d341b27634bac1af859b98b5c2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7869646592362086079, guid: 82fe98d341b27634bac1af859b98b5c2, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7869646592362086079, guid: 82fe98d341b27634bac1af859b98b5c2, type: 3}
+      propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -4077,6 +4477,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: felino_archer (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 6905551791657480011, guid: 16f37d2037a00c140b070ef3f36be585, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6905551791657480011, guid: 16f37d2037a00c140b070ef3f36be585, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8376601037030256978, guid: 16f37d2037a00c140b070ef3f36be585, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8376601037030256978, guid: 16f37d2037a00c140b070ef3f36be585, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4246,6 +4662,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: felino_archer (9)
       objectReference: {fileID: 0}
+    - target: {fileID: 6905551791657480011, guid: 16f37d2037a00c140b070ef3f36be585, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6905551791657480011, guid: 16f37d2037a00c140b070ef3f36be585, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8376601037030256978, guid: 16f37d2037a00c140b070ef3f36be585, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8376601037030256978, guid: 16f37d2037a00c140b070ef3f36be585, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4264,6 +4696,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 15978985}
     m_Modifications:
+    - target: {fileID: 1375891567345608863, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1375891567345608863, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3221714927541643151, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
       propertyPath: m_Name
       value: felino_knight (14)
@@ -4581,6 +5021,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: felino_archer (14)
       objectReference: {fileID: 0}
+    - target: {fileID: 6905551791657480011, guid: 16f37d2037a00c140b070ef3f36be585, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6905551791657480011, guid: 16f37d2037a00c140b070ef3f36be585, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8376601037030256978, guid: 16f37d2037a00c140b070ef3f36be585, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8376601037030256978, guid: 16f37d2037a00c140b070ef3f36be585, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -4653,6 +5109,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 15978985}
     m_Modifications:
+    - target: {fileID: 1375891567345608863, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1375891567345608863, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3221714927541643151, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
       propertyPath: m_Name
       value: felino_knight (3)
@@ -4714,6 +5178,14 @@ PrefabInstance:
       propertyPath: killCounter
       value: 
       objectReference: {fileID: 1556116465}
+    - target: {fileID: 1375891567345608863, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1375891567345608863, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3221714927541643151, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
       propertyPath: m_Name
       value: felino_knight (2)
@@ -4771,6 +5243,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 15978985}
     m_Modifications:
+    - target: {fileID: 1375891567345608863, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1375891567345608863, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3221714927541643151, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
       propertyPath: m_Name
       value: felino_knight (4)
@@ -4935,6 +5415,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 197953217}
     m_Modifications:
+    - target: {fileID: 1375891567345608863, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1375891567345608863, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3221714927541643151, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
       propertyPath: m_Name
       value: felino_knight (1)
@@ -5035,6 +5523,22 @@ PrefabInstance:
     - target: {fileID: 6722261008691078444, guid: 16f37d2037a00c140b070ef3f36be585, type: 3}
       propertyPath: m_Name
       value: felino_archer (18)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6905551791657480011, guid: 16f37d2037a00c140b070ef3f36be585, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6905551791657480011, guid: 16f37d2037a00c140b070ef3f36be585, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8376601037030256978, guid: 16f37d2037a00c140b070ef3f36be585, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8376601037030256978, guid: 16f37d2037a00c140b070ef3f36be585, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5205,6 +5709,22 @@ PrefabInstance:
     - target: {fileID: 6722261008691078444, guid: 16f37d2037a00c140b070ef3f36be585, type: 3}
       propertyPath: m_Name
       value: felino_archer (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6905551791657480011, guid: 16f37d2037a00c140b070ef3f36be585, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6905551791657480011, guid: 16f37d2037a00c140b070ef3f36be585, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8376601037030256978, guid: 16f37d2037a00c140b070ef3f36be585, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8376601037030256978, guid: 16f37d2037a00c140b070ef3f36be585, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5386,6 +5906,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7869646592362086079, guid: 82fe98d341b27634bac1af859b98b5c2, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7869646592362086079, guid: 82fe98d341b27634bac1af859b98b5c2, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5399,6 +5927,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1045639956}
     m_Modifications:
+    - target: {fileID: 1375891567345608863, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1375891567345608863, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3221714927541643151, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
       propertyPath: m_Name
       value: felino_knight (23)
@@ -5500,6 +6036,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: felino_archer (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 6905551791657480011, guid: 16f37d2037a00c140b070ef3f36be585, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6905551791657480011, guid: 16f37d2037a00c140b070ef3f36be585, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8376601037030256978, guid: 16f37d2037a00c140b070ef3f36be585, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8376601037030256978, guid: 16f37d2037a00c140b070ef3f36be585, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9132159532475243391, guid: 16f37d2037a00c140b070ef3f36be585, type: 3}
       propertyPath: killCounter
       value: 
@@ -5522,6 +6074,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 15978985}
     m_Modifications:
+    - target: {fileID: 1375891567345608863, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1375891567345608863, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3221714927541643151, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
       propertyPath: m_Name
       value: felino_knight (2)
@@ -5633,6 +6193,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7869646592362086079, guid: 82fe98d341b27634bac1af859b98b5c2, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7869646592362086079, guid: 82fe98d341b27634bac1af859b98b5c2, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5646,6 +6214,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1045639956}
     m_Modifications:
+    - target: {fileID: 1375891567345608863, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1375891567345608863, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3221714927541643151, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
       propertyPath: m_Name
       value: felino_knight (27)
@@ -5747,6 +6323,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7869646592362086079, guid: 82fe98d341b27634bac1af859b98b5c2, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7869646592362086079, guid: 82fe98d341b27634bac1af859b98b5c2, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5803,6 +6387,22 @@ PrefabInstance:
     - target: {fileID: 6722261008691078444, guid: 16f37d2037a00c140b070ef3f36be585, type: 3}
       propertyPath: m_Name
       value: felino_archer (10)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6905551791657480011, guid: 16f37d2037a00c140b070ef3f36be585, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6905551791657480011, guid: 16f37d2037a00c140b070ef3f36be585, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8376601037030256978, guid: 16f37d2037a00c140b070ef3f36be585, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8376601037030256978, guid: 16f37d2037a00c140b070ef3f36be585, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -5865,6 +6465,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7869646592362086079, guid: 82fe98d341b27634bac1af859b98b5c2, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7869646592362086079, guid: 82fe98d341b27634bac1af859b98b5c2, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5878,6 +6486,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 15978985}
     m_Modifications:
+    - target: {fileID: 1375891567345608863, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1375891567345608863, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3221714927541643151, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
       propertyPath: m_Name
       value: felino_knight (7)
@@ -6042,6 +6658,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1045639956}
     m_Modifications:
+    - target: {fileID: 1375891567345608863, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1375891567345608863, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3221714927541643151, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
       propertyPath: m_Name
       value: felino_knight (29)
@@ -6143,6 +6767,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7869646592362086079, guid: 82fe98d341b27634bac1af859b98b5c2, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7869646592362086079, guid: 82fe98d341b27634bac1af859b98b5c2, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6156,6 +6788,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 15978985}
     m_Modifications:
+    - target: {fileID: 1375891567345608863, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1375891567345608863, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3221714927541643151, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
       propertyPath: m_Name
       value: felino_knight (17)
@@ -6262,6 +6902,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 15978985}
     m_Modifications:
+    - target: {fileID: 1375891567345608863, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1375891567345608863, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3221714927541643151, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
       propertyPath: m_Name
       value: felino_knight (1)
@@ -6363,6 +7011,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: felino_archer (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 6905551791657480011, guid: 16f37d2037a00c140b070ef3f36be585, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6905551791657480011, guid: 16f37d2037a00c140b070ef3f36be585, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8376601037030256978, guid: 16f37d2037a00c140b070ef3f36be585, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8376601037030256978, guid: 16f37d2037a00c140b070ef3f36be585, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6381,6 +7045,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 15978985}
     m_Modifications:
+    - target: {fileID: 1375891567345608863, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1375891567345608863, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3221714927541643151, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
       propertyPath: m_Name
       value: felino_knight (12)
@@ -6829,6 +7501,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 15978985}
     m_Modifications:
+    - target: {fileID: 1375891567345608863, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1375891567345608863, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3221714927541643151, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
       propertyPath: m_Name
       value: felino_knight (16)
@@ -6938,6 +7618,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6208316243057430770, guid: 82fe98d341b27634bac1af859b98b5c2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7869646592362086079, guid: 82fe98d341b27634bac1af859b98b5c2, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7869646592362086079, guid: 82fe98d341b27634bac1af859b98b5c2, type: 3}
+      propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -7252,6 +7940,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1045639956}
     m_Modifications:
+    - target: {fileID: 1375891567345608863, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1375891567345608863, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3221714927541643151, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
       propertyPath: m_Name
       value: felino_knight (28)
@@ -7353,6 +8049,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: felino_archer (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 6905551791657480011, guid: 16f37d2037a00c140b070ef3f36be585, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6905551791657480011, guid: 16f37d2037a00c140b070ef3f36be585, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8376601037030256978, guid: 16f37d2037a00c140b070ef3f36be585, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8376601037030256978, guid: 16f37d2037a00c140b070ef3f36be585, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -7442,6 +8154,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1045639956}
     m_Modifications:
+    - target: {fileID: 1375891567345608863, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1375891567345608863, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3221714927541643151, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
       propertyPath: m_Name
       value: felino_knight (30)
@@ -7499,6 +8219,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 197953217}
     m_Modifications:
+    - target: {fileID: 1375891567345608863, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1375891567345608863, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3221714927541643151, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
       propertyPath: m_Name
       value: felino_knight (32)
@@ -7556,6 +8284,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 15978985}
     m_Modifications:
+    - target: {fileID: 1375891567345608863, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1375891567345608863, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3221714927541643151, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
       propertyPath: m_Name
       value: felino_knight (5)
@@ -7741,6 +8477,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7869646592362086079, guid: 82fe98d341b27634bac1af859b98b5c2, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7869646592362086079, guid: 82fe98d341b27634bac1af859b98b5c2, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -7870,6 +8614,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: felino_archer (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 6905551791657480011, guid: 16f37d2037a00c140b070ef3f36be585, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6905551791657480011, guid: 16f37d2037a00c140b070ef3f36be585, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8376601037030256978, guid: 16f37d2037a00c140b070ef3f36be585, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8376601037030256978, guid: 16f37d2037a00c140b070ef3f36be585, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -7888,6 +8648,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 15978985}
     m_Modifications:
+    - target: {fileID: 1375891567345608863, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1375891567345608863, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3221714927541643151, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
       propertyPath: m_Name
       value: felino_knight (15)
@@ -7999,6 +8767,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7869646592362086079, guid: 82fe98d341b27634bac1af859b98b5c2, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7869646592362086079, guid: 82fe98d341b27634bac1af859b98b5c2, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -8012,6 +8788,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 15978985}
     m_Modifications:
+    - target: {fileID: 1375891567345608863, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1375891567345608863, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3221714927541643151, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
       propertyPath: m_Name
       value: felino_knight (9)
@@ -8116,6 +8900,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6208316243057430770, guid: 82fe98d341b27634bac1af859b98b5c2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7869646592362086079, guid: 82fe98d341b27634bac1af859b98b5c2, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7869646592362086079, guid: 82fe98d341b27634bac1af859b98b5c2, type: 3}
+      propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -8230,6 +9022,14 @@ PrefabInstance:
       propertyPath: killCounter
       value: 
       objectReference: {fileID: 1556116465}
+    - target: {fileID: 1375891567345608863, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1375891567345608863, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3221714927541643151, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
       propertyPath: m_Name
       value: felino_knight
@@ -8543,6 +9343,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: felino_archer (12)
       objectReference: {fileID: 0}
+    - target: {fileID: 6905551791657480011, guid: 16f37d2037a00c140b070ef3f36be585, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6905551791657480011, guid: 16f37d2037a00c140b070ef3f36be585, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8376601037030256978, guid: 16f37d2037a00c140b070ef3f36be585, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8376601037030256978, guid: 16f37d2037a00c140b070ef3f36be585, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -8740,6 +9556,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6208316243057430770, guid: 82fe98d341b27634bac1af859b98b5c2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7869646592362086079, guid: 82fe98d341b27634bac1af859b98b5c2, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7869646592362086079, guid: 82fe98d341b27634bac1af859b98b5c2, type: 3}
+      propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -9015,6 +9839,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: felino_archer (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 6905551791657480011, guid: 16f37d2037a00c140b070ef3f36be585, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6905551791657480011, guid: 16f37d2037a00c140b070ef3f36be585, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8376601037030256978, guid: 16f37d2037a00c140b070ef3f36be585, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8376601037030256978, guid: 16f37d2037a00c140b070ef3f36be585, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -9077,6 +9917,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: felino_archer (13)
       objectReference: {fileID: 0}
+    - target: {fileID: 6905551791657480011, guid: 16f37d2037a00c140b070ef3f36be585, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6905551791657480011, guid: 16f37d2037a00c140b070ef3f36be585, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8376601037030256978, guid: 16f37d2037a00c140b070ef3f36be585, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8376601037030256978, guid: 16f37d2037a00c140b070ef3f36be585, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -9133,6 +9989,22 @@ PrefabInstance:
     - target: {fileID: 6722261008691078444, guid: 16f37d2037a00c140b070ef3f36be585, type: 3}
       propertyPath: m_Name
       value: felino_archer (11)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6905551791657480011, guid: 16f37d2037a00c140b070ef3f36be585, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6905551791657480011, guid: 16f37d2037a00c140b070ef3f36be585, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8376601037030256978, guid: 16f37d2037a00c140b070ef3f36be585, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8376601037030256978, guid: 16f37d2037a00c140b070ef3f36be585, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -9216,6 +10088,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: felino_archer (17)
       objectReference: {fileID: 0}
+    - target: {fileID: 6905551791657480011, guid: 16f37d2037a00c140b070ef3f36be585, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6905551791657480011, guid: 16f37d2037a00c140b070ef3f36be585, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8376601037030256978, guid: 16f37d2037a00c140b070ef3f36be585, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8376601037030256978, guid: 16f37d2037a00c140b070ef3f36be585, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -9234,6 +10122,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 15978985}
     m_Modifications:
+    - target: {fileID: 1375891567345608863, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1375891567345608863, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3221714927541643151, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
       propertyPath: m_Name
       value: felino_knight (6)
@@ -9362,6 +10258,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1045639956}
     m_Modifications:
+    - target: {fileID: 1375891567345608863, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1375891567345608863, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3221714927541643151, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
       propertyPath: m_Name
       value: felino_knight (20)
@@ -9419,6 +10323,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 15978985}
     m_Modifications:
+    - target: {fileID: 1375891567345608863, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1375891567345608863, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3221714927541643151, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
       propertyPath: m_Name
       value: felino_knight (18)
