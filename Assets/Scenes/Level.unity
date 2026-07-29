@@ -10436,10 +10436,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Audio Director
       objectReference: {fileID: 0}
-    - target: {fileID: 4928140829174411141, guid: b6c783c01d3845ebaba029e024213bee, type: 3}
-      propertyPath: audioEnabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4928140829174411142, guid: b6c783c01d3845ebaba029e024213bee, type: 3}
       propertyPath: m_LocalPosition.x
       value: -5.78335
