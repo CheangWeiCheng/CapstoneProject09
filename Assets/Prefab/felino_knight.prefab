@@ -8172,6 +8172,7 @@ GameObject:
   - component: {fileID: 4485096116333786635}
   - component: {fileID: 4090300830917312872}
   - component: {fileID: 9161618368329926108}
+  - component: {fileID: 733131150841149711}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -8263,6 +8264,18 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &733131150841149711
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5238777944160217115}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23ca163f13abb244688e787bfb8501e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Game.UI::BillBoard
 --- !u!1 &5406939962371383005
 GameObject:
   m_ObjectHideFlags: 0
