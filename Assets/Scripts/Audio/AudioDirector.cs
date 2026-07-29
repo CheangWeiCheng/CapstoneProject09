@@ -45,7 +45,9 @@ namespace Game.Audio
         InteractDenied,
         UiHover,
         UiClick,
-        Bgm
+        Bgm,
+        ArcherShot,
+        Collection
     }
 
     public sealed class AudioDirector : MonoBehaviour
@@ -73,6 +75,7 @@ namespace Game.Audio
         [FormerlySerializedAs("bgmSource")]
         [SerializeField] private AudioSource explorationBgmSource;
         [SerializeField] private AudioSource actionBgmSource;
+        [SerializeField] private AudioSource deathSource;
 
         [Header("Movement")]
         [SerializeField] private AudioClip walkLoop;
@@ -103,11 +106,18 @@ namespace Game.Audio
         [SerializeField] private AudioClip jumpBackClip;
         [SerializeField] private AudioClip aerialPushClip;
 
+        [Header("Enemy Combat")]
+        [SerializeField] private AudioClip archerShotClip;
+
         [Header("Interactions")]
         [SerializeField] private AudioClip goldPickupClip;
         [SerializeField] private AudioClip goldPurchaseClip;
+        [SerializeField] private AudioClip collectionClip;
         [SerializeField] private AudioClip interactClip;
         [SerializeField] private AudioClip interactDeniedClip;
+
+        [Header("Death")]
+        [SerializeField] private AudioClip deathClip;
 
         [Header("UI")]
         [SerializeField] private AudioClip uiHoverClip;
@@ -122,6 +132,7 @@ namespace Game.Audio
 
         private readonly Dictionary<AudioCue, float> lastCueTimes = new Dictionary<AudioCue, float>();
         private readonly HashSet<int> activeCombatReporters = new HashSet<int>();
+        private readonly List<ActiveWorldSound> activeWorldSounds = new List<ActiveWorldSound>();
         private float lastMovementReportTime = -99f;
         private AudioCue currentMovementCue = AudioCue.None;
         private int lastWalkVariationIndex = -1;
@@ -130,7 +141,17 @@ namespace Game.Audio
         private float targetActionMix;
         private bool qaMixOverrideActive;
         private bool bgmPlaying;
+        private bool deathTransitionActive;
+        private float nonDeathVolumeScale = 1f;
+        private float targetNonDeathVolumeScale = 1f;
+        private float nonDeathFadeSeconds;
         private const float MovementReportTimeout = 0.18f;
+
+        private sealed class ActiveWorldSound
+        {
+            public AudioSource Source;
+            public float VolumeScale;
+        }
 
         public bool AudioEnabled => audioEnabled && isActiveAndEnabled;
 
@@ -160,6 +181,8 @@ namespace Game.Audio
             }
 
             UpdateBgmCrossfade();
+            UpdateDeathFade();
+            CleanUpWorldSounds();
         }
 
         private void OnDestroy()
@@ -287,6 +310,26 @@ namespace Game.Audio
             return true;
         }
 
+        public static bool TryPlayCollection(Vector3 position, float volumeScale = 1f)
+        {
+            return TryPlayInteraction(AudioCue.Collection, position, volumeScale);
+        }
+
+        public static bool TryPlayArcherShot(Vector3 position, float volumeScale = 1f)
+        {
+            return TryPlayWorld(AudioCue.ArcherShot, position, volumeScale);
+        }
+
+        public static bool BeginDeathSequence(float fadeOutSeconds = 1f)
+        {
+            return Instance != null && Instance.BeginDeathFade(fadeOutSeconds);
+        }
+
+        public static void EndDeathSequence(float fadeInSeconds = 1f)
+        {
+            if (Instance != null) Instance.EndDeathFade(fadeInSeconds);
+        }
+
         public void StopBgm()
         {
             if (explorationBgmSource != null) explorationBgmSource.Stop();
@@ -383,6 +426,7 @@ namespace Game.Audio
         )
         {
             if (!AudioEnabled || cue == AudioCue.None) return false;
+            if (deathTransitionActive) return true;
 
             AudioClip clip = GetClip(cue);
             if (clip == null) return false;
@@ -401,12 +445,110 @@ namespace Game.Audio
 
             if (worldSound && playWorldSoundsAtPosition)
             {
-                AudioSource.PlayClipAtPoint(clip, position, Mathf.Clamp01(masterVolume * sfxVolume) * safeVolumeScale);
+                PlayWorldOneShot(clip, position, safeVolumeScale);
                 return true;
             }
 
             sfxSource.PlayOneShot(clip, safeVolumeScale);
             return true;
+        }
+
+        private bool BeginDeathFade(float fadeOutSeconds)
+        {
+            if (!AudioEnabled) return false;
+
+            EnsureSources();
+            deathTransitionActive = true;
+            targetNonDeathVolumeScale = 0f;
+            nonDeathFadeSeconds = Mathf.Max(0f, fadeOutSeconds);
+
+            if (deathClip != null)
+            {
+                deathSource.Stop();
+                deathSource.clip = deathClip;
+                deathSource.volume = Mathf.Clamp01(masterVolume * sfxVolume);
+                deathSource.Play();
+            }
+
+            return deathClip != null;
+        }
+
+        private void EndDeathFade(float fadeInSeconds)
+        {
+            deathTransitionActive = false;
+            deathSource.Stop();
+            targetNonDeathVolumeScale = 1f;
+            nonDeathFadeSeconds = Mathf.Max(0f, fadeInSeconds);
+        }
+
+        private void UpdateDeathFade()
+        {
+            if (Mathf.Approximately(nonDeathVolumeScale, targetNonDeathVolumeScale)) return;
+
+            nonDeathVolumeScale = nonDeathFadeSeconds <= 0f
+                ? targetNonDeathVolumeScale
+                : Mathf.MoveTowards(
+                    nonDeathVolumeScale,
+                    targetNonDeathVolumeScale,
+                    Time.unscaledDeltaTime / nonDeathFadeSeconds
+                );
+
+            ApplyVolumes();
+
+            if (nonDeathVolumeScale > 0f || targetNonDeathVolumeScale > 0f) return;
+
+            StopMovementLoop();
+            sfxSource.Stop();
+            uiSource.Stop();
+
+            foreach (ActiveWorldSound worldSound in activeWorldSounds)
+            {
+                if (worldSound.Source != null) worldSound.Source.Stop();
+            }
+        }
+
+        private void PlayWorldOneShot(AudioClip clip, Vector3 position, float volumeScale)
+        {
+            GameObject sourceObject = new GameObject($"World SFX - {clip.name}");
+            sourceObject.transform.SetParent(transform, true);
+            sourceObject.transform.position = position;
+
+            AudioSource source = sourceObject.AddComponent<AudioSource>();
+            source.playOnAwake = false;
+            source.loop = false;
+            source.spatialBlend = 1f;
+            source.clip = clip;
+
+            ActiveWorldSound worldSound = new ActiveWorldSound
+            {
+                Source = source,
+                VolumeScale = volumeScale
+            };
+
+            activeWorldSounds.Add(worldSound);
+            ApplyWorldSoundVolume(worldSound);
+            source.Play();
+        }
+
+        private void CleanUpWorldSounds()
+        {
+            for (int i = activeWorldSounds.Count - 1; i >= 0; i--)
+            {
+                AudioSource source = activeWorldSounds[i].Source;
+                if (source != null && source.isPlaying) continue;
+
+                if (source != null) Destroy(source.gameObject);
+                activeWorldSounds.RemoveAt(i);
+            }
+        }
+
+        private void ApplyWorldSoundVolume(ActiveWorldSound worldSound)
+        {
+            if (worldSound.Source == null) return;
+
+            worldSound.Source.volume = Mathf.Clamp01(
+                masterVolume * sfxVolume * nonDeathVolumeScale * worldSound.VolumeScale
+            );
         }
 
         private void PlayMovementLoop(
@@ -556,10 +698,14 @@ namespace Game.Audio
                     return jumpBackClip;
                 case AudioCue.AerialPush:
                     return aerialPushClip;
+                case AudioCue.ArcherShot:
+                    return archerShotClip;
                 case AudioCue.GoldPickup:
                     return goldPickupClip;
                 case AudioCue.GoldPurchase:
                     return goldPurchaseClip != null ? goldPurchaseClip : goldPickupClip;
+                case AudioCue.Collection:
+                    return collectionClip;
                 case AudioCue.Interact:
                     return interactClip;
                 case AudioCue.InteractDenied:
@@ -587,6 +733,7 @@ namespace Game.Audio
                 0f
             );
             actionBgmSource = GetOrCreateSource(actionBgmSource, "Action BGM Source", true, 0f);
+            deathSource = GetOrCreateSource(deathSource, "Death Source", false, 0f);
 
             ApplyVolumes();
         }
@@ -616,15 +763,21 @@ namespace Game.Audio
 
         private void ApplyVolumes()
         {
-            if (movementSource != null) movementSource.volume = Mathf.Clamp01(masterVolume * movementVolume);
-            if (sfxSource != null) sfxSource.volume = Mathf.Clamp01(masterVolume * sfxVolume);
-            if (uiSource != null) uiSource.volume = Mathf.Clamp01(masterVolume * uiVolume);
+            if (movementSource != null) movementSource.volume = Mathf.Clamp01(masterVolume * movementVolume * nonDeathVolumeScale);
+            if (sfxSource != null) sfxSource.volume = Mathf.Clamp01(masterVolume * sfxVolume * nonDeathVolumeScale);
+            if (uiSource != null) uiSource.volume = Mathf.Clamp01(masterVolume * uiVolume * nonDeathVolumeScale);
+            if (deathSource != null) deathSource.volume = Mathf.Clamp01(masterVolume * sfxVolume);
+
+            foreach (ActiveWorldSound worldSound in activeWorldSounds)
+            {
+                ApplyWorldSoundVolume(worldSound);
+            }
             ApplyBgmVolumes();
         }
 
         private void ApplyBgmVolumes()
         {
-            float musicVolume = Mathf.Clamp01(masterVolume * bgmVolume);
+            float musicVolume = Mathf.Clamp01(masterVolume * bgmVolume * nonDeathVolumeScale);
 
             if (explorationBgmSource != null)
             {
@@ -677,12 +830,15 @@ namespace Game.Audio
             AssignIfEmpty(ref spikeSecondJumpClip, "Spike (Launcher, Jump, Late 2nd Jump) - 2nd Jump");
             AssignIfEmpty(ref jumpBackClip, "Jump Back");
             AssignIfEmpty(ref aerialPushClip, "Dash and Jump - Jump and Dash");
+            AssignIfEmpty(ref archerShotClip, "Weapon Arrow Shot 01");
             AssignIfEmpty(ref goldPickupClip, "Coin_Wood_Table_Singles_Drop_Spin_Takes_5");
             AssignIfEmpty(ref goldPurchaseClip, "264604 - Stack Coin Bag 04");
+            AssignIfEmpty(ref collectionClip, "collect_6");
             AssignIfEmpty(ref interactClip, "Piano_Ui (1)");
             AssignIfEmpty(ref interactDeniedClip, "Piano_Ui (7)");
             AssignIfEmpty(ref uiHoverClip, "Piano_Ui (1)");
             AssignIfEmpty(ref uiClickClip, "Piano_Ui (7)");
+            AssignIfEmpty(ref deathClip, "Dark Souls ' You Died ' Sound Effect [j_nV2jcTFvA]");
             AssignIfEmpty(ref explorationBgmClip, "armamation_clockwork_keep_v4_exploration_loop", "Assets/Audio/Scores");
             AssignIfEmpty(ref actionBgmClip, "armamation_clockwork_keep_v4_action_loop", "Assets/Audio/Scores");
         }
