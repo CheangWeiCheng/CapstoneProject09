@@ -1,9 +1,10 @@
 /*
- * InterimAudioDirector: scene-placeable routing point for interim sound design clips
+ * AudioDirector: persistent routing point for sound effects and adaptive music.
  */
 
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 #if UNITY_EDITOR
 using System.IO;
@@ -12,7 +13,7 @@ using UnityEditor;
 
 namespace Game.Audio
 {
-    public enum InterimAudioCue
+    public enum AudioCue
     {
         None,
         Walk,
@@ -47,9 +48,9 @@ namespace Game.Audio
         Bgm
     }
 
-    public sealed class InterimAudioDirector : MonoBehaviour
+    public sealed class AudioDirector : MonoBehaviour
     {
-        public static InterimAudioDirector Instance { get; private set; }
+        public static AudioDirector Instance { get; private set; }
 
         [Header("Master Toggle")]
         [SerializeField] private bool audioEnabled = false;
@@ -69,7 +70,9 @@ namespace Game.Audio
         [SerializeField] private AudioSource movementSource;
         [SerializeField] private AudioSource sfxSource;
         [SerializeField] private AudioSource uiSource;
-        [SerializeField] private AudioSource bgmSource;
+        [FormerlySerializedAs("bgmSource")]
+        [SerializeField] private AudioSource explorationBgmSource;
+        [SerializeField] private AudioSource actionBgmSource;
 
         [Header("Movement")]
         [SerializeField] private AudioClip walkLoop;
@@ -110,14 +113,23 @@ namespace Game.Audio
         [SerializeField] private AudioClip uiHoverClip;
         [SerializeField] private AudioClip uiClickClip;
 
-        [Header("BGM")]
-        [SerializeField] private AudioClip bgmClip;
+        [Header("Adaptive BGM")]
+        [FormerlySerializedAs("bgmClip")]
+        [SerializeField] private AudioClip explorationBgmClip;
+        [SerializeField] private AudioClip actionBgmClip;
+        [SerializeField, Min(0f)] private float bgmCrossfadeSeconds = 1f;
+        [SerializeField, Min(0f)] private float bgmScheduleLeadSeconds = 0.1f;
 
-        private readonly Dictionary<InterimAudioCue, float> lastCueTimes = new Dictionary<InterimAudioCue, float>();
+        private readonly Dictionary<AudioCue, float> lastCueTimes = new Dictionary<AudioCue, float>();
+        private readonly HashSet<int> activeCombatReporters = new HashSet<int>();
         private float lastMovementReportTime = -99f;
-        private InterimAudioCue currentMovementCue = InterimAudioCue.None;
+        private AudioCue currentMovementCue = AudioCue.None;
         private int lastWalkVariationIndex = -1;
         private int lastRunVariationIndex = -1;
+        private float currentActionMix;
+        private float targetActionMix;
+        private bool qaMixOverrideActive;
+        private bool bgmPlaying;
         private const float MovementReportTimeout = 0.18f;
 
         public bool AudioEnabled => audioEnabled && isActiveAndEnabled;
@@ -141,12 +153,13 @@ namespace Game.Audio
 
         private void LateUpdate()
         {
-            if (movementSource == null || !movementSource.isPlaying) return;
-
-            if (!AudioEnabled || Time.unscaledTime - lastMovementReportTime > MovementReportTimeout)
+            if (movementSource != null && movementSource.isPlaying &&
+                (!AudioEnabled || Time.unscaledTime - lastMovementReportTime > MovementReportTimeout))
             {
                 movementSource.Stop();
             }
+
+            UpdateBgmCrossfade();
         }
 
         private void OnDestroy()
@@ -183,88 +196,193 @@ namespace Game.Audio
 
         public static bool TryPlayPlayerJump(Vector3 position, bool isAirJump)
         {
-            return TryPlayWorld(isAirJump ? InterimAudioCue.DoubleJump : InterimAudioCue.Jump, position);
+            return TryPlayWorld(isAirJump ? AudioCue.DoubleJump : AudioCue.Jump, position);
         }
 
         public static bool TryPlayPlayerDash(Vector3 position)
         {
-            return TryPlayWorld(InterimAudioCue.Dash, position);
+            return TryPlayWorld(AudioCue.Dash, position);
         }
 
         public static bool TryPlayPlayerCrouch(Vector3 position)
         {
-            return TryPlayWorld(InterimAudioCue.PlayerCrouch, position);
+            return TryPlayWorld(AudioCue.PlayerCrouch, position);
         }
 
         public static bool TryPlayPlayerLand(Vector3 position, bool heavy = false)
         {
-            return TryPlayWorld(heavy ? InterimAudioCue.HeavyLand : InterimAudioCue.Land, position);
+            return TryPlayWorld(heavy ? AudioCue.HeavyLand : AudioCue.Land, position);
         }
 
-        public static bool TryPlayMove(InterimAudioCue cue, Vector3 position, float volumeScale = 1f)
+        public static bool TryPlayMove(AudioCue cue, Vector3 position, float volumeScale = 1f)
         {
             return TryPlayWorld(cue, position, volumeScale);
         }
 
-        public static bool TryPlayInteraction(InterimAudioCue cue, Vector3 position, float volumeScale = 1f)
+        public static bool TryPlayInteraction(AudioCue cue, Vector3 position, float volumeScale = 1f)
         {
             return TryPlayWorld(cue, position, volumeScale);
         }
 
         public static bool TryPlayGoldPickup(Vector3 position, float volumeScale = 1f)
         {
-            return TryPlayInteraction(InterimAudioCue.GoldPickup, position, volumeScale);
+            return TryPlayInteraction(AudioCue.GoldPickup, position, volumeScale);
         }
 
         public static bool TryPlayGoldPurchase(Vector3 position, float volumeScale = 1f)
         {
-            return TryPlayInteraction(InterimAudioCue.GoldPurchase, position, volumeScale);
+            return TryPlayInteraction(AudioCue.GoldPurchase, position, volumeScale);
         }
 
         public static bool TryPlayUiHover(float volumeScale = 1f)
         {
-            return Instance != null && Instance.PlayOneShot(InterimAudioCue.UiHover, Vector3.zero, volumeScale, false, true);
+            return Instance != null && Instance.PlayOneShot(AudioCue.UiHover, Vector3.zero, volumeScale, false, true);
         }
 
         public static bool TryPlayUiClick(float volumeScale = 1f)
         {
-            return Instance != null && Instance.PlayOneShot(InterimAudioCue.UiClick, Vector3.zero, volumeScale, false, true);
+            return Instance != null && Instance.PlayOneShot(AudioCue.UiClick, Vector3.zero, volumeScale, false, true);
         }
 
-        public static bool TryPlayWorld(InterimAudioCue cue, Vector3 position, float volumeScale = 1f)
+        public static bool TryPlayWorld(AudioCue cue, Vector3 position, float volumeScale = 1f)
         {
             return Instance != null && Instance.PlayOneShot(cue, position, volumeScale, true, false);
         }
 
+        /// <summary>
+        /// Starts the V4 Exploration and Action loops on one DSP timeline.
+        /// </summary>
         public bool PlayBgm(AudioClip overrideClip = null, bool loop = true)
         {
             if (!AudioEnabled) return false;
 
             EnsureSources();
 
-            AudioClip clip = overrideClip != null ? overrideClip : bgmClip;
-            if (clip == null) return false;
+            AudioClip explorationClip = overrideClip != null ? overrideClip : explorationBgmClip;
+            if (explorationClip == null) return false;
 
-            bgmSource.clip = clip;
-            bgmSource.loop = loop;
-            bgmSource.Play();
+            explorationBgmSource.Stop();
+            actionBgmSource.Stop();
+            explorationBgmSource.clip = explorationClip;
+            explorationBgmSource.loop = loop;
+            explorationBgmSource.timeSamples = 0;
+
+            if (overrideClip == null && actionBgmClip != null)
+            {
+                actionBgmSource.clip = actionBgmClip;
+                actionBgmSource.loop = loop;
+                actionBgmSource.timeSamples = 0;
+
+                double startTime = AudioSettings.dspTime + bgmScheduleLeadSeconds;
+                explorationBgmSource.PlayScheduled(startTime);
+                actionBgmSource.PlayScheduled(startTime);
+            }
+            else
+            {
+                explorationBgmSource.Play();
+            }
+
+            bgmPlaying = true;
+            ApplyVolumes();
             return true;
         }
 
         public void StopBgm()
         {
-            if (bgmSource != null) bgmSource.Stop();
+            if (explorationBgmSource != null) explorationBgmSource.Stop();
+            if (actionBgmSource != null) actionBgmSource.Stop();
+            bgmPlaying = false;
+        }
+
+        /// <summary>
+        /// Direct hook for cutscenes, arenas, bosses, and other single-owner systems.
+        /// </summary>
+        public static void SetCombatState(bool inCombat)
+        {
+            if (Instance != null) Instance.SetActionMixTarget(inCombat);
+        }
+
+        [ContextMenu("Audio QA/Enter Combat")]
+        private void QaEnterCombat()
+        {
+            qaMixOverrideActive = true;
+            SetActionMixTarget(true);
+        }
+
+        [ContextMenu("Audio QA/Return to Exploration")]
+        private void QaReturnToExploration()
+        {
+            qaMixOverrideActive = true;
+            SetActionMixTarget(false);
+        }
+
+        [ContextMenu("Audio QA/Resume Automatic")]
+        private void QaResumeAutomatic()
+        {
+            qaMixOverrideActive = false;
+            SetActionMixTarget(activeCombatReporters.Count > 0);
+        }
+
+        /// <summary>
+        /// Multi-owner combat hook. Each caller should report true on engagement and
+        /// false on disengagement/disable; music returns to Exploration only after
+        /// the final active reporter leaves combat.
+        /// </summary>
+        public static void ReportCombatState(Object reporter, bool inCombat)
+        {
+            if (Instance == null || reporter == null) return;
+
+            int reporterId = reporter.GetInstanceID();
+
+            if (inCombat)
+            {
+                Instance.activeCombatReporters.Add(reporterId);
+            }
+            else
+            {
+                Instance.activeCombatReporters.Remove(reporterId);
+            }
+
+            if (!Instance.qaMixOverrideActive)
+            {
+                Instance.SetActionMixTarget(Instance.activeCombatReporters.Count > 0);
+            }
+        }
+
+        private void SetActionMixTarget(bool inCombat)
+        {
+            targetActionMix = inCombat ? 1f : 0f;
+
+            if (AudioEnabled && autoPlayBgm && !bgmPlaying)
+            {
+                PlayBgm();
+            }
+        }
+
+        private void UpdateBgmCrossfade()
+        {
+            if (!bgmPlaying) return;
+
+            currentActionMix = bgmCrossfadeSeconds <= 0f
+                ? targetActionMix
+                : Mathf.MoveTowards(
+                    currentActionMix,
+                    targetActionMix,
+                    Time.unscaledDeltaTime / bgmCrossfadeSeconds
+                );
+
+            ApplyBgmVolumes();
         }
 
         private bool PlayOneShot(
-            InterimAudioCue cue,
+            AudioCue cue,
             Vector3 position,
             float volumeScale,
             bool worldSound,
             bool uiSound
         )
         {
-            if (!AudioEnabled || cue == InterimAudioCue.None) return false;
+            if (!AudioEnabled || cue == AudioCue.None) return false;
 
             AudioClip clip = GetClip(cue);
             if (clip == null) return false;
@@ -307,7 +425,7 @@ namespace Game.Audio
 
             EnsureSources();
 
-            InterimAudioCue cue = isCrouching ? InterimAudioCue.CrouchWalk : isRunning ? InterimAudioCue.Run : InterimAudioCue.Walk;
+            AudioCue cue = isCrouching ? AudioCue.CrouchWalk : isRunning ? AudioCue.Run : AudioCue.Walk;
             lastMovementReportTime = Time.unscaledTime;
             movementSource.transform.position = position;
             movementSource.loop = false;
@@ -331,16 +449,16 @@ namespace Game.Audio
         private void StopMovementLoop()
         {
             if (movementSource != null && movementSource.isPlaying) movementSource.Stop();
-            currentMovementCue = InterimAudioCue.None;
+            currentMovementCue = AudioCue.None;
         }
 
-        private AudioClip GetMovementClip(InterimAudioCue cue)
+        private AudioClip GetMovementClip(AudioCue cue)
         {
             switch (cue)
             {
-                case InterimAudioCue.Walk:
+                case AudioCue.Walk:
                     return PickVariation(walkVariations, walkLoop, ref lastWalkVariationIndex);
-                case InterimAudioCue.Run:
+                case AudioCue.Run:
                     return PickVariation(runVariations, runLoop, ref lastRunVariationIndex);
                 default:
                     return GetClip(cue);
@@ -373,7 +491,7 @@ namespace Game.Audio
             return fallback;
         }
 
-        private bool ShouldSuppressDuplicate(InterimAudioCue cue)
+        private bool ShouldSuppressDuplicate(AudioCue cue)
         {
             if (duplicateCueWindow <= 0f) return false;
 
@@ -388,70 +506,70 @@ namespace Game.Audio
             return false;
         }
 
-        private AudioClip GetClip(InterimAudioCue cue)
+        private AudioClip GetClip(AudioCue cue)
         {
             switch (cue)
             {
-                case InterimAudioCue.Walk:
+                case AudioCue.Walk:
                     return walkLoop;
-                case InterimAudioCue.CrouchWalk:
+                case AudioCue.CrouchWalk:
                     return crouchWalkLoop;
-                case InterimAudioCue.Run:
+                case AudioCue.Run:
                     return runLoop;
-                case InterimAudioCue.Slide:
+                case AudioCue.Slide:
                     return slideLoop;
-                case InterimAudioCue.Jump:
+                case AudioCue.Jump:
                     return jumpClip;
-                case InterimAudioCue.DoubleJump:
+                case AudioCue.DoubleJump:
                     return doubleJumpClip != null ? doubleJumpClip : jumpClip;
-                case InterimAudioCue.Dash:
+                case AudioCue.Dash:
                     return dashClip;
-                case InterimAudioCue.PlayerCrouch:
+                case AudioCue.PlayerCrouch:
                     return playerCrouchClip;
-                case InterimAudioCue.Land:
+                case AudioCue.Land:
                     return landClip != null ? landClip : heavyLandClip;
-                case InterimAudioCue.HeavyLand:
+                case AudioCue.HeavyLand:
                     return heavyLandClip != null ? heavyLandClip : landClip;
-                case InterimAudioCue.BasicAttack:
+                case AudioCue.BasicAttack:
                     return basicAttackClip;
-                case InterimAudioCue.BasicAttackHit:
+                case AudioCue.BasicAttackHit:
                     return basicAttackHitClip;
-                case InterimAudioCue.Charge:
+                case AudioCue.Charge:
                     return chargeClip;
-                case InterimAudioCue.ChargedAttack:
+                case AudioCue.ChargedAttack:
                     return chargedAttackClip != null ? chargedAttackClip : basicAttackClip;
-                case InterimAudioCue.ChargedAttackHit:
+                case AudioCue.ChargedAttackHit:
                     return chargedAttackHitClip != null ? chargedAttackHitClip : basicAttackHitClip;
-                case InterimAudioCue.ChargedCrouchAttack:
+                case AudioCue.ChargedCrouchAttack:
                     return chargedCrouchAttackClip != null ? chargedCrouchAttackClip : chargedAttackClip;
-                case InterimAudioCue.LauncherJump:
+                case AudioCue.LauncherJump:
                     return launcherJumpClip;
-                case InterimAudioCue.LauncherHit:
+                case AudioCue.LauncherHit:
                     return launcherHitClip != null ? launcherHitClip : basicAttackHitClip;
-                case InterimAudioCue.GroundSlamJump:
+                case AudioCue.GroundSlamJump:
                     return groundSlamJumpClip != null ? groundSlamJumpClip : launcherJumpClip;
-                case InterimAudioCue.GroundSlamHit:
+                case AudioCue.GroundSlamHit:
                     return groundSlamHitClip != null ? groundSlamHitClip : launcherHitClip;
-                case InterimAudioCue.SpikeSecondJump:
+                case AudioCue.SpikeSecondJump:
                     return spikeSecondJumpClip != null ? spikeSecondJumpClip : doubleJumpClip;
-                case InterimAudioCue.JumpBack:
+                case AudioCue.JumpBack:
                     return jumpBackClip;
-                case InterimAudioCue.AerialPush:
+                case AudioCue.AerialPush:
                     return aerialPushClip;
-                case InterimAudioCue.GoldPickup:
+                case AudioCue.GoldPickup:
                     return goldPickupClip;
-                case InterimAudioCue.GoldPurchase:
+                case AudioCue.GoldPurchase:
                     return goldPurchaseClip != null ? goldPurchaseClip : goldPickupClip;
-                case InterimAudioCue.Interact:
+                case AudioCue.Interact:
                     return interactClip;
-                case InterimAudioCue.InteractDenied:
+                case AudioCue.InteractDenied:
                     return interactDeniedClip;
-                case InterimAudioCue.UiHover:
+                case AudioCue.UiHover:
                     return uiHoverClip;
-                case InterimAudioCue.UiClick:
+                case AudioCue.UiClick:
                     return uiClickClip;
-                case InterimAudioCue.Bgm:
-                    return bgmClip;
+                case AudioCue.Bgm:
+                    return explorationBgmClip;
                 default:
                     return null;
             }
@@ -462,7 +580,13 @@ namespace Game.Audio
             movementSource = GetOrCreateSource(movementSource, "Movement Source", false, 0.7f);
             sfxSource = GetOrCreateSource(sfxSource, "SFX Source", false, 0f);
             uiSource = GetOrCreateSource(uiSource, "UI Source", false, 0f);
-            bgmSource = GetOrCreateSource(bgmSource, "BGM Source", true, 0f);
+            explorationBgmSource = GetOrCreateSource(
+                explorationBgmSource,
+                "Exploration BGM Source",
+                true,
+                0f
+            );
+            actionBgmSource = GetOrCreateSource(actionBgmSource, "Action BGM Source", true, 0f);
 
             ApplyVolumes();
         }
@@ -495,23 +619,38 @@ namespace Game.Audio
             if (movementSource != null) movementSource.volume = Mathf.Clamp01(masterVolume * movementVolume);
             if (sfxSource != null) sfxSource.volume = Mathf.Clamp01(masterVolume * sfxVolume);
             if (uiSource != null) uiSource.volume = Mathf.Clamp01(masterVolume * uiVolume);
-            if (bgmSource != null) bgmSource.volume = Mathf.Clamp01(masterVolume * bgmVolume);
+            ApplyBgmVolumes();
+        }
+
+        private void ApplyBgmVolumes()
+        {
+            float musicVolume = Mathf.Clamp01(masterVolume * bgmVolume);
+
+            if (explorationBgmSource != null)
+            {
+                explorationBgmSource.volume = musicVolume * (1f - currentActionMix);
+            }
+
+            if (actionBgmSource != null)
+            {
+                actionBgmSource.volume = musicVolume * currentActionMix;
+            }
         }
 
 #if UNITY_EDITOR
         private void Reset()
         {
             audioEnabled = false;
-            GuessInterimClips();
+            GuessAudioClips();
         }
 
         private void OnValidate()
         {
-            GuessInterimClips();
+            GuessAudioClips();
             ApplyVolumes();
         }
 
-        private void GuessInterimClips()
+        private void GuessAudioClips()
         {
             AssignIfEmpty(ref walkLoop, "Stone Walk 1");
             AssignIfEmpty(ref walkVariations, "Stone Walk 1", "Stone Walk 5");
@@ -523,7 +662,7 @@ namespace Game.Audio
             AssignIfEmpty(ref doubleJumpClip, "Spike (Launcher, Jump, Late 2nd Jump) - 2nd Jump");
             AssignIfEmpty(ref dashClip, "Dash");
             AssignIfEmpty(ref playerCrouchClip, "Player Crouch");
-            AssignIfEmpty(ref landClip, "Heavy Stone Land");
+            AssignIfEmpty(ref landClip, "Stone Land");
             AssignIfEmpty(ref heavyLandClip, "Heavy Stone Land");
             AssignIfEmpty(ref basicAttackClip, "Basic Attack");
             AssignIfEmpty(ref basicAttackHitClip, "Hit of Basic Attack");
@@ -544,13 +683,22 @@ namespace Game.Audio
             AssignIfEmpty(ref interactDeniedClip, "Piano_Ui (7)");
             AssignIfEmpty(ref uiHoverClip, "Piano_Ui (1)");
             AssignIfEmpty(ref uiClickClip, "Piano_Ui (7)");
+            AssignIfEmpty(ref explorationBgmClip, "armamation_clockwork_keep_v4_exploration_loop", "Assets/Audio/Scores");
+            AssignIfEmpty(ref actionBgmClip, "armamation_clockwork_keep_v4_action_loop", "Assets/Audio/Scores");
         }
 
         private static void AssignIfEmpty(ref AudioClip clip, string exactFileName)
         {
             if (clip != null) return;
 
-            clip = FindInterimClip(exactFileName);
+            clip = FindAudioClip(exactFileName, "Assets/Audio/Sound Effects");
+        }
+
+        private static void AssignIfEmpty(ref AudioClip clip, string exactFileName, string searchFolder)
+        {
+            if (clip != null) return;
+
+            clip = FindAudioClip(exactFileName, searchFolder);
         }
 
         private static void AssignIfEmpty(ref AudioClip[] clips, params string[] exactFileNames)
@@ -561,13 +709,13 @@ namespace Game.Audio
 
             for (int i = 0; i < exactFileNames.Length; i++)
             {
-                clips[i] = FindInterimClip(exactFileNames[i]);
+                clips[i] = FindAudioClip(exactFileNames[i], "Assets/Audio/Sound Effects");
             }
         }
 
-        private static AudioClip FindInterimClip(string exactFileName)
+        private static AudioClip FindAudioClip(string exactFileName, string searchFolder)
         {
-            string[] guids = AssetDatabase.FindAssets("t:AudioClip", new[] { "Assets/Audio/Interim" });
+            string[] guids = AssetDatabase.FindAssets("t:AudioClip", new[] { searchFolder });
 
             foreach (string guid in guids)
             {

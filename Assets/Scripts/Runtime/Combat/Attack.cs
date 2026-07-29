@@ -180,14 +180,14 @@ public class Attack : MonoBehaviour
 
             if (holdDuration >= chargeLevel2Threshold && chargeLevel < 2)
             {
-                InterimAudioDirector.TryPlayMove(InterimAudioCue.Charge, transform.position);
+                AudioDirector.TryPlayMove(AudioCue.Charge, transform.position);
                 PlayEffect(chargeEffect);
                 Debug.Log("Charge Level 2!");
                 chargeLevel = 2;
             }
             else if (holdDuration >= chargeThreshold && chargeLevel < 1)
             {
-                InterimAudioDirector.TryPlayMove(InterimAudioCue.Charge, transform.position);
+                AudioDirector.TryPlayMove(AudioCue.Charge, transform.position);
                 PlayEffect(chargeEffect);
                 Debug.Log("Charge Level 1!");
                 chargeLevel = 1;
@@ -388,7 +388,7 @@ public class Attack : MonoBehaviour
         float force = countsAsDashAttack ? dashForce : defaultForce;
 
         // 2. Visuals
-        InterimAudioDirector.TryPlayMove(isCharging ? InterimAudioCue.ChargedAttack : InterimAudioCue.BasicAttack, transform.position);
+        AudioDirector.TryPlayMove(isCharging ? AudioCue.ChargedAttack : AudioCue.BasicAttack, transform.position);
         PlayEffect((isFinisher || isCharging) ? finisherEffect : attackEffect);
         
         // 3. Hitbox Activation
@@ -523,8 +523,8 @@ public class Attack : MonoBehaviour
 
     public void Launcher(float force, bool shouldTriggerCooldown, bool countsAsDashAttack = false)
     {
-        InterimAudioDirector.TryPlayMove(
-            isCharging ? InterimAudioCue.ChargedCrouchAttack : InterimAudioCue.LauncherJump,
+        AudioDirector.TryPlayMove(
+            isCharging ? AudioCue.ChargedCrouchAttack : AudioCue.LauncherJump,
             transform.position
         );
         PlayEffect(isCharging ? finisherEffect : attackEffect);
@@ -614,7 +614,7 @@ public class Attack : MonoBehaviour
         playerController.freezeRotation = true;
         playerController.pauseFastFall = false;
         rb.AddForce(Vector3.down * 10f, ForceMode.Impulse);
-        InterimAudioDirector.TryPlayMove(InterimAudioCue.GroundSlamJump, transform.position);
+        AudioDirector.TryPlayMove(AudioCue.GroundSlamJump, transform.position);
         PlayEffect(attackEffect);
         if (countsAsDashSlam)
         {
@@ -665,7 +665,7 @@ public class Attack : MonoBehaviour
             playerController.SetSlideVelocity(transform.forward * Mathf.Max(playerController.slideVelocity.magnitude, bounceForce)); // Maintain momentum from dash slam after landing
         }
 
-        InterimAudioDirector.TryPlayMove(InterimAudioCue.GroundSlamHit, transform.position);
+        AudioDirector.TryPlayMove(AudioCue.GroundSlamHit, transform.position);
         StopHitbox();
         isInCooldown = true;
         cooldownTimer = shortCooldownTime;
@@ -680,7 +680,7 @@ public class Attack : MonoBehaviour
     private void Spike()
     {
         windingUpSlam = false;
-        InterimAudioDirector.TryPlayMove(InterimAudioCue.SpikeSecondJump, transform.position);
+        AudioDirector.TryPlayMove(AudioCue.SpikeSecondJump, transform.position);
         PlayEffect(isCharging ? finisherEffect : attackEffect);
         currentAttackType = AttackType.Spike;
         weaponHitbox.ActivateHitbox();
@@ -721,7 +721,7 @@ public class Attack : MonoBehaviour
     private void BoundSpike()
     {
         windingUpSlam = false;
-        InterimAudioDirector.TryPlayMove(InterimAudioCue.ChargedAttack, transform.position);
+        AudioDirector.TryPlayMove(AudioCue.ChargedAttack, transform.position);
         PlayEffect(attackEffect);
         currentAttackType = AttackType.BoundSpike;
         weaponHitbox.ActivateHitbox();
@@ -762,7 +762,7 @@ public class Attack : MonoBehaviour
     private void AerialPush()
     {
         windingUpSlam = false;
-        InterimAudioDirector.TryPlayMove(InterimAudioCue.AerialPush, transform.position);
+        AudioDirector.TryPlayMove(AudioCue.AerialPush, transform.position);
         PlayEffect(attackEffect);
         weaponHitbox.ActivateHitbox();
         attackDurationTimer = aerialPushDuration;

@@ -6,7 +6,7 @@ public class EnemyHitbox : MonoBehaviour
     [SerializeField] private Collider weaponCollider;
     [SerializeField] private bool colliderOffByDefault = true;
     [SerializeField] private int DamageAmount = 10;
-    [SerializeField] private InterimAudioCue hitCue = InterimAudioCue.BasicAttackHit;
+    [SerializeField] private AudioCue hitCue = AudioCue.BasicAttackHit;
     [SerializeField] private float shortHitStopDuration = 0.05f;
     [SerializeField] private float longHitStopDuration = 0.1f;
 
@@ -27,7 +27,7 @@ public class EnemyHitbox : MonoBehaviour
         weaponCollider.enabled = false;
     }
 
-    public void SetHitCue(InterimAudioCue cue)
+    public void SetHitCue(AudioCue cue)
     {
         hitCue = cue;
     }
@@ -53,7 +53,7 @@ public class EnemyHitbox : MonoBehaviour
             if (playerHealth != null)
             {
                 playerHealth.ApplyDamage(playerBehaviour, DamageAmount);
-                InterimAudioDirector.TryPlayMove(hitCue, transform.position);
+                AudioDirector.TryPlayMove(hitCue, transform.position);
                 HitStopManager.TriggerHitStop(shortHitStopDuration);
             }
             Debug.Log("Hit player for " + DamageAmount + " damage.");

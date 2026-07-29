@@ -76,7 +76,7 @@ public class DoorBehaviour : MonoBehaviour
         if (isOpen)
         {
             // Play the door sound
-            if (!InterimAudioDirector.TryPlayInteraction(InterimAudioCue.Interact, transform.position) && doorAudioSource != null)
+            if (!AudioDirector.TryPlayInteraction(AudioCue.Interact, transform.position) && doorAudioSource != null)
             {
                 doorAudioSource.Play();
             }
@@ -87,7 +87,7 @@ public class DoorBehaviour : MonoBehaviour
         else
         {
             // Play the door sound
-            if (!InterimAudioDirector.TryPlayInteraction(InterimAudioCue.Interact, transform.position) && doorAudioSource != null)
+            if (!AudioDirector.TryPlayInteraction(AudioCue.Interact, transform.position) && doorAudioSource != null)
             {
                 doorAudioSource.Play();
             }

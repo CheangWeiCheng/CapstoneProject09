@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4928140829174411142}
   - component: {fileID: 4928140829174411141}
   m_Layer: 0
-  m_Name: Interim Audio Director
+  m_Name: Audio Director
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -44,9 +44,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7a3c0000d444342bc88a288157109ab, type: 3}
   m_Name:
   m_EditorClassIdentifier:
-  audioEnabled: 0
+  audioEnabled: 1
   keepAliveAcrossScenes: 1
-  autoPlayBgm: 0
+  autoPlayBgm: 1
   masterVolume: 1
   movementVolume: 0.55
   sfxVolume: 0.9
@@ -57,7 +57,8 @@ MonoBehaviour:
   movementSource: {fileID: 0}
   sfxSource: {fileID: 0}
   uiSource: {fileID: 0}
-  bgmSource: {fileID: 0}
+  explorationBgmSource: {fileID: 0}
+  actionBgmSource: {fileID: 0}
   walkLoop: {fileID: 8300000, guid: 9598bef7850be84d9caa89c6eca5a010, type: 3}
   walkVariations:
   - {fileID: 8300000, guid: 9598bef7850be84d9caa89c6eca5a010, type: 3}
@@ -73,7 +74,7 @@ MonoBehaviour:
   doubleJumpClip: {fileID: 8300000, guid: 624100cbb9cd0084f85813fd6a9f74a9, type: 3}
   dashClip: {fileID: 8300000, guid: 6dd33b5967dbeb64595e13e665f3dabb, type: 3}
   playerCrouchClip: {fileID: 8300000, guid: ea3f737e23af63f45b41510150a7407a, type: 3}
-  landClip: {fileID: 8300000, guid: b2d0f1ed7353f7047a151554a035a000, type: 3}
+  landClip: {fileID: 8300000, guid: a86404015fd8f43438350ebd981a82c1, type: 3}
   heavyLandClip: {fileID: 8300000, guid: b2d0f1ed7353f7047a151554a035a000, type: 3}
   basicAttackClip: {fileID: 8300000, guid: 71073509b2bed33469c449616aa8f596, type: 3}
   basicAttackHitClip: {fileID: 8300000, guid: 4de46a60c3bfaee47acc194cf9667220, type: 3}
@@ -94,4 +95,7 @@ MonoBehaviour:
   interactDeniedClip: {fileID: 8300000, guid: ea88a90e083d54e40b01add25f8178ef, type: 3}
   uiHoverClip: {fileID: 8300000, guid: 7aa3e2dde62f1c047845b0a084980aa0, type: 3}
   uiClickClip: {fileID: 8300000, guid: ea88a90e083d54e40b01add25f8178ef, type: 3}
-  bgmClip: {fileID: 0}
+  explorationBgmClip: {fileID: 8300000, guid: 145c0f85e2f246142abbbf8ae362d33e, type: 3}
+  actionBgmClip: {fileID: 8300000, guid: 298d83c4b5163a246a48e10d2f17f0ce, type: 3}
+  bgmCrossfadeSeconds: 1
+  bgmScheduleLeadSeconds: 0.1

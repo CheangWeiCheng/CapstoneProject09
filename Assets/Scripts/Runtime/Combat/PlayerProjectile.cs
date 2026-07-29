@@ -37,7 +37,7 @@ public class PlayerProjectile : MonoBehaviour
                 enemy.TakeDamage(damage, payback);
                 enemy.Knockback(knockbackDir, 5f, true);
                 
-                InterimAudioDirector.TryPlayMove(InterimAudioCue.ChargedAttackHit, other.transform.position);
+                AudioDirector.TryPlayMove(AudioCue.ChargedAttackHit, other.transform.position);
 
                 // Apply hitstop
                 HitStopManager.TriggerHitStop(hitStopDuration);

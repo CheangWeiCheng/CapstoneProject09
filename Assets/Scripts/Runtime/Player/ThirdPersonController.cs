@@ -289,7 +289,7 @@ public class ThirdPersonController : MonoBehaviour
     public void OnCrouchStarted()
     {
         isCrouching = true;
-        InterimAudioDirector.TryPlayPlayerCrouch(transform.position);
+        AudioDirector.TryPlayPlayerCrouch(transform.position);
         
         if (IsGrounded)
         {
@@ -312,7 +312,7 @@ public class ThirdPersonController : MonoBehaviour
                     dashCancelled = true;
                 }
 
-                InterimAudioDirector.TryPlayMove(InterimAudioCue.Slide, transform.position);
+                AudioDirector.TryPlayMove(AudioCue.Slide, transform.position);
             }
         }
     }
@@ -660,7 +660,7 @@ public class ThirdPersonController : MonoBehaviour
         if (isAirJump)
             availableJumps--;
 
-        if (!InterimAudioDirector.TryPlayPlayerJump(transform.position, isAirJump) && jumpSound)
+        if (!AudioDirector.TryPlayPlayerJump(transform.position, isAirJump) && jumpSound)
         {
             AudioSource.PlayClipAtPoint(jumpSound, transform.position);
         }
@@ -747,7 +747,7 @@ public class ThirdPersonController : MonoBehaviour
             SetSlideVelocity(slideVelocity.magnitude * dashDirection);
         }
 
-        if (!InterimAudioDirector.TryPlayPlayerDash(transform.position) && dashSound)
+        if (!AudioDirector.TryPlayPlayerDash(transform.position) && dashSound)
         {
             AudioSource.PlayClipAtPoint(dashSound, transform.position);
         }
@@ -968,7 +968,7 @@ public class ThirdPersonController : MonoBehaviour
             if (!wasGrounded)
             {
                 bool heavyLanding = lastUngroundedVerticalSpeed < -8f || landedFromGroundSlam;
-                InterimAudioDirector.TryPlayPlayerLand(transform.position, heavyLanding);
+                AudioDirector.TryPlayPlayerLand(transform.position, heavyLanding);
 
                 availableJumps = 1;
                 availableAerialPushes = 1;
@@ -1004,7 +1004,7 @@ public class ThirdPersonController : MonoBehaviour
         bool running = !isCrouching && moveInput.magnitude > 0.65f && horizontalSpeed >= moveSpeed * 0.75f;
         float speedRatio = horizontalSpeed / Mathf.Max(moveSpeed, 0.01f);
 
-        InterimAudioDirector.ReportPlayerMovement(
+        AudioDirector.ReportPlayerMovement(
             transform.position,
             moving,
             isCrouching && grounded,

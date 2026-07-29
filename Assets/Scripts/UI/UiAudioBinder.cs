@@ -1,11 +1,11 @@
 /*
- * InterimUiAudioBinder: adds interim ui audio relays to child selectables
+ * UiAudioBinder: adds UI audio relays to child selectables.
  */
 
 using UnityEngine;
 using UnityEngine.UI;
 
-public sealed class InterimUiAudioBinder : MonoBehaviour
+public sealed class UiAudioBinder : MonoBehaviour
 {
     [SerializeField] private bool bindOnEnable = true;
     [SerializeField] private bool includeInactive = true;
@@ -21,9 +21,9 @@ public sealed class InterimUiAudioBinder : MonoBehaviour
 
         foreach (Selectable selectable in selectables)
         {
-            if (selectable.GetComponent<InterimUiAudioElement>() != null) continue;
+            if (selectable.GetComponent<UiAudioElement>() != null) continue;
 
-            selectable.gameObject.AddComponent<InterimUiAudioElement>();
+            selectable.gameObject.AddComponent<UiAudioElement>();
         }
     }
 }

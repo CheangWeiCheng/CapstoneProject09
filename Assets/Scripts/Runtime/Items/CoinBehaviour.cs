@@ -31,7 +31,7 @@ public class CoinBehaviour : MonoBehaviour
     {
         // Logic for collecting the coin
         if (isCollected) return; // Prevent double collection
-        if (!InterimAudioDirector.TryPlayGoldPickup(transform.position) && coinAudioClip)
+        if (!AudioDirector.TryPlayGoldPickup(transform.position) && coinAudioClip)
         {
             AudioSource.PlayClipAtPoint(coinAudioClip, transform.position); // Play the coin collection sound
         }

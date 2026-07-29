@@ -12,8 +12,8 @@ public class Chaser : MonoBehaviour, IEnemyAI
     [SerializeField] EnemyHitbox hitbox;
 
     [Header("Audio")]
-    [SerializeField] private InterimAudioCue attackStartCue = InterimAudioCue.BasicAttack;
-    [SerializeField] private InterimAudioCue attackHitCue = InterimAudioCue.BasicAttackHit;
+    [SerializeField] private AudioCue attackStartCue = AudioCue.BasicAttack;
+    [SerializeField] private AudioCue attackHitCue = AudioCue.BasicAttackHit;
 
     [SerializeField] Transform targetTransform;
     [SerializeField] LayerMask playerLayer;
@@ -237,7 +237,7 @@ public class Chaser : MonoBehaviour, IEnemyAI
 
     IEnumerator Attack()
     {
-        InterimAudioDirector.TryPlayMove(attackStartCue, transform.position);
+        AudioDirector.TryPlayMove(attackStartCue, transform.position);
         FaceTarget();
         animator.SetTrigger("Attack");
         

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Game.Audio;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -69,6 +70,7 @@ public class KnightAI : MonoBehaviour
     private void Start()
     {
         spawnPosition = transform.position;
+        if (player != null) AudioDirector.ReportCombatState(this, true);
 
         // This fixes the "idle timer not counting on startup" issue.
         // The state machine starts immediately and enters IdleState properly.
@@ -180,6 +182,7 @@ public class KnightAI : MonoBehaviour
         {
             if (player == null)
             {
+                AudioDirector.ReportCombatState(this, false);
                 currentState = KnightState.Idle;
                 yield break;
             }
@@ -189,6 +192,7 @@ public class KnightAI : MonoBehaviour
             if (distanceToPlayer > losePlayerRange)
             {
                 player = null;
+                AudioDirector.ReportCombatState(this, false);
                 currentState = KnightState.Idle;
                 yield break;
             }
@@ -251,6 +255,7 @@ public class KnightAI : MonoBehaviour
         {
             if (player == null)
             {
+                AudioDirector.ReportCombatState(this, false);
                 currentState = KnightState.Idle;
                 yield break;
             }
@@ -299,6 +304,7 @@ public class KnightAI : MonoBehaviour
             if (hit.CompareTag(playerTag))
             {
                 player = hit.transform;
+                AudioDirector.ReportCombatState(this, true);
                 return;
             }
 
@@ -307,6 +313,7 @@ public class KnightAI : MonoBehaviour
             if (root.CompareTag(playerTag))
             {
                 player = root;
+                AudioDirector.ReportCombatState(this, true);
                 return;
             }
         }
@@ -415,6 +422,11 @@ public class KnightAI : MonoBehaviour
     private bool AgentReady()
     {
         return agent != null && agent.enabled && agent.isOnNavMesh;
+    }
+
+    private void OnDisable()
+    {
+        AudioDirector.ReportCombatState(this, false);
     }
 
     private void OnDrawGizmosSelected()

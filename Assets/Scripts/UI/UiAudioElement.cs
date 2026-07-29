@@ -1,12 +1,12 @@
 /*
- * InterimUiAudioElement: hover/click relay for individual ui elements
+ * UiAudioElement: hover/click relay for individual UI elements.
  */
 
 using Game.Audio;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public sealed class InterimUiAudioElement : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler, ISubmitHandler, ISelectHandler
+public sealed class UiAudioElement : MonoBehaviour, IPointerEnterHandler, IPointerClickHandler, ISubmitHandler, ISelectHandler
 {
     [SerializeField] private bool playHoverOnPointerEnter = true;
     [SerializeField] private bool playHoverOnSelect = true;
@@ -42,11 +42,11 @@ public sealed class InterimUiAudioElement : MonoBehaviour, IPointerEnterHandler,
     public void PlayHover()
     {
         lastHoverTime = Time.unscaledTime;
-        InterimAudioDirector.TryPlayUiHover();
+        AudioDirector.TryPlayUiHover();
     }
 
     public void PlayClick()
     {
-        InterimAudioDirector.TryPlayUiClick();
+        AudioDirector.TryPlayUiClick();
     }
 }

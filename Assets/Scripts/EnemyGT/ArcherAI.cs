@@ -232,7 +232,7 @@ public class ArcherAI : MonoBehaviour, IEnemyAI
         StopMoving();
         FacePlayer();
 
-        InterimAudioDirector.TryPlayMove(InterimAudioCue.BasicAttack, transform.position);
+        AudioDirector.TryPlayMove(AudioCue.BasicAttack, transform.position);
         animator.SetTrigger("Attack");
 
         while (currentState == ArcherState.RangedAttack)
@@ -327,7 +327,7 @@ public class ArcherAI : MonoBehaviour, IEnemyAI
             Quaternion.LookRotation(direction)
         );
 
-        InterimAudioDirector.TryPlayMove(InterimAudioCue.AerialPush, spawnPosition);
+        AudioDirector.TryPlayMove(AudioCue.AerialPush, spawnPosition);
 
         ArcherProjectile projectile = projectileObject.GetComponent<ArcherProjectile>();
 

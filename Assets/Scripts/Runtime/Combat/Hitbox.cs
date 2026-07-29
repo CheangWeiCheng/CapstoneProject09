@@ -318,7 +318,7 @@ public class Hitbox : MonoBehaviour
 
                         break;
                 }
-                InterimAudioDirector.TryPlayMove(GetHitCue(), other.transform.position);
+                AudioDirector.TryPlayMove(GetHitCue(), other.transform.position);
 
                 // Apply hitstop
                 HitStopManager.TriggerHitStop(hitStopDuration);
@@ -331,22 +331,22 @@ public class Hitbox : MonoBehaviour
         OnTriggerEnter(other); // For if the attack is triggered before the weapon has fully left the enemy's hitbox, ensuring they still get hit
     }
 
-    private InterimAudioCue GetHitCue()
+    private AudioCue GetHitCue()
     {
         switch (attack.currentAttackType)
         {
             case Attack.AttackType.Charged:
             case Attack.AttackType.Finisher:
             case Attack.AttackType.BoundSpike:
-                return InterimAudioCue.ChargedAttackHit;
+                return AudioCue.ChargedAttackHit;
             case Attack.AttackType.Launcher:
-                return InterimAudioCue.LauncherHit;
+                return AudioCue.LauncherHit;
             case Attack.AttackType.GroundSlam:
             case Attack.AttackType.DashSlam:
             case Attack.AttackType.Spike:
-                return InterimAudioCue.GroundSlamHit;
+                return AudioCue.GroundSlamHit;
             default:
-                return InterimAudioCue.BasicAttackHit;
+                return AudioCue.BasicAttackHit;
         }
     }
 }

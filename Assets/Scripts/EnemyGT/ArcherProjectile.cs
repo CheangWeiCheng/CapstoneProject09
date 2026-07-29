@@ -46,7 +46,7 @@ public class ArcherProjectile : MonoBehaviour
         if (other.CompareTag(playerTag) || otherRoot.CompareTag(playerTag))
         {
             hasHit = true;
-            InterimAudioDirector.TryPlayMove(InterimAudioCue.BasicAttackHit, transform.position);
+            AudioDirector.TryPlayMove(AudioCue.BasicAttackHit, transform.position);
 
             Destroy(gameObject);
             return;
