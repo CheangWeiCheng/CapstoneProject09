@@ -116,7 +116,6 @@ public class DoorBehaviour : MonoBehaviour
         {
             PlayerBehaviour player = other.GetComponent<PlayerBehaviour>();
             if (player) Interact(player);
-            isOpen = true;
         }
     }
 }
