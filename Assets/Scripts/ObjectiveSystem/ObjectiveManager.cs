@@ -15,6 +15,9 @@ public class ObjectiveManager : MonoBehaviour
         CollectSomeSticks,
         CollectSomeCloth,
         CraftAxe,
+        CollectFirstStar,
+        CollectSecondStar,
+        CollectThirdStar,
         Complete
     }
 
@@ -22,6 +25,9 @@ public class ObjectiveManager : MonoBehaviour
     [SerializeField] private KillCounter killCounter;
     [SerializeField] private MaterialInventory materialInventory;
     [SerializeField] private PlayerInventory playerInventory;
+    [SerializeField] private GoalBehaviour goal1;
+    [SerializeField] private GoalBehaviour goal2;
+    [SerializeField] private GoalBehaviour goal3;
 
     [Header("Current Objective HUD")]
     [SerializeField] private GameObject objectiveHudRoot;
@@ -61,6 +67,9 @@ public class ObjectiveManager : MonoBehaviour
 
     [Header("Axe Objective")]
     [SerializeField] private int craftAxeReward = 8;
+
+    [Header("Goal Objective")]
+    [SerializeField] private int starReward = 10;
 
     [Header("Objective Complete")]
     [SerializeField] private float objectiveCompleteDelay = 2f;
@@ -257,7 +266,7 @@ public class ObjectiveManager : MonoBehaviour
                 if (currentKillCount >= secondKillTarget)
                 {
                     CompleteCurrentObjective(secondKillReward);
-                    Debug.Log("Objective Complete: Defeat 6 enemies.");
+                    Debug.Log("Objective Complete: Defeat 5 enemies.");
                 }
                 break;
 
@@ -294,6 +303,27 @@ public class ObjectiveManager : MonoBehaviour
                 {
                     CompleteCurrentObjective(craftAxeReward);
                     Debug.Log("Objective Complete: Craft the Axe.");
+                }
+                break;
+
+            case ObjectiveStep.CollectFirstStar:
+                if (goal1 != null && goal1.isCollected)
+                {
+                    CompleteCurrentObjective(starReward);
+                }
+                break;
+
+            case ObjectiveStep.CollectSecondStar:
+                if (goal2 != null && goal2.isCollected)
+                {
+                    CompleteCurrentObjective(starReward);
+                }
+                break;
+
+            case ObjectiveStep.CollectThirdStar:
+                if (goal3 != null && goal3.isCollected)
+                {
+                    CompleteCurrentObjective(starReward);
                 }
                 break;
 
@@ -528,7 +558,7 @@ public class ObjectiveManager : MonoBehaviour
 
             case ObjectiveStep.DefeatSixEnemies:
                 ShowObjective(
-                    "Defeat 6 Enemies",
+                    "Defeat 5 Enemies",
                     GetKillProgress(secondKillTarget),
                     secondKillReward
                 );
@@ -572,6 +602,30 @@ public class ObjectiveManager : MonoBehaviour
                     "Craft the Axe",
                     "Use Vending Machine",
                     craftAxeReward
+                );
+                break;
+
+            case ObjectiveStep.CollectFirstStar:
+                ShowObjective(
+                    "Collect the First Star",
+                    "",
+                    starReward
+                );
+                break;
+
+            case ObjectiveStep.CollectSecondStar:
+                ShowObjective(
+                    "Collect the Second Star",
+                    "",
+                    starReward
+                );
+                break;
+
+            case ObjectiveStep.CollectThirdStar:
+                ShowObjective(
+                    "Collect the Third Star",
+                    "",
+                    starReward
                 );
                 break;
 
@@ -694,7 +748,7 @@ public class ObjectiveManager : MonoBehaviour
 
             case ObjectiveStep.DefeatSixEnemies:
                 return
-                    "Defeat 6 Enemies\n" +
+                    "Defeat 5 Enemies\n" +
                     GetKillProgress(secondKillTarget) +
                     "\n" +
                     "Reward: +" +
@@ -743,6 +797,30 @@ public class ObjectiveManager : MonoBehaviour
                     "Use Vending Machine\n" +
                     "Reward: +" +
                     craftAxeReward +
+                    " Coins";
+
+            case ObjectiveStep.CollectFirstStar:
+                return
+                    "Collect the First Star\n" +
+                    "\n" +
+                    "Reward: +" +
+                    starReward +
+                    " Coins";
+
+            case ObjectiveStep.CollectSecondStar:
+                return
+                    "Collect the Second Star\n" +
+                    "\n" +
+                    "Reward: +" +
+                    starReward +
+                    " Coins";
+
+            case ObjectiveStep.CollectThirdStar:
+                return
+                    "Collect the Third Star\n" +
+                    "\n" +
+                    "Reward: +" +
+                    starReward +
                     " Coins";
 
             case ObjectiveStep.Complete:
@@ -822,14 +900,14 @@ public class ObjectiveManager : MonoBehaviour
         if (viewButtonObject != null)
         {
             viewButtonObject.SetActive(
-                !objectiveHudVisible
+                objectiveHudVisible
             );
         }
 
         if (unviewButtonObject != null)
         {
             unviewButtonObject.SetActive(
-                objectiveHudVisible
+                !objectiveHudVisible
             );
         }
     }

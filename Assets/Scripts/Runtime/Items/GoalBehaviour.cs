@@ -7,7 +7,7 @@ public class GoalBehaviour : MonoBehaviour
     [SerializeField] Material newStatueMaterial;
     [SerializeField] DoorBehaviour door;
     [SerializeField] AudioClip goalAudioClip; // Reference to the AudioClip component for playing sounds
-    bool isCollected = false; // Flag to prevent double collection
+    [HideInInspector] public bool isCollected = false; // Flag to prevent double collection
 
     /// <summary>
     /// Method to collect the goal
