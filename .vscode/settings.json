@@ -67,6 +67,6 @@
         "*.sln": "*.csproj",
         "*.slnx": "*.csproj"
     },
-    "dotnet.defaultSolution": "CapstoneYanZhuo.slnx",
+    "dotnet.defaultSolution": "CapstoneProject09.slnx",
     "dotnet.enableWorkspaceBasedDevelopment": false
 }
