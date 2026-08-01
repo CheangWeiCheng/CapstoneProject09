@@ -22,7 +22,7 @@ public class GoalBehaviour : MonoBehaviour
     {
         // Logic for collecting the goal
         if (isCollected) return; // Prevent double collection
-        if (!AudioDirector.TryPlayInteraction(AudioCue.Interact, transform.position) && goalAudioClip)
+        if (!AudioDirector.TryPlayCollection(transform.position) && goalAudioClip)
         {
             AudioSource.PlayClipAtPoint(goalAudioClip, transform.position); // Play the goal collection sound
         }

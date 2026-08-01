@@ -10,6 +10,7 @@
 * The script also includes audio feedback for firing projectiles and interacting with objects.
 */
 
+using Game.Audio;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
@@ -164,6 +165,7 @@ public class PlayerBehaviour : MonoBehaviour
                 Debug.Log("You died.");
                 currentHealth = 0;
                 animator.SetBool("IsDead", true);
+                AudioDirector.BeginDeathSequence(fadeToBlackTime);
                 StartCoroutine(FadeInAndOutOfBlack(Color.black));
             }
         }
@@ -210,6 +212,7 @@ public class PlayerBehaviour : MonoBehaviour
         rb.isKinematic = true;
         Respawn();
         yield return new WaitForSeconds(fadeToBlackTime);
+        AudioDirector.EndDeathSequence(fadeToBlackTime);
 
         // Fade out of black        
         while (color.a > 0f)
