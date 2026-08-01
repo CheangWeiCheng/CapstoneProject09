@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 865155781678156319}
   - component: {fileID: 2267390118297379015}
   - component: {fileID: 3021051390468900011}
-  - component: {fileID: 2263012676030124496}
+  - component: {fileID: 1362550990232008155}
   m_Layer: 5
   m_Name: HealthPotion Image
   m_TagString: Untagged
@@ -76,7 +76,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &2263012676030124496
+--- !u!114 &1362550990232008155
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -85,42 +85,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 23571899260448829}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Script: {fileID: 11500000, guid: b08e5556d730c62439ed92e06b787013, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.EventSystems.EventTrigger
-  m_Delegates:
-  - eventID: 0
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 8939123188955414337}
-          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-          m_MethodName: SetActive
-          m_Mode: 6
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 1
-          m_CallState: 2
-  - eventID: 1
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 8939123188955414337}
-          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-          m_MethodName: SetActive
-          m_Mode: 6
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
+  m_EditorClassIdentifier: Game.Runtime::DelayedHoverDescription
+  descriptionObject: {fileID: 8939123188955414337}
+  hoverDelay: 0.5
 --- !u!1 &36547984359126223
 GameObject:
   m_ObjectHideFlags: 0
@@ -2943,7 +2912,7 @@ GameObject:
   - component: {fileID: 8295109551833700373}
   - component: {fileID: 5265918095125751775}
   - component: {fileID: 461687962024600041}
-  - component: {fileID: 7394968356585313881}
+  - component: {fileID: 4798216966863540021}
   m_Layer: 5
   m_Name: Max HealthPotion (Shop)
   m_TagString: Untagged
@@ -3008,7 +2977,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &7394968356585313881
+--- !u!114 &4798216966863540021
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3017,42 +2986,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1737830500672253576}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Script: {fileID: 11500000, guid: b08e5556d730c62439ed92e06b787013, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.EventSystems.EventTrigger
-  m_Delegates:
-  - eventID: 0
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 2059877722035134551}
-          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-          m_MethodName: SetActive
-          m_Mode: 6
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 1
-          m_CallState: 2
-  - eventID: 1
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 2059877722035134551}
-          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-          m_MethodName: SetActive
-          m_Mode: 6
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
+  m_EditorClassIdentifier: Game.Runtime::DelayedHoverDescription
+  descriptionObject: {fileID: 2059877722035134551}
+  hoverDelay: 0.5
 --- !u!1 &1745989977430687382
 GameObject:
   m_ObjectHideFlags: 0
@@ -23453,7 +23391,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 5a793450a7c9cc64f88e55efa0eeb040, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 149855b1e4856a54bab66fbfffb6c7e2, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -24047,7 +23985,7 @@ GameObject:
   - component: {fileID: 5057632761826212418}
   - component: {fileID: 3000874201005482193}
   - component: {fileID: 8860160439684050060}
-  - component: {fileID: 2806712086712062788}
+  - component: {fileID: 6101027137754660269}
   m_Layer: 5
   m_Name: DamagePotionImage
   m_TagString: Untagged
@@ -24112,7 +24050,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &2806712086712062788
+--- !u!114 &6101027137754660269
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -24121,42 +24059,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 7336419623415576610}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Script: {fileID: 11500000, guid: b08e5556d730c62439ed92e06b787013, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.EventSystems.EventTrigger
-  m_Delegates:
-  - eventID: 0
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 2471916794503870926}
-          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-          m_MethodName: SetActive
-          m_Mode: 6
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 1
-          m_CallState: 2
-  - eventID: 1
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 2471916794503870926}
-          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-          m_MethodName: SetActive
-          m_Mode: 6
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
+  m_EditorClassIdentifier: Game.Runtime::DelayedHoverDescription
+  descriptionObject: {fileID: 2471916794503870926}
+  hoverDelay: 0.5
 --- !u!1 &7437959121750938746
 GameObject:
   m_ObjectHideFlags: 0
@@ -30705,7 +30612,7 @@ GameObject:
   - component: {fileID: 7592781857631060525}
   - component: {fileID: 3812729364750992609}
   - component: {fileID: 916918384154281977}
-  - component: {fileID: 5675970638792896874}
+  - component: {fileID: 3148978657660734663}
   m_Layer: 5
   m_Name: DamagePotion (Shop)
   m_TagString: Untagged
@@ -30770,7 +30677,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &5675970638792896874
+--- !u!114 &3148978657660734663
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -30779,42 +30686,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 8577474507189060399}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Script: {fileID: 11500000, guid: b08e5556d730c62439ed92e06b787013, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.EventSystems.EventTrigger
-  m_Delegates:
-  - eventID: 0
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 4631717278834166490}
-          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-          m_MethodName: SetActive
-          m_Mode: 6
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 1
-          m_CallState: 2
-  - eventID: 1
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 4631717278834166490}
-          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-          m_MethodName: SetActive
-          m_Mode: 6
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
+  m_EditorClassIdentifier: Game.Runtime::DelayedHoverDescription
+  descriptionObject: {fileID: 4631717278834166490}
+  hoverDelay: 0.5
 --- !u!1 &8577929834011754182
 GameObject:
   m_ObjectHideFlags: 0
@@ -30890,7 +30766,7 @@ GameObject:
   - component: {fileID: 6749322395305417206}
   - component: {fileID: 7352429242577585610}
   - component: {fileID: 8569004281477336060}
-  - component: {fileID: 7795992491791292046}
+  - component: {fileID: 8312582903878303792}
   m_Layer: 5
   m_Name: HealthPotion (Shop)
   m_TagString: Untagged
@@ -30955,7 +30831,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &7795992491791292046
+--- !u!114 &8312582903878303792
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -30964,42 +30840,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 8634244812304840190}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Script: {fileID: 11500000, guid: b08e5556d730c62439ed92e06b787013, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.EventSystems.EventTrigger
-  m_Delegates:
-  - eventID: 0
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 0}
-          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-          m_MethodName: SetActive
-          m_Mode: 6
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 1
-          m_CallState: 2
-  - eventID: 1
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 0}
-          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-          m_MethodName: SetActive
-          m_Mode: 6
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
+  m_EditorClassIdentifier: Game.Runtime::DelayedHoverDescription
+  descriptionObject: {fileID: 36547984359126223}
+  hoverDelay: 0.5
 --- !u!1 &8656222238601897311
 GameObject:
   m_ObjectHideFlags: 0
@@ -31384,7 +31229,7 @@ GameObject:
   - component: {fileID: 7949931313661142352}
   - component: {fileID: 431010458751150785}
   - component: {fileID: 8671504299702851848}
-  - component: {fileID: 7228549068077586304}
+  - component: {fileID: 7365833328091925735}
   m_Layer: 5
   m_Name: Max Health Potion Image
   m_TagString: Untagged
@@ -31449,7 +31294,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &7228549068077586304
+--- !u!114 &7365833328091925735
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -31458,42 +31303,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 8775245857163655822}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d0b148fe25e99eb48b9724523833bab1, type: 3}
+  m_Script: {fileID: 11500000, guid: b08e5556d730c62439ed92e06b787013, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.EventSystems.EventTrigger
-  m_Delegates:
-  - eventID: 0
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 8527723433061636944}
-          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-          m_MethodName: SetActive
-          m_Mode: 6
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 1
-          m_CallState: 2
-  - eventID: 1
-    callback:
-      m_PersistentCalls:
-        m_Calls:
-        - m_Target: {fileID: 8527723433061636944}
-          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-          m_MethodName: SetActive
-          m_Mode: 6
-          m_Arguments:
-            m_ObjectArgument: {fileID: 0}
-            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-            m_IntArgument: 0
-            m_FloatArgument: 0
-            m_StringArgument: 
-            m_BoolArgument: 0
-          m_CallState: 2
+  m_EditorClassIdentifier: Game.Runtime::DelayedHoverDescription
+  descriptionObject: {fileID: 8527723433061636944}
+  hoverDelay: 0.5
 --- !u!1 &8862521768512879703
 GameObject:
   m_ObjectHideFlags: 0
