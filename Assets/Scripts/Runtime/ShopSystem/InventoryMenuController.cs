@@ -35,17 +35,6 @@ public class InventoryMenuController : MonoBehaviour
     {
         FindMaterialInventory();
         SubscribeToInventoryEvents();
-
-        if (inventoryUI != null)
-        {
-            inventoryUI.SetActive(false);
-        }
-
-        if (mainMenuView != null)
-        {
-            mainMenuView.SetActive(true);
-        }
-
         RefreshInventory();
     }
 
