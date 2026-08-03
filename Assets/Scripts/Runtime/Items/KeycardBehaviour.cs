@@ -30,7 +30,7 @@ public class KeycardBehaviour : MonoBehaviour
     {
         // Logic for collecting the keycard
         if (isCollected) return; // Prevent double collection
-        if (!AudioDirector.TryPlayInteraction(AudioCue.Interact, transform.position) && keycardAudioClip)
+        if (!AudioDirector.TryPlayGenericPickup(transform.position) && keycardAudioClip)
         {
             AudioSource.PlayClipAtPoint(keycardAudioClip, transform.position); // Play the keycard collection sound
         }

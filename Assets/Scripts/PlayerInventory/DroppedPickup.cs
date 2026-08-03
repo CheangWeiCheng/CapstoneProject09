@@ -1,3 +1,4 @@
+using Game.Audio;
 using UnityEngine;
 
 public enum PickupType
@@ -109,6 +110,15 @@ public class DroppedPickup : MonoBehaviour
                 PlayerInventory.Instance.AddSuperHealthPotion(1);
                 Debug.Log("Picked up health potion.");
                 break;
+        }
+
+        if (pickupType == PickupType.Coins)
+        {
+            AudioDirector.TryPlayGoldPickup(transform.position);
+        }
+        else
+        {
+            AudioDirector.TryPlayGenericPickup(transform.position);
         }
 
         Destroy(gameObject);

@@ -47,7 +47,8 @@ namespace Game.Audio
         UiClick,
         Bgm,
         ArcherShot,
-        Collection
+        Collection,
+        GenericPickup
     }
 
     public sealed class AudioDirector : MonoBehaviour
@@ -65,8 +66,11 @@ namespace Game.Audio
         [SerializeField, Range(0f, 1f)] private float sfxVolume = 0.9f;
         [SerializeField, Range(0f, 1f)] private float uiVolume = 0.75f;
         [SerializeField, Range(0f, 1f)] private float bgmVolume = 0.55f;
+        [SerializeField, Range(0f, 1f)] private float sfxSettingsVolume = 1f;
+        [SerializeField, Range(0f, 1f)] private float bgmSettingsVolume = 0.6f;
         [SerializeField] private bool playWorldSoundsAtPosition = true;
         [SerializeField] private float duplicateCueWindow = 0.03f;
+        [SerializeField, Min(0f)] private float startupSfxDelaySeconds = 0.5f;
 
         [Header("Sources")]
         [SerializeField] private AudioSource movementSource;
@@ -113,6 +117,7 @@ namespace Game.Audio
         [SerializeField] private AudioClip goldPickupClip;
         [SerializeField] private AudioClip goldPurchaseClip;
         [SerializeField] private AudioClip collectionClip;
+        [SerializeField] private AudioClip genericPickupClip;
         [SerializeField] private AudioClip interactClip;
         [SerializeField] private AudioClip interactDeniedClip;
 
@@ -145,6 +150,7 @@ namespace Game.Audio
         private float nonDeathVolumeScale = 1f;
         private float targetNonDeathVolumeScale = 1f;
         private float nonDeathFadeSeconds;
+        private float sfxReadyTime;
         private const float MovementReportTimeout = 0.18f;
 
         private sealed class ActiveWorldSound
@@ -166,6 +172,7 @@ namespace Game.Audio
             Instance = this;
             if (keepAliveAcrossScenes) DontDestroyOnLoad(gameObject);
 
+            sfxReadyTime = Time.unscaledTime + startupSfxDelaySeconds;
             EnsureSources();
             ApplyVolumes();
 
@@ -202,6 +209,19 @@ namespace Game.Audio
             }
 
             if (autoPlayBgm) PlayBgm();
+        }
+
+        // if you feed this file to an ai for a settings menu, ask it to wire the two public volume functions below to zero-to-one sliders.
+        public void SetSfxVolume(float volume)
+        {
+            sfxSettingsVolume = Mathf.Clamp01(volume);
+            ApplyVolumes();
+        }
+
+        public void SetBgmVolume(float volume)
+        {
+            bgmSettingsVolume = Mathf.Clamp01(volume);
+            ApplyBgmVolumes();
         }
 
         public static void ReportPlayerMovement(
@@ -313,6 +333,11 @@ namespace Game.Audio
         public static bool TryPlayCollection(Vector3 position, float volumeScale = 1f)
         {
             return TryPlayInteraction(AudioCue.Collection, position, volumeScale);
+        }
+
+        public static bool TryPlayGenericPickup(Vector3 position, float volumeScale = 1f)
+        {
+            return TryPlayInteraction(AudioCue.GenericPickup, position, volumeScale);
         }
 
         public static bool TryPlayArcherShot(Vector3 position, float volumeScale = 1f)
@@ -427,6 +452,7 @@ namespace Game.Audio
         {
             if (!AudioEnabled || cue == AudioCue.None) return false;
             if (deathTransitionActive) return true;
+            if (Time.unscaledTime < sfxReadyTime) return true;
 
             AudioClip clip = GetClip(cue);
             if (clip == null) return false;
@@ -547,7 +573,7 @@ namespace Game.Audio
             if (worldSound.Source == null) return;
 
             worldSound.Source.volume = Mathf.Clamp01(
-                masterVolume * sfxVolume * nonDeathVolumeScale * worldSound.VolumeScale
+                masterVolume * sfxVolume * sfxSettingsVolume * nonDeathVolumeScale * worldSound.VolumeScale
             );
         }
 
@@ -559,7 +585,7 @@ namespace Game.Audio
             float speedRatio
         )
         {
-            if (!AudioEnabled || !isMoving)
+            if (!AudioEnabled || !isMoving || Time.unscaledTime < sfxReadyTime)
             {
                 StopMovementLoop();
                 return;
@@ -706,6 +732,8 @@ namespace Game.Audio
                     return goldPurchaseClip != null ? goldPurchaseClip : goldPickupClip;
                 case AudioCue.Collection:
                     return collectionClip;
+                case AudioCue.GenericPickup:
+                    return genericPickupClip;
                 case AudioCue.Interact:
                     return interactClip;
                 case AudioCue.InteractDenied:
@@ -763,10 +791,10 @@ namespace Game.Audio
 
         private void ApplyVolumes()
         {
-            if (movementSource != null) movementSource.volume = Mathf.Clamp01(masterVolume * movementVolume * nonDeathVolumeScale);
-            if (sfxSource != null) sfxSource.volume = Mathf.Clamp01(masterVolume * sfxVolume * nonDeathVolumeScale);
-            if (uiSource != null) uiSource.volume = Mathf.Clamp01(masterVolume * uiVolume * nonDeathVolumeScale);
-            if (deathSource != null) deathSource.volume = Mathf.Clamp01(masterVolume * sfxVolume);
+            if (movementSource != null) movementSource.volume = Mathf.Clamp01(masterVolume * movementVolume * sfxSettingsVolume * nonDeathVolumeScale);
+            if (sfxSource != null) sfxSource.volume = Mathf.Clamp01(masterVolume * sfxVolume * sfxSettingsVolume * nonDeathVolumeScale);
+            if (uiSource != null) uiSource.volume = Mathf.Clamp01(masterVolume * uiVolume * sfxSettingsVolume * nonDeathVolumeScale);
+            if (deathSource != null) deathSource.volume = Mathf.Clamp01(masterVolume * sfxVolume * sfxSettingsVolume);
 
             foreach (ActiveWorldSound worldSound in activeWorldSounds)
             {
@@ -777,7 +805,7 @@ namespace Game.Audio
 
         private void ApplyBgmVolumes()
         {
-            float musicVolume = Mathf.Clamp01(masterVolume * bgmVolume * nonDeathVolumeScale);
+            float musicVolume = Mathf.Clamp01(masterVolume * bgmVolume * bgmSettingsVolume * nonDeathVolumeScale);
 
             if (explorationBgmSource != null)
             {
@@ -834,6 +862,7 @@ namespace Game.Audio
             AssignIfEmpty(ref goldPickupClip, "Coin_Wood_Table_Singles_Drop_Spin_Takes_5");
             AssignIfEmpty(ref goldPurchaseClip, "264604 - Stack Coin Bag 04");
             AssignIfEmpty(ref collectionClip, "collect_6");
+            AssignIfEmpty(ref genericPickupClip, "foley_object_grab_pickup_04");
             AssignIfEmpty(ref interactClip, "Piano_Ui (1)");
             AssignIfEmpty(ref interactDeniedClip, "Piano_Ui (7)");
             AssignIfEmpty(ref uiHoverClip, "Piano_Ui (1)");
