@@ -206,6 +206,7 @@ public class ThirdPersonController : MonoBehaviour
         animator = GetComponent<Animator>();
         mainCamera = Camera.main;
         lastGroundedTime = -coyoteTime;
+        wasGrounded = IsGrounded;
     }
 
     void Awake()
@@ -1000,7 +1001,7 @@ public class ThirdPersonController : MonoBehaviour
         float horizontalSpeed = horizontalVelocity.magnitude;
         bool moving = canPlayMovement &&
                       grounded &&
-                      (moveInput.magnitude > 0.1f || horizontalSpeed > 0.25f);
+                      moveInput.magnitude > 0.1f && horizontalSpeed > 0.1f;
         bool running = !isCrouching && moveInput.magnitude > 0.65f && horizontalSpeed >= moveSpeed * 0.75f;
         float speedRatio = horizontalSpeed / Mathf.Max(moveSpeed, 0.01f);
 

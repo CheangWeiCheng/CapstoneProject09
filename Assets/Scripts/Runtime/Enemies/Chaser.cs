@@ -237,7 +237,7 @@ public class Chaser : MonoBehaviour, IEnemyAI
 
     IEnumerator Attack()
     {
-        AudioDirector.TryPlayMove(attackStartCue, transform.position);
+        AudioDirector.TryPlayEnemyAttack(attackStartCue, transform.position);
         FaceTarget();
         animator.SetTrigger("Attack");
         

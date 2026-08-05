@@ -52,13 +52,17 @@ MonoBehaviour:
   sfxVolume: 0.9
   uiVolume: 0.75
   bgmVolume: 0.55
+  sfxSettingsVolume: 1
+  bgmSettingsVolume: 0.6
   playWorldSoundsAtPosition: 1
   duplicateCueWindow: 0.03
+  startupSfxDelaySeconds: 0.5
   movementSource: {fileID: 0}
   sfxSource: {fileID: 0}
   uiSource: {fileID: 0}
   explorationBgmSource: {fileID: 0}
   actionBgmSource: {fileID: 0}
+  deathSource: {fileID: 0}
   walkLoop: {fileID: 8300000, guid: 9598bef7850be84d9caa89c6eca5a010, type: 3}
   walkVariations:
   - {fileID: 8300000, guid: 9598bef7850be84d9caa89c6eca5a010, type: 3}
@@ -89,10 +93,17 @@ MonoBehaviour:
   spikeSecondJumpClip: {fileID: 8300000, guid: 624100cbb9cd0084f85813fd6a9f74a9, type: 3}
   jumpBackClip: {fileID: 8300000, guid: 54e71907010fb6d41ba9c9be01ae9c4d, type: 3}
   aerialPushClip: {fileID: 8300000, guid: 265c05d72e44be941a424ab01fbd5f87, type: 3}
-  goldPickupClip: {fileID: 8300000, guid: a99c0f673b4ff6d439ca60e2916d04ba, type: 3}
+  archerShotClip: {fileID: 8300000, guid: 27a24295357f73c4f8bbafce1386c2f7, type: 3}
+  archerHitClip: {fileID: 8300000, guid: 558ef5c182614c84b816306a084b2e05, type: 3}
+  enemyAttackPitchVariationRange: {x: 0.96, y: 1.04}
+  enemyHitPitchVariationRange: {x: 0.94, y: 1.06}
+  goldPickupClip: {fileID: 8300000, guid: a7464666e77266e4da58d27b32df1f8b, type: 3}
   goldPurchaseClip: {fileID: 8300000, guid: a7464666e77266e4da58d27b32df1f8b, type: 3}
+  collectionClip: {fileID: 8300000, guid: b1381cb18abaee440b6c74b24861a56f, type: 3}
+  genericPickupClip: {fileID: 8300000, guid: d0055b65979fa6247bde6644957a117e, type: 3}
   interactClip: {fileID: 8300000, guid: 7aa3e2dde62f1c047845b0a084980aa0, type: 3}
   interactDeniedClip: {fileID: 8300000, guid: ea88a90e083d54e40b01add25f8178ef, type: 3}
+  deathClip: {fileID: 8300000, guid: 27bb3abf59f9dd345abf8d037b34bd19, type: 3}
   uiHoverClip: {fileID: 8300000, guid: 7aa3e2dde62f1c047845b0a084980aa0, type: 3}
   uiClickClip: {fileID: 8300000, guid: ea88a90e083d54e40b01add25f8178ef, type: 3}
   explorationBgmClip: {fileID: 8300000, guid: 145c0f85e2f246142abbbf8ae362d33e, type: 3}
