@@ -247,7 +247,7 @@ public class KingAI : MonoBehaviour
         StopMoving();
         FacePlayer();
 
-        AudioDirector.TryPlayMove(AudioCue.ChargedAttack, transform.position);
+        AudioDirector.TryPlayEnemyAttack(AudioCue.ChargedAttack, transform.position);
         yield return new WaitForSeconds(meleeWindupTime);
 
         float activeTimer = 0f;
@@ -388,7 +388,7 @@ public class KingAI : MonoBehaviour
             }
 
             damagedTargets.Add(targetRoot);
-            AudioDirector.TryPlayMove(AudioCue.ChargedAttackHit, hit.transform.position);
+            AudioDirector.TryPlayEnemyHit(AudioCue.ChargedAttackHit, hit.transform.position);
 
             hit.SendMessageUpwards(
                 "TakeDamage",

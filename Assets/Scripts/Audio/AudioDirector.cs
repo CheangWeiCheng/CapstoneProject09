@@ -48,7 +48,8 @@ namespace Game.Audio
         Bgm,
         ArcherShot,
         Collection,
-        GenericPickup
+        GenericPickup,
+        ArcherHit
     }
 
     public sealed class AudioDirector : MonoBehaviour
@@ -112,6 +113,9 @@ namespace Game.Audio
 
         [Header("Enemy Combat")]
         [SerializeField] private AudioClip archerShotClip;
+        [SerializeField] private AudioClip archerHitClip;
+        [SerializeField] private Vector2 enemyAttackPitchVariationRange = new Vector2(0.96f, 1.04f);
+        [SerializeField] private Vector2 enemyHitPitchVariationRange = new Vector2(0.94f, 1.06f);
 
         [Header("Interactions")]
         [SerializeField] private AudioClip goldPickupClip;
@@ -342,7 +346,36 @@ namespace Game.Audio
 
         public static bool TryPlayArcherShot(Vector3 position, float volumeScale = 1f)
         {
-            return TryPlayWorld(AudioCue.ArcherShot, position, volumeScale);
+            return TryPlayEnemyAttack(AudioCue.ArcherShot, position, volumeScale);
+        }
+
+        public static bool TryPlayArcherHit(Vector3 position, float volumeScale = 1f)
+        {
+            return TryPlayEnemyHit(AudioCue.ArcherHit, position, volumeScale);
+        }
+
+        public static bool TryPlayEnemyAttack(AudioCue cue, Vector3 position, float volumeScale = 1f)
+        {
+            return Instance != null && Instance.PlayOneShot(
+                cue,
+                position,
+                volumeScale,
+                true,
+                false,
+                GetRandomPitch(Instance.enemyAttackPitchVariationRange)
+            );
+        }
+
+        public static bool TryPlayEnemyHit(AudioCue cue, Vector3 position, float volumeScale = 1f)
+        {
+            return Instance != null && Instance.PlayOneShot(
+                cue,
+                position,
+                volumeScale,
+                true,
+                false,
+                GetRandomPitch(Instance.enemyHitPitchVariationRange)
+            );
         }
 
         public static bool BeginDeathSequence(float fadeOutSeconds = 1f)
@@ -447,7 +480,8 @@ namespace Game.Audio
             Vector3 position,
             float volumeScale,
             bool worldSound,
-            bool uiSound
+            bool uiSound,
+            float pitch = 1f
         )
         {
             if (!AudioEnabled || cue == AudioCue.None) return false;
@@ -462,21 +496,31 @@ namespace Game.Audio
             EnsureSources();
 
             float safeVolumeScale = Mathf.Max(0f, volumeScale);
+            float safePitch = Mathf.Clamp(pitch, 0.5f, 2f);
 
             if (uiSound)
             {
+                uiSource.pitch = safePitch;
                 uiSource.PlayOneShot(clip, safeVolumeScale);
                 return true;
             }
 
             if (worldSound && playWorldSoundsAtPosition)
             {
-                PlayWorldOneShot(clip, position, safeVolumeScale);
+                PlayWorldOneShot(clip, position, safeVolumeScale, safePitch);
                 return true;
             }
 
+            sfxSource.pitch = safePitch;
             sfxSource.PlayOneShot(clip, safeVolumeScale);
             return true;
+        }
+
+        private static float GetRandomPitch(Vector2 range)
+        {
+            float minimum = Mathf.Clamp(Mathf.Min(range.x, range.y), 0.5f, 2f);
+            float maximum = Mathf.Clamp(Mathf.Max(range.x, range.y), minimum, 2f);
+            return Random.Range(minimum, maximum);
         }
 
         private bool BeginDeathFade(float fadeOutSeconds)
@@ -533,7 +577,7 @@ namespace Game.Audio
             }
         }
 
-        private void PlayWorldOneShot(AudioClip clip, Vector3 position, float volumeScale)
+        private void PlayWorldOneShot(AudioClip clip, Vector3 position, float volumeScale, float pitch)
         {
             GameObject sourceObject = new GameObject($"World SFX - {clip.name}");
             sourceObject.transform.SetParent(transform, true);
@@ -544,6 +588,7 @@ namespace Game.Audio
             source.loop = false;
             source.spatialBlend = 1f;
             source.clip = clip;
+            source.pitch = pitch;
 
             ActiveWorldSound worldSound = new ActiveWorldSound
             {
@@ -726,6 +771,8 @@ namespace Game.Audio
                     return aerialPushClip;
                 case AudioCue.ArcherShot:
                     return archerShotClip;
+                case AudioCue.ArcherHit:
+                    return archerHitClip;
                 case AudioCue.GoldPickup:
                     return goldPickupClip;
                 case AudioCue.GoldPurchase:
@@ -859,6 +906,7 @@ namespace Game.Audio
             AssignIfEmpty(ref jumpBackClip, "Jump Back");
             AssignIfEmpty(ref aerialPushClip, "Dash and Jump - Jump and Dash");
             AssignIfEmpty(ref archerShotClip, "Weapon Arrow Shot 01");
+            AssignIfEmpty(ref archerHitClip, "Weapon Bow And Arrow Thump 01");
             AssignIfEmpty(ref goldPickupClip, "Coin_Wood_Table_Singles_Drop_Spin_Takes_5");
             AssignIfEmpty(ref goldPurchaseClip, "264604 - Stack Coin Bag 04");
             AssignIfEmpty(ref collectionClip, "collect_6");

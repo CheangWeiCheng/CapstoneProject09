@@ -94,6 +94,9 @@ MonoBehaviour:
   jumpBackClip: {fileID: 8300000, guid: 54e71907010fb6d41ba9c9be01ae9c4d, type: 3}
   aerialPushClip: {fileID: 8300000, guid: 265c05d72e44be941a424ab01fbd5f87, type: 3}
   archerShotClip: {fileID: 8300000, guid: 27a24295357f73c4f8bbafce1386c2f7, type: 3}
+  archerHitClip: {fileID: 8300000, guid: 558ef5c182614c84b816306a084b2e05, type: 3}
+  enemyAttackPitchVariationRange: {x: 0.96, y: 1.04}
+  enemyHitPitchVariationRange: {x: 0.94, y: 1.06}
   goldPickupClip: {fileID: 8300000, guid: a7464666e77266e4da58d27b32df1f8b, type: 3}
   goldPurchaseClip: {fileID: 8300000, guid: a7464666e77266e4da58d27b32df1f8b, type: 3}
   collectionClip: {fileID: 8300000, guid: b1381cb18abaee440b6c74b24861a56f, type: 3}

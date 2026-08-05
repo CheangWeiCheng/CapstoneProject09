@@ -53,7 +53,7 @@ public class EnemyHitbox : MonoBehaviour
             if (playerHealth != null)
             {
                 playerHealth.ApplyDamage(playerBehaviour, DamageAmount);
-                AudioDirector.TryPlayMove(hitCue, transform.position);
+                AudioDirector.TryPlayEnemyHit(hitCue, transform.position);
                 HitStopManager.TriggerHitStop(shortHitStopDuration);
             }
             Debug.Log("Hit player for " + DamageAmount + " damage.");
