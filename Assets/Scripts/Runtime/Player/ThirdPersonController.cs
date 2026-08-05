@@ -206,6 +206,7 @@ public class ThirdPersonController : MonoBehaviour
         animator = GetComponent<Animator>();
         mainCamera = Camera.main;
         lastGroundedTime = -coyoteTime;
+        wasGrounded = IsGrounded;
     }
 
     void Awake()
@@ -289,7 +290,7 @@ public class ThirdPersonController : MonoBehaviour
     public void OnCrouchStarted()
     {
         isCrouching = true;
-        InterimAudioDirector.TryPlayPlayerCrouch(transform.position);
+        AudioDirector.TryPlayPlayerCrouch(transform.position);
         
         if (IsGrounded)
         {
@@ -312,7 +313,7 @@ public class ThirdPersonController : MonoBehaviour
                     dashCancelled = true;
                 }
 
-                InterimAudioDirector.TryPlayMove(InterimAudioCue.Slide, transform.position);
+                AudioDirector.TryPlayMove(AudioCue.Slide, transform.position);
             }
         }
     }
@@ -401,6 +402,22 @@ public class ThirdPersonController : MonoBehaviour
         if (!isBraking) brakeMultiplier = Mathf.MoveTowards(brakeMultiplier, 1f, moveSpeed * Time.fixedDeltaTime); // Gradually reset brake multiplier when not braking
         
         // 1. Filter out input according to context
+        if (lockOnTarget != null)
+        {
+            // Restrict left and right movement, so the player can only move towards or away from the target
+            Vector3 directionToTarget = (lockOnTarget.transform.position - transform.position).normalized;
+            directionToTarget.y = 0; // Ignore vertical component
+
+            // Split input into forward/backward and side components
+            float forwardInput = Vector3.Dot(worldMoveDir, directionToTarget);
+            Vector3 forwardComponent = directionToTarget * forwardInput;
+            Vector3 sideComponent = worldMoveDir - forwardComponent;
+            
+            // Dampen side movement by 50%
+            float sideDampening = 0.5f;
+            worldMoveDir = forwardComponent + (sideComponent * sideDampening);
+        }
+
         if (OnSlope() && isCrouching && IsGrounded && !exitingSlope)
         {
             // Get the up-and-down-slope direction
@@ -425,7 +442,7 @@ public class ThirdPersonController : MonoBehaviour
         {
             upSlopeResistance = 0f; // Reset resistance when not on slope or not crouching
             float movementMultiplier = (isCrouching && IsGrounded) ? sneakSpeed : moveSpeed;
-            targetVelocity = GetCameraRelativeDirection(moveInput) * movementMultiplier * brakeMultiplier;
+            targetVelocity = worldMoveDir * movementMultiplier * brakeMultiplier;
         }
         
         if (OnSlope() && isCrouching && IsGrounded && !exitingSlope)
@@ -644,7 +661,7 @@ public class ThirdPersonController : MonoBehaviour
         if (isAirJump)
             availableJumps--;
 
-        if (!InterimAudioDirector.TryPlayPlayerJump(transform.position, isAirJump) && jumpSound)
+        if (!AudioDirector.TryPlayPlayerJump(transform.position, isAirJump) && jumpSound)
         {
             AudioSource.PlayClipAtPoint(jumpSound, transform.position);
         }
@@ -655,6 +672,10 @@ public class ThirdPersonController : MonoBehaviour
         if (highJumpRequested)
         {
             force *= highJumpMultiplier;
+            if (attack != null)
+            {
+                attack.Launcher(attack.launcherForce, true);
+            }
         }
         else if (bufferedJumpWasReleased)
         {
@@ -665,8 +686,6 @@ public class ThirdPersonController : MonoBehaviour
         rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
         rb.AddForce(Vector3.up * force, ForceMode.Impulse);
         
-        if (animator) animator.SetTrigger("Jump");
-
         Invoke(nameof(ResetExitSlope), 0.1f);
     }
 
@@ -729,7 +748,7 @@ public class ThirdPersonController : MonoBehaviour
             SetSlideVelocity(slideVelocity.magnitude * dashDirection);
         }
 
-        if (!InterimAudioDirector.TryPlayPlayerDash(transform.position) && dashSound)
+        if (!AudioDirector.TryPlayPlayerDash(transform.position) && dashSound)
         {
             AudioSource.PlayClipAtPoint(dashSound, transform.position);
         }
@@ -950,7 +969,7 @@ public class ThirdPersonController : MonoBehaviour
             if (!wasGrounded)
             {
                 bool heavyLanding = lastUngroundedVerticalSpeed < -8f || landedFromGroundSlam;
-                InterimAudioDirector.TryPlayPlayerLand(transform.position, heavyLanding);
+                AudioDirector.TryPlayPlayerLand(transform.position, heavyLanding);
 
                 availableJumps = 1;
                 availableAerialPushes = 1;
@@ -982,11 +1001,11 @@ public class ThirdPersonController : MonoBehaviour
         float horizontalSpeed = horizontalVelocity.magnitude;
         bool moving = canPlayMovement &&
                       grounded &&
-                      (moveInput.magnitude > 0.1f || horizontalSpeed > 0.25f);
+                      moveInput.magnitude > 0.1f && horizontalSpeed > 0.1f;
         bool running = !isCrouching && moveInput.magnitude > 0.65f && horizontalSpeed >= moveSpeed * 0.75f;
         float speedRatio = horizontalSpeed / Mathf.Max(moveSpeed, 0.01f);
 
-        InterimAudioDirector.ReportPlayerMovement(
+        AudioDirector.ReportPlayerMovement(
             transform.position,
             moving,
             isCrouching && grounded,

@@ -520,15 +520,19 @@ MonoBehaviour:
   health: 100
   collisionDamage: 5
   timeTillDemise: 0.5
+  launchDelay: 0.1
+  launchTimer: 0
   maxPayback: 50
   currentPayback: 0
   enragedAura: {fileID: 0}
   groundCheckDistance: 0.5
   groundSphereRadius: 0.2
   healthText: {fileID: 64485221}
+  killCounter: {fileID: 0}
   isBoss: 0
   bossPhaseChangeThreshold: 0.5
   isInPhaseTwo: 0
+  maxShield: 50
   attack: {fileID: 6769345499666751070}
   currentState: 0
   counterChance: 0.5
@@ -595,7 +599,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 4928140829174411140, guid: b6c783c01d3845ebaba029e024213bee, type: 3}
       propertyPath: m_Name
-      value: Interim Audio Director
+      value: Audio Director
       objectReference: {fileID: 0}
     - target: {fileID: 4928140829174411141, guid: b6c783c01d3845ebaba029e024213bee, type: 3}
       propertyPath: audioEnabled
@@ -654,14 +658,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1149697566360546177, guid: 16f37d2037a00c140b070ef3f36be585, type: 3}
-      propertyPath: m_fontAsset
-      value: 
-      objectReference: {fileID: 11400000, guid: b44917b5a183cab4fa6aaac22e707044, type: 2}
-    - target: {fileID: 1149697566360546177, guid: 16f37d2037a00c140b070ef3f36be585, type: 3}
-      propertyPath: m_sharedMaterial
-      value: 
-      objectReference: {fileID: -2712193384763632075, guid: b44917b5a183cab4fa6aaac22e707044, type: 2}
     - target: {fileID: 1149697566360546177, guid: 16f37d2037a00c140b070ef3f36be585, type: 3}
       propertyPath: m_hasFontAssetChanged
       value: 0
@@ -6818,14 +6814,6 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9109739552333065939, guid: 82fe98d341b27634bac1af859b98b5c2, type: 3}
-      propertyPath: m_fontAsset
-      value: 
-      objectReference: {fileID: 11400000, guid: b44917b5a183cab4fa6aaac22e707044, type: 2}
-    - target: {fileID: 9109739552333065939, guid: 82fe98d341b27634bac1af859b98b5c2, type: 3}
-      propertyPath: m_sharedMaterial
-      value: 
-      objectReference: {fileID: -2712193384763632075, guid: b44917b5a183cab4fa6aaac22e707044, type: 2}
-    - target: {fileID: 9109739552333065939, guid: 82fe98d341b27634bac1af859b98b5c2, type: 3}
       propertyPath: m_hasFontAssetChanged
       value: 0
       objectReference: {fileID: 0}
@@ -7122,15 +7110,19 @@ MonoBehaviour:
   health: 100
   collisionDamage: 5
   timeTillDemise: 0.5
+  launchDelay: 0.1
+  launchTimer: 0
   maxPayback: 50
   currentPayback: 0
   enragedAura: {fileID: 0}
   groundCheckDistance: 0.5
   groundSphereRadius: 0.2
   healthText: {fileID: 1687360750}
+  killCounter: {fileID: 0}
   isBoss: 0
   bossPhaseChangeThreshold: 0.5
   isInPhaseTwo: 0
+  maxShield: 50
   attack: {fileID: 6769345499666751070}
   currentState: 0
   counterChance: 0.5
@@ -7240,6 +7232,7 @@ MonoBehaviour:
   focusMoveSpeed: 2
   bombPrefab: {fileID: 0}
   bossP2FocusMoveSpeed: 3
+  bossP2ChaseMoveSpeed: 3.5
   currentState: 0
 --- !u!65 &4319943191827880023
 BoxCollider:
@@ -9572,14 +9565,6 @@ PrefabInstance:
       value: felino_knight
       objectReference: {fileID: 0}
     - target: {fileID: 8078902061731939929, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
-      propertyPath: m_fontAsset
-      value: 
-      objectReference: {fileID: 11400000, guid: b44917b5a183cab4fa6aaac22e707044, type: 2}
-    - target: {fileID: 8078902061731939929, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
-      propertyPath: m_sharedMaterial
-      value: 
-      objectReference: {fileID: -2712193384763632075, guid: b44917b5a183cab4fa6aaac22e707044, type: 2}
-    - target: {fileID: 8078902061731939929, guid: 5152741d840bc0d4aab3e9a7d5fb848c, type: 3}
       propertyPath: m_hasFontAssetChanged
       value: 0
       objectReference: {fileID: 0}
@@ -11718,67 +11703,6 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.02238005, y: 0.16363405, z: -0.00039946102}
     m_Extent: {x: 0.015093774, y: 0.015213639, z: 0.013947244}
   m_DirtyAABB: 0
---- !u!1001 &7618283885388927767
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 5106508433157520826, guid: 7c855ce955f993b4a8b056fec1c945a6, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.22179
-      objectReference: {fileID: 0}
-    - target: {fileID: 5106508433157520826, guid: 7c855ce955f993b4a8b056fec1c945a6, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.32653
-      objectReference: {fileID: 0}
-    - target: {fileID: 5106508433157520826, guid: 7c855ce955f993b4a8b056fec1c945a6, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 5.82
-      objectReference: {fileID: 0}
-    - target: {fileID: 5106508433157520826, guid: 7c855ce955f993b4a8b056fec1c945a6, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5106508433157520826, guid: 7c855ce955f993b4a8b056fec1c945a6, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5106508433157520826, guid: 7c855ce955f993b4a8b056fec1c945a6, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5106508433157520826, guid: 7c855ce955f993b4a8b056fec1c945a6, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5106508433157520826, guid: 7c855ce955f993b4a8b056fec1c945a6, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5106508433157520826, guid: 7c855ce955f993b4a8b056fec1c945a6, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5106508433157520826, guid: 7c855ce955f993b4a8b056fec1c945a6, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8232412741338911169, guid: 7c855ce955f993b4a8b056fec1c945a6, type: 3}
-      propertyPath: m_Name
-      value: Archer Projectile
-      objectReference: {fileID: 0}
-    - target: {fileID: 8232412741338911169, guid: 7c855ce955f993b4a8b056fec1c945a6, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 7c855ce955f993b4a8b056fec1c945a6, type: 3}
 --- !u!4 &7628967722730608921
 Transform:
   m_ObjectHideFlags: 0
@@ -14135,14 +14059,13 @@ SceneRoots:
   - {fileID: 1314124000}
   - {fileID: 4319943191827880016}
   - {fileID: 4590781371349774990}
-  - {fileID: 1902291038}
   - {fileID: 1235444785}
   - {fileID: 1794248466}
+  - {fileID: 1902291038}
   - {fileID: 811340831}
   - {fileID: 1207251032}
   - {fileID: 6089828332369616961}
   - {fileID: 408109345}
-  - {fileID: 7618283885388927767}
   - {fileID: 4028448464336241598}
   - {fileID: 4122076629313870044}
   - {fileID: 404236528838074412}

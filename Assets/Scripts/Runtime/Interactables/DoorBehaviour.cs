@@ -48,14 +48,7 @@ public class DoorBehaviour : MonoBehaviour
             if (player.HasKeycard())
             {
                 // If the player has a keycard, unlock the door
-                isLocked = false;
-                if (lockVisual != null)
-                {
-                    lockVisual.SetActive(false);
-                }
-
-                Debug.Log("Door unlocked!");
-                ToggleDoor(); // Call the Interact method to open the door
+                UnlockDoor();
                 player.keycardsCollected--; // Decrease the player's keycard count
             }
             else
@@ -83,7 +76,7 @@ public class DoorBehaviour : MonoBehaviour
         if (isOpen)
         {
             // Play the door sound
-            if (!InterimAudioDirector.TryPlayInteraction(InterimAudioCue.Interact, transform.position) && doorAudioSource != null)
+            if (!AudioDirector.TryPlayInteraction(AudioCue.Interact, transform.position) && doorAudioSource != null)
             {
                 doorAudioSource.Play();
             }
@@ -94,7 +87,7 @@ public class DoorBehaviour : MonoBehaviour
         else
         {
             // Play the door sound
-            if (!InterimAudioDirector.TryPlayInteraction(InterimAudioCue.Interact, transform.position) && doorAudioSource != null)
+            if (!AudioDirector.TryPlayInteraction(AudioCue.Interact, transform.position) && doorAudioSource != null)
             {
                 doorAudioSource.Play();
             }
@@ -105,13 +98,24 @@ public class DoorBehaviour : MonoBehaviour
         transform.eulerAngles = doorRotation;
     }
 
+    public void UnlockDoor()
+    {
+        isLocked = false;
+        if (lockVisual != null)
+        {
+            lockVisual.SetActive(false);
+        }
+
+        Debug.Log("Door unlocked!");
+        ToggleDoor(); // Call the Interact method to open the door
+    }
+
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player") && !isOpen)
         {
             PlayerBehaviour player = other.GetComponent<PlayerBehaviour>();
             if (player) Interact(player);
-            isOpen = true;
         }
     }
 }

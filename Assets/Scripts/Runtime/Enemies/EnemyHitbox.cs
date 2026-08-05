@@ -6,8 +6,7 @@ public class EnemyHitbox : MonoBehaviour
     [SerializeField] private Collider weaponCollider;
     [SerializeField] private bool colliderOffByDefault = true;
     [SerializeField] private int DamageAmount = 10;
-    [SerializeField] private InterimAudioCue hitCue = InterimAudioCue.BasicAttackHit;
-    private Coroutine activeHitStop = null;
+    [SerializeField] private AudioCue hitCue = AudioCue.BasicAttackHit;
     [SerializeField] private float shortHitStopDuration = 0.05f;
     [SerializeField] private float longHitStopDuration = 0.1f;
 
@@ -28,7 +27,7 @@ public class EnemyHitbox : MonoBehaviour
         weaponCollider.enabled = false;
     }
 
-    public void SetHitCue(InterimAudioCue cue)
+    public void SetHitCue(AudioCue cue)
     {
         hitCue = cue;
     }
@@ -39,10 +38,22 @@ public class EnemyHitbox : MonoBehaviour
         {
             HealthBehaviour playerHealth = other.GetComponentInParent<HealthBehaviour>();
             PlayerBehaviour playerBehaviour = other.GetComponentInParent<PlayerBehaviour>();
+            ThirdPersonController playerController = other.GetComponentInParent<ThirdPersonController>();
+            if (playerController != null)
+            {
+                if (playerController.WasRecentlyDashing(0.1f))
+                {
+                    return;
+                }
+            }
+            if (playerBehaviour != null && playerBehaviour.isDead)
+            {
+                return;
+            }
             if (playerHealth != null)
             {
                 playerHealth.ApplyDamage(playerBehaviour, DamageAmount);
-                InterimAudioDirector.TryPlayMove(hitCue, transform.position);
+                AudioDirector.TryPlayEnemyHit(hitCue, transform.position);
                 HitStopManager.TriggerHitStop(shortHitStopDuration);
             }
             Debug.Log("Hit player for " + DamageAmount + " damage.");

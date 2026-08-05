@@ -43,6 +43,9 @@ public class Attack : MonoBehaviour
     [HideInInspector] public float attackPressTime; // When the button was first pressed
     [HideInInspector] public int chargeLevel = 0; // 0 = none, 1 = level 1, 2 = level 2
 
+    [Header("Ground Slam")]
+    [SerializeField] GameObject shockwavePrefab;
+
     [Header("Hitbox Reference")]
     [HideInInspector] public Hitbox weaponHitbox;
 
@@ -177,14 +180,14 @@ public class Attack : MonoBehaviour
 
             if (holdDuration >= chargeLevel2Threshold && chargeLevel < 2)
             {
-                InterimAudioDirector.TryPlayMove(InterimAudioCue.Charge, transform.position);
+                AudioDirector.TryPlayMove(AudioCue.Charge, transform.position);
                 PlayEffect(chargeEffect);
                 Debug.Log("Charge Level 2!");
                 chargeLevel = 2;
             }
             else if (holdDuration >= chargeThreshold && chargeLevel < 1)
             {
-                InterimAudioDirector.TryPlayMove(InterimAudioCue.Charge, transform.position);
+                AudioDirector.TryPlayMove(AudioCue.Charge, transform.position);
                 PlayEffect(chargeEffect);
                 Debug.Log("Charge Level 1!");
                 chargeLevel = 1;
@@ -297,7 +300,7 @@ public class Attack : MonoBehaviour
 
         if (playerController.IsGrounded && (playerController.isCrouching || playerController.landedFromGroundSlam)) // Crouch Launcher
         {
-            Launcher(launcherForce, true);
+            return; // Let TPC handle this
         }
         else if (windingUpSlam)
         {
@@ -312,6 +315,13 @@ public class Attack : MonoBehaviour
             else if (playerController.enableDoubleJump && playerController.availableJumps > 0)
             {
                 Launcher(lightLauncherForce, false);
+            }
+        }
+        else // Normal Jump
+        {
+            if (animator != null)
+            {
+                animator.SetTrigger("Jump");
             }
         }
     }
@@ -378,13 +388,28 @@ public class Attack : MonoBehaviour
         float force = countsAsDashAttack ? dashForce : defaultForce;
 
         // 2. Visuals
-        InterimAudioDirector.TryPlayMove(isCharging ? InterimAudioCue.ChargedAttack : InterimAudioCue.BasicAttack, transform.position);
+        AudioDirector.TryPlayMove(isCharging ? AudioCue.ChargedAttack : AudioCue.BasicAttack, transform.position);
         PlayEffect((isFinisher || isCharging) ? finisherEffect : attackEffect);
         
         // 3. Hitbox Activation
         // In the final game, this should be called via an Animation Event
         weaponHitbox.ActivateHitbox();
         attackDurationTimer = currentWeapon.hitboxLifetime;
+        if (animator != null)
+        {
+            switch (currentAttackType)
+            {
+                case AttackType.Normal:
+                    animator.SetTrigger("Attack" + (attackStage + 1));
+                    break;
+                case AttackType.Charged:
+                case AttackType.Finisher:
+                    animator.SetTrigger("ChargedOrFinisher");
+                    break;
+                default:
+                    break;
+            }
+        }
 
         // 4. Lunge toward enemy (Magnetism)
         Collider[] hits = Physics.OverlapSphere(AttackOrigin, range, enemyLayer);
@@ -481,6 +506,11 @@ public class Attack : MonoBehaviour
         directionToEnemy = (targetPosition - AttackOrigin).normalized;
         
         playerController.SetAttackForce(directionToEnemy, force, true);
+
+        if (animator != null)
+        {
+            animator.SetFloat("AtkAnimaSpeed", 0f);
+        }
     }
     #endregion
 
@@ -491,10 +521,10 @@ public class Attack : MonoBehaviour
         Launcher(force, true, countsAsDashAttack);
     }
 
-    private void Launcher(float force, bool shouldTriggerCooldown, bool countsAsDashAttack = false)
+    public void Launcher(float force, bool shouldTriggerCooldown, bool countsAsDashAttack = false)
     {
-        InterimAudioDirector.TryPlayMove(
-            isCharging ? InterimAudioCue.ChargedCrouchAttack : InterimAudioCue.LauncherJump,
+        AudioDirector.TryPlayMove(
+            isCharging ? AudioCue.ChargedCrouchAttack : AudioCue.LauncherJump,
             transform.position
         );
         PlayEffect(isCharging ? finisherEffect : attackEffect);
@@ -502,7 +532,10 @@ public class Attack : MonoBehaviour
         currentAttackType = AttackType.Launcher;
         weaponHitbox.ActivateHitbox();
         attackDurationTimer = currentWeapon.hitboxLifetime;
-        // ... animation/effect logic ...
+        if (animator != null)
+        {
+            animator.SetTrigger("Launcher");
+        }
 
         float range = countsAsDashAttack ? dashRange : defaultRange;
         Collider[] hits = Physics.OverlapSphere(AttackOrigin, range, enemyLayer);
@@ -554,9 +587,24 @@ public class Attack : MonoBehaviour
         countsAsDashSlam = playerController.WasRecentlyDashing(0.1f);
         windUpTimer = windUpDuration;
 
+        Collider[] hits = Physics.OverlapSphere(AttackOrigin, defaultRange, enemyLayer);
+        if (hits.Length > 0)
+        {
+            GameObject target = GetBestTarget(hits);
+            if (target != null)
+            {
+                playerController.LockOnTarget(target);
+            }
+        }
+
         if (playerController.moveInput.magnitude == 0 && !countsAsDashSlam)
         {
             playerController.SetSlideVelocity(Vector3.zero); // Kill slide speed if not holding a direction for more control during slam
+        }
+
+        if (animator != null)
+        {
+            animator.SetTrigger("Wind-Up");
         }
     }
 
@@ -566,7 +614,7 @@ public class Attack : MonoBehaviour
         playerController.freezeRotation = true;
         playerController.pauseFastFall = false;
         rb.AddForce(Vector3.down * 10f, ForceMode.Impulse);
-        InterimAudioDirector.TryPlayMove(InterimAudioCue.GroundSlamJump, transform.position);
+        AudioDirector.TryPlayMove(AudioCue.GroundSlamJump, transform.position);
         PlayEffect(attackEffect);
         if (countsAsDashSlam)
         {
@@ -580,7 +628,6 @@ public class Attack : MonoBehaviour
         }
         
         weaponHitbox.ActivateHitbox();
-        // ... animation/effect logic ...
 
         // Start checking for landing to apply slide momentum
         groundSlamLandingCoroutine = StartCoroutine(CheckGroundSlamLanding());
@@ -618,23 +665,30 @@ public class Attack : MonoBehaviour
             playerController.SetSlideVelocity(transform.forward * Mathf.Max(playerController.slideVelocity.magnitude, bounceForce)); // Maintain momentum from dash slam after landing
         }
 
-        InterimAudioDirector.TryPlayMove(InterimAudioCue.GroundSlamHit, transform.position);
+        AudioDirector.TryPlayMove(AudioCue.GroundSlamHit, transform.position);
         StopHitbox();
         isInCooldown = true;
         cooldownTimer = shortCooldownTime;
         playerController.landedFromGroundSlam = true;
         playerController.slamJumpTimer = playerController.slamJumpTime;
+        if (shockwavePrefab != null)
+        {
+            Instantiate(shockwavePrefab, transform.position, transform.rotation);
+        }
     }
 
     private void Spike()
     {
         windingUpSlam = false;
-        InterimAudioDirector.TryPlayMove(InterimAudioCue.SpikeSecondJump, transform.position);
+        AudioDirector.TryPlayMove(AudioCue.SpikeSecondJump, transform.position);
         PlayEffect(isCharging ? finisherEffect : attackEffect);
         currentAttackType = AttackType.Spike;
         weaponHitbox.ActivateHitbox();
         attackDurationTimer = currentWeapon.hitboxLifetime;
-        // ... animation/effect logic ...
+        if (animator != null)
+        {
+            animator.SetTrigger("Spike");
+        }
         
         float range = countsAsDashSlam ? dashRange : defaultRange;
         Collider[] hits = Physics.OverlapSphere(AttackOrigin, range, enemyLayer);
@@ -667,12 +721,15 @@ public class Attack : MonoBehaviour
     private void BoundSpike()
     {
         windingUpSlam = false;
-        InterimAudioDirector.TryPlayMove(InterimAudioCue.ChargedAttack, transform.position);
+        AudioDirector.TryPlayMove(AudioCue.ChargedAttack, transform.position);
         PlayEffect(attackEffect);
         currentAttackType = AttackType.BoundSpike;
         weaponHitbox.ActivateHitbox();
         attackDurationTimer = currentWeapon.hitboxLifetime;
-        // ... animation/effect logic ...
+        if (animator != null)
+        {
+            animator.SetTrigger("Spike");
+        }
         
         float range = countsAsDashSlam ? dashRange : defaultRange;
         Collider[] hits = Physics.OverlapSphere(AttackOrigin, range, enemyLayer);
@@ -705,7 +762,7 @@ public class Attack : MonoBehaviour
     private void AerialPush()
     {
         windingUpSlam = false;
-        InterimAudioDirector.TryPlayMove(InterimAudioCue.AerialPush, transform.position);
+        AudioDirector.TryPlayMove(AudioCue.AerialPush, transform.position);
         PlayEffect(attackEffect);
         weaponHitbox.ActivateHitbox();
         attackDurationTimer = aerialPushDuration;
@@ -725,6 +782,11 @@ public class Attack : MonoBehaviour
         {
             currentAttackType = AttackType.WeakPush;
             ResetCombo();
+        }
+        
+        if (animator != null)
+        {
+            animator.SetTrigger("AerialPush");
         }
     }
 

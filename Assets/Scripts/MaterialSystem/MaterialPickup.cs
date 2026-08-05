@@ -1,3 +1,4 @@
+using Game.Audio;
 using UnityEngine;
 
 public class MaterialPickup : MonoBehaviour
@@ -34,6 +35,7 @@ public class MaterialPickup : MonoBehaviour
         collected = true;
 
         materialInventory.AddMaterial(materialType, pickupAmount);
+        AudioDirector.TryPlayGenericPickup(transform.position);
 
         Destroy(gameObject);
     }

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Game.Audio;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -64,6 +65,7 @@ public class TankAI : MonoBehaviour
     private void Start()
     {
         spawnPosition = transform.position;
+        if (player != null) AudioDirector.ReportCombatState(this, true);
         StartCoroutine(StateMachine());
     }
 
@@ -168,6 +170,7 @@ public class TankAI : MonoBehaviour
         {
             if (player == null)
             {
+                AudioDirector.ReportCombatState(this, false);
                 currentState = TankState.Idle;
                 yield break;
             }
@@ -177,6 +180,7 @@ public class TankAI : MonoBehaviour
             if (distanceToPlayer > losePlayerRange)
             {
                 player = null;
+                AudioDirector.ReportCombatState(this, false);
                 currentState = TankState.Idle;
                 yield break;
             }
@@ -245,6 +249,7 @@ public class TankAI : MonoBehaviour
             if (hit.CompareTag(playerTag))
             {
                 player = hit.transform;
+                AudioDirector.ReportCombatState(this, true);
                 return;
             }
 
@@ -253,6 +258,7 @@ public class TankAI : MonoBehaviour
             if (root.CompareTag(playerTag))
             {
                 player = root;
+                AudioDirector.ReportCombatState(this, true);
                 return;
             }
         }
@@ -361,6 +367,11 @@ public class TankAI : MonoBehaviour
     private bool AgentReady()
     {
         return agent != null && agent.enabled && agent.isOnNavMesh;
+    }
+
+    private void OnDisable()
+    {
+        AudioDirector.ReportCombatState(this, false);
     }
 
     private void OnDrawGizmosSelected()

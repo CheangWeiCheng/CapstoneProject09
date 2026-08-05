@@ -84,6 +84,7 @@ public class KingAI : MonoBehaviour
     {
         spawnPosition = transform.position;
         currentHealth = maxHealth;
+        if (player != null) AudioDirector.ReportCombatState(this, true);
 
         if (agent != null)
         {
@@ -198,6 +199,7 @@ public class KingAI : MonoBehaviour
         {
             if (player == null)
             {
+                AudioDirector.ReportCombatState(this, false);
                 currentState = KingState.Idle;
                 yield break;
             }
@@ -207,6 +209,7 @@ public class KingAI : MonoBehaviour
             if (distanceToPlayer > losePlayerRange)
             {
                 player = null;
+                AudioDirector.ReportCombatState(this, false);
                 currentState = KingState.Idle;
                 yield break;
             }
@@ -244,7 +247,7 @@ public class KingAI : MonoBehaviour
         StopMoving();
         FacePlayer();
 
-        InterimAudioDirector.TryPlayMove(InterimAudioCue.ChargedAttack, transform.position);
+        AudioDirector.TryPlayEnemyAttack(AudioCue.ChargedAttack, transform.position);
         yield return new WaitForSeconds(meleeWindupTime);
 
         float activeTimer = 0f;
@@ -270,6 +273,7 @@ public class KingAI : MonoBehaviour
         {
             if (player == null)
             {
+                AudioDirector.ReportCombatState(this, false);
                 currentState = KingState.Idle;
                 yield break;
             }
@@ -318,6 +322,7 @@ public class KingAI : MonoBehaviour
             if (hit.CompareTag(playerTag))
             {
                 player = hit.transform;
+                AudioDirector.ReportCombatState(this, true);
                 return;
             }
 
@@ -326,6 +331,7 @@ public class KingAI : MonoBehaviour
             if (root.CompareTag(playerTag))
             {
                 player = root;
+                AudioDirector.ReportCombatState(this, true);
                 return;
             }
         }
@@ -382,7 +388,7 @@ public class KingAI : MonoBehaviour
             }
 
             damagedTargets.Add(targetRoot);
-            InterimAudioDirector.TryPlayMove(InterimAudioCue.ChargedAttackHit, hit.transform.position);
+            AudioDirector.TryPlayEnemyHit(AudioCue.ChargedAttackHit, hit.transform.position);
 
             hit.SendMessageUpwards(
                 "TakeDamage",
@@ -441,6 +447,11 @@ public class KingAI : MonoBehaviour
     private bool AgentReady()
     {
         return agent != null && agent.enabled && agent.isOnNavMesh;
+    }
+
+    private void OnDisable()
+    {
+        AudioDirector.ReportCombatState(this, false);
     }
 
     public void TakeDamage(int amount)

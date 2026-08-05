@@ -84,6 +84,7 @@ public class Hitbox : MonoBehaviour
                 switch (attack.currentAttackType)
                 {
                     case Attack.AttackType.Finisher:
+                        enemy.currentState = EnemyBehaviour.EnemyState.Knockback;
                         enemy.TakeDamage(weaponData.finisherDamage, weaponData.finisherPayback, true);
                         enemy.Knockback(knockbackDir, attack.defaultForce + playerController.targetVelocity.magnitude * 0.8f, true);
                         
@@ -93,6 +94,7 @@ public class Hitbox : MonoBehaviour
                         break;
                         
                     case Attack.AttackType.Charged:
+                        enemy.currentState = EnemyBehaviour.EnemyState.Knockback;
                         // Use charge level for damage
                         int damage;
                         int payback;
@@ -121,7 +123,7 @@ public class Hitbox : MonoBehaviour
                         
                         // Pass the direction (normalized) and force (magnitude) separately
                         enemy.Knockback(totalKnockback.normalized, totalKnockback.magnitude, false);
-                        
+
                         ResetDashes();
                         playerController.pauseFastFall = false;
                         hitStopDuration = longHitStopDuration; // Longer hitstop for charged attack
@@ -131,6 +133,7 @@ public class Hitbox : MonoBehaviour
                     case Attack.AttackType.Launcher:
                         if (attack.isCharging)
                         {
+                            enemy.currentState = EnemyBehaviour.EnemyState.Spiked;
                             // Use charge level for damage
                             int varDamage;
                             int varPayback;
@@ -147,9 +150,11 @@ public class Hitbox : MonoBehaviour
                             
                             enemy.TakeDamage(varDamage, varPayback);
                             hitStopDuration = longHitStopDuration; // Longer hitstop for charged launcher
+                            enemy.launchTimer = enemy.launchDelay;
                         }
                         else
                         {
+                            enemy.currentState = EnemyBehaviour.EnemyState.Knockback;
                             enemy.TakeDamage(weaponData.normalDamage, weaponData.normalPayback);
                         }
                         
@@ -169,11 +174,13 @@ public class Hitbox : MonoBehaviour
                         break;
                         
                     case Attack.AttackType.GroundSlam:
+                        enemy.currentState = EnemyBehaviour.EnemyState.Knockback;
                         enemy.TakeDamage(weaponData.normalDamage, weaponData.normalPayback);
                         enemy.Knockback(Vector3.down, 10f, false);
                         break;
                         
                     case Attack.AttackType.DashSlam:
+                        enemy.currentState = EnemyBehaviour.EnemyState.Knockback;
                         enemy.TakeDamage(weaponData.normalDamage, weaponData.normalPayback);
                         Vector3 dsHorizontalKnockback = knockbackDir * (attack.bounceForce + Mathf.Max(0, playerController.targetVelocity.magnitude - playerController.moveSpeed) * 0.8f);
                         Vector3 dsVerticalKnockback = Vector3.down * 10f;
@@ -188,10 +195,12 @@ public class Hitbox : MonoBehaviour
                         
                         if (enemy.IsGrounded)
                         {
+                            enemy.currentState = EnemyBehaviour.EnemyState.Knockback;
                             enemy.Knockback(spikeHorizontalKnockback.normalized, spikeHorizontalKnockback.magnitude, false);
                         }
                         else
                         {
+                            enemy.currentState = EnemyBehaviour.EnemyState.Spiked;
                             Vector3 spikeVerticalKnockback = Vector3.down * 10f;
                             Vector3 spikeTotalKnockback = spikeHorizontalKnockback + spikeVerticalKnockback;
                             enemy.Knockback(spikeTotalKnockback.normalized, spikeTotalKnockback.magnitude, false);
@@ -204,10 +213,6 @@ public class Hitbox : MonoBehaviour
                             hasBounced = true; // Ensure we only bounce once per spike attack
                         }
 
-                        if (!enemy.IsGrounded)
-                        {
-                            enemy.currentState = EnemyBehaviour.EnemyState.Spiked;
-                        }
                         ResetDashes();
                         ResetJumps();
                         playerController.StopAttacking();
@@ -233,16 +238,17 @@ public class Hitbox : MonoBehaviour
                         Vector3 bsHorizontalKnockback = knockbackDir * (1 + playerController.targetVelocity.magnitude * 0.8f);
                         if (enemy.IsGrounded)
                         {
+                            enemy.currentState = EnemyBehaviour.EnemyState.Knockback;
                             Vector3 bsVerticalKnockback = Vector3.up * (attack.launcherForce - 1);
                             Vector3 bsTotalKnockback = bsHorizontalKnockback + bsVerticalKnockback;
                             enemy.Knockback(bsTotalKnockback.normalized, bsTotalKnockback.magnitude, false);
                         }
                         else
                         {
+                            enemy.currentState = EnemyBehaviour.EnemyState.Rebound; // Set state to Rebound to trigger launcher effect on landing
                             Vector3 bsVerticalKnockback = Vector3.down * 10f;
                             Vector3 bsTotalKnockback = bsHorizontalKnockback + bsVerticalKnockback;
                             enemy.Knockback(bsTotalKnockback.normalized, bsTotalKnockback.magnitude, false);
-                            enemy.currentState = EnemyBehaviour.EnemyState.Rebound; // Set state to Rebound to trigger launcher effect on landing
                         }
 
                         if (!hasBounced)
@@ -261,6 +267,7 @@ public class Hitbox : MonoBehaviour
                         break;
 
                     case Attack.AttackType.AerialPush:
+                        enemy.currentState = EnemyBehaviour.EnemyState.Knockback;
                         enemy.TakeDamage(weaponData.normalDamage, weaponData.normalPayback);
                         
                         Vector3 apHorizontalPushback = knockbackDir * (attack.bounceForce + Mathf.Max(0, playerController.targetVelocity.magnitude - playerController.moveSpeed) * 0.8f);
@@ -273,6 +280,16 @@ public class Hitbox : MonoBehaviour
                         break;
 
                     case Attack.AttackType.WeakPush:
+                        if (enemy.currentState != EnemyBehaviour.EnemyState.Knockback &&
+                            enemy.currentState != EnemyBehaviour.EnemyState.Spiked &&
+                            enemy.currentState != EnemyBehaviour.EnemyState.Rebound && enemy.IsGrounded)
+                        {
+                            enemy.currentState = EnemyBehaviour.EnemyState.Hitstun;
+                        }
+                        else
+                        {
+                            enemy.currentState = EnemyBehaviour.EnemyState.Knockback;
+                        }
                         enemy.TakeDamage(weaponData.normalDamage, weaponData.normalPayback, true);
                         float wpKnockback = Mathf.Max(1f, playerController.targetVelocity.magnitude * 0.8f);
                         enemy.Knockback(knockbackDir, wpKnockback, true);
@@ -283,6 +300,16 @@ public class Hitbox : MonoBehaviour
 
                     case Attack.AttackType.Normal:
                     default:
+                        if (enemy.currentState != EnemyBehaviour.EnemyState.Knockback &&
+                            enemy.currentState != EnemyBehaviour.EnemyState.Spiked &&
+                            enemy.currentState != EnemyBehaviour.EnemyState.Rebound && enemy.IsGrounded)
+                        {
+                            enemy.currentState = EnemyBehaviour.EnemyState.Hitstun;
+                        }
+                        else
+                        {
+                            enemy.currentState = EnemyBehaviour.EnemyState.Knockback;
+                        }
                         enemy.TakeDamage(weaponData.normalDamage, weaponData.normalPayback, true);
                         float knockbackForce = Mathf.Max(1f, playerController.targetVelocity.magnitude * 0.8f);
                         enemy.Knockback(knockbackDir, knockbackForce, true);
@@ -291,7 +318,7 @@ public class Hitbox : MonoBehaviour
 
                         break;
                 }
-                InterimAudioDirector.TryPlayMove(GetHitCue(), other.transform.position);
+                AudioDirector.TryPlayMove(GetHitCue(), other.transform.position);
 
                 // Apply hitstop
                 HitStopManager.TriggerHitStop(hitStopDuration);
@@ -304,22 +331,22 @@ public class Hitbox : MonoBehaviour
         OnTriggerEnter(other); // For if the attack is triggered before the weapon has fully left the enemy's hitbox, ensuring they still get hit
     }
 
-    private InterimAudioCue GetHitCue()
+    private AudioCue GetHitCue()
     {
         switch (attack.currentAttackType)
         {
             case Attack.AttackType.Charged:
             case Attack.AttackType.Finisher:
             case Attack.AttackType.BoundSpike:
-                return InterimAudioCue.ChargedAttackHit;
+                return AudioCue.ChargedAttackHit;
             case Attack.AttackType.Launcher:
-                return InterimAudioCue.LauncherHit;
+                return AudioCue.LauncherHit;
             case Attack.AttackType.GroundSlam:
             case Attack.AttackType.DashSlam:
             case Attack.AttackType.Spike:
-                return InterimAudioCue.GroundSlamHit;
+                return AudioCue.GroundSlamHit;
             default:
-                return InterimAudioCue.BasicAttackHit;
+                return AudioCue.BasicAttackHit;
         }
     }
 }

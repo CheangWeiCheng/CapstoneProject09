@@ -8,6 +8,7 @@ public class ArcherAI : MonoBehaviour, IEnemyAI
     private NavMeshAgent agent;
     Rigidbody rb;
     EnemyBehaviour enemyBehaviour;
+    Animator animator;
 
     [Header("Target")]
     [SerializeField] private Transform player;
@@ -29,8 +30,6 @@ public class ArcherAI : MonoBehaviour, IEnemyAI
     [SerializeField] private float attackRange = 10f;
     [SerializeField] private float minimumDistance = 4f;
     [SerializeField] private float attackCooldown = 1.5f;
-    [SerializeField] private float attackWindupTime = 0.35f;
-    [SerializeField] private float attackRecoveryTime = 0.4f;
 
     [Header("Retreat")]
     [SerializeField] private float retreatDuration = 0.8f;
@@ -60,12 +59,28 @@ public class ArcherAI : MonoBehaviour, IEnemyAI
         agent = GetComponent<NavMeshAgent>();
         rb = GetComponent<Rigidbody>();
         enemyBehaviour = GetComponent<EnemyBehaviour>();
+        animator = GetComponent<Animator>();
     }
 
     private void Start()
     {
         spawnPosition = transform.position;
         StartCoroutine(StateMachine());
+    }
+
+    void Update()
+    {
+        if (animator != null)
+        {
+            bool isMoving = currentState == ArcherState.Patrol || 
+                            currentState == ArcherState.MoveToRange;
+
+            animator.SetBool("IsMoving", isMoving);
+            animator.SetBool("IsRetreating", currentState == ArcherState.Retreat);
+            animator.SetFloat("Speed", agent.velocity.magnitude);
+            animator.SetBool("IsKnockback", currentState == ArcherState.Knockback);
+            animator.SetBool("IsGrounded", enemyBehaviour != null ? enemyBehaviour.IsGrounded : true);
+        }
     }
 
     private IEnumerator StateMachine()
@@ -217,28 +232,11 @@ public class ArcherAI : MonoBehaviour, IEnemyAI
         StopMoving();
         FacePlayer();
 
-        InterimAudioDirector.TryPlayMove(InterimAudioCue.BasicAttack, transform.position);
-        yield return new WaitForSeconds(attackWindupTime);
+        animator.SetTrigger("Attack");
 
-        ShootProjectile();
-
-        yield return new WaitForSeconds(attackRecoveryTime);
-
-        if (player == null)
+        while (currentState == ArcherState.RangedAttack)
         {
-            currentState = ArcherState.Idle;
-            yield break;
-        }
-
-        float distanceToPlayer = Vector3.Distance(transform.position, player.position);
-
-        if (distanceToPlayer < minimumDistance)
-        {
-            currentState = ArcherState.Retreat;
-        }
-        else
-        {
-            currentState = ArcherState.MoveToRange;
+            yield return null;
         }
     }
 
@@ -328,7 +326,7 @@ public class ArcherAI : MonoBehaviour, IEnemyAI
             Quaternion.LookRotation(direction)
         );
 
-        InterimAudioDirector.TryPlayMove(InterimAudioCue.AerialPush, spawnPosition);
+        AudioDirector.TryPlayArcherShot(spawnPosition);
 
         ArcherProjectile projectile = projectileObject.GetComponent<ArcherProjectile>();
 
@@ -397,25 +395,36 @@ public class ArcherAI : MonoBehaviour, IEnemyAI
 
     IEnumerator Knockback()
     {
+        float groundedTimer = 0f;
+
         // Wait for linear velocity to be 0 and enemy to be grounded before switching back to idle
         while (currentState == ArcherState.Knockback)
         {
             // Wait a brief moment to allow physics to apply knockback force
-            yield return new WaitForSeconds(0.1f);
-            if (rb.linearVelocity.magnitude < 0.1f && enemyBehaviour.IsGrounded && enemyBehaviour.health > 0)
+            if (enemyBehaviour.IsGrounded && enemyBehaviour.health > 0)
             {
-                // Re-enable NavMesh agent and rigidbody
-                agent.enabled = true;
-                rb.isKinematic = true;
-                if (player != null)
+                groundedTimer += Time.deltaTime;
+                
+                if (groundedTimer >= 0.1f && rb.linearVelocity.magnitude < 0.1f)
                 {
-                    currentState = ArcherState.MoveToRange;
+                    // Re-enable NavMesh agent and rigidbody
+                    agent.enabled = true;
+                    rb.isKinematic = true;
+                    enemyBehaviour.currentState = EnemyBehaviour.EnemyState.Normal; // Reset enemy state to normal
+                    if (player != null)
+                    {
+                        currentState = ArcherState.MoveToRange;
+                    }
+                    else
+                    {
+                        currentState = ArcherState.Idle;
+                    }
+                    yield break;
                 }
-                else
-                {
-                    currentState = ArcherState.Idle;
-                }
-                yield break;
+            }
+            else
+            {
+                groundedTimer = 0f;
             }
 
             yield return null;
@@ -460,5 +469,32 @@ public class ArcherAI : MonoBehaviour, IEnemyAI
 
         Gizmos.color = Color.blue;
         Gizmos.DrawWireSphere(Application.isPlaying ? spawnPosition : transform.position, patrolRange);
+    }
+    
+    // Called by animation event
+    public void OnAttackWindupEnd()
+    {
+        ShootProjectile();
+    }
+
+    // Called by animation event
+    public void OnAttackComplete()
+    {
+        if (player == null)
+        {
+            currentState = ArcherState.Idle;
+            return;
+        }
+
+        float distanceToPlayer = Vector3.Distance(transform.position, player.position);
+
+        if (distanceToPlayer < minimumDistance)
+        {
+            currentState = ArcherState.Retreat;
+        }
+        else
+        {
+            currentState = ArcherState.MoveToRange;
+        }
     }
 }

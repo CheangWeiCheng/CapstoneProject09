@@ -1,0 +1,112 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4928140829174411140
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4928140829174411142}
+  - component: {fileID: 4928140829174411141}
+  m_Layer: 0
+  m_Name: Audio Director
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4928140829174411142
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4928140829174411140}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4928140829174411141
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4928140829174411140}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7a3c0000d444342bc88a288157109ab, type: 3}
+  m_Name:
+  m_EditorClassIdentifier:
+  audioEnabled: 1
+  keepAliveAcrossScenes: 1
+  autoPlayBgm: 1
+  masterVolume: 1
+  movementVolume: 0.55
+  sfxVolume: 0.9
+  uiVolume: 0.75
+  bgmVolume: 0.55
+  sfxSettingsVolume: 1
+  bgmSettingsVolume: 0.6
+  playWorldSoundsAtPosition: 1
+  duplicateCueWindow: 0.03
+  startupSfxDelaySeconds: 0.5
+  movementSource: {fileID: 0}
+  sfxSource: {fileID: 0}
+  uiSource: {fileID: 0}
+  explorationBgmSource: {fileID: 0}
+  actionBgmSource: {fileID: 0}
+  deathSource: {fileID: 0}
+  walkLoop: {fileID: 8300000, guid: 9598bef7850be84d9caa89c6eca5a010, type: 3}
+  walkVariations:
+  - {fileID: 8300000, guid: 9598bef7850be84d9caa89c6eca5a010, type: 3}
+  - {fileID: 8300000, guid: 24632951edebc2f74f1574dd60313838, type: 3}
+  crouchWalkLoop: {fileID: 8300000, guid: ea3f737e23af63f45b41510150a7407a, type: 3}
+  runLoop: {fileID: 8300000, guid: 1b20d033561e2cbee871c7da8cf6e521, type: 3}
+  runVariations:
+  - {fileID: 8300000, guid: 1b20d033561e2cbee871c7da8cf6e521, type: 3}
+  - {fileID: 8300000, guid: abb37a84fbe6dff3021ff964d2efb939, type: 3}
+  - {fileID: 8300000, guid: b3532aff21af58b10ae7e79a9ff64cee, type: 3}
+  slideLoop: {fileID: 8300000, guid: 387b7c29e882d7b468349ff7f88a029e, type: 3}
+  jumpClip: {fileID: 8300000, guid: f5c94197d675d073b407f879db0ac35e, type: 3}
+  doubleJumpClip: {fileID: 8300000, guid: 624100cbb9cd0084f85813fd6a9f74a9, type: 3}
+  dashClip: {fileID: 8300000, guid: 6dd33b5967dbeb64595e13e665f3dabb, type: 3}
+  playerCrouchClip: {fileID: 8300000, guid: ea3f737e23af63f45b41510150a7407a, type: 3}
+  landClip: {fileID: 8300000, guid: a86404015fd8f43438350ebd981a82c1, type: 3}
+  heavyLandClip: {fileID: 8300000, guid: b2d0f1ed7353f7047a151554a035a000, type: 3}
+  basicAttackClip: {fileID: 8300000, guid: 71073509b2bed33469c449616aa8f596, type: 3}
+  basicAttackHitClip: {fileID: 8300000, guid: 4de46a60c3bfaee47acc194cf9667220, type: 3}
+  chargeClip: {fileID: 8300000, guid: d2fe03dbdd303d74c8ef9145ca1a86f6, type: 3}
+  chargedAttackClip: {fileID: 8300000, guid: 6186e96860f332f4582fa07df2dd158b, type: 3}
+  chargedAttackHitClip: {fileID: 8300000, guid: fd6cb6ed234b34c40bc3d1739811b7f4, type: 3}
+  chargedCrouchAttackClip: {fileID: 8300000, guid: 6186e96860f332f4582fa07df2dd158b, type: 3}
+  launcherJumpClip: {fileID: 8300000, guid: 57dfcf08c62d5c745a49bfa6198f4e02, type: 3}
+  launcherHitClip: {fileID: 8300000, guid: b4494cbbf8c73914ba79b7babbfdee5d, type: 3}
+  groundSlamJumpClip: {fileID: 8300000, guid: 57dfcf08c62d5c745a49bfa6198f4e02, type: 3}
+  groundSlamHitClip: {fileID: 8300000, guid: b4494cbbf8c73914ba79b7babbfdee5d, type: 3}
+  spikeSecondJumpClip: {fileID: 8300000, guid: 624100cbb9cd0084f85813fd6a9f74a9, type: 3}
+  jumpBackClip: {fileID: 8300000, guid: 54e71907010fb6d41ba9c9be01ae9c4d, type: 3}
+  aerialPushClip: {fileID: 8300000, guid: 265c05d72e44be941a424ab01fbd5f87, type: 3}
+  archerShotClip: {fileID: 8300000, guid: 27a24295357f73c4f8bbafce1386c2f7, type: 3}
+  archerHitClip: {fileID: 8300000, guid: 558ef5c182614c84b816306a084b2e05, type: 3}
+  enemyAttackPitchVariationRange: {x: 0.96, y: 1.04}
+  enemyHitPitchVariationRange: {x: 0.94, y: 1.06}
+  goldPickupClip: {fileID: 8300000, guid: a7464666e77266e4da58d27b32df1f8b, type: 3}
+  goldPurchaseClip: {fileID: 8300000, guid: a7464666e77266e4da58d27b32df1f8b, type: 3}
+  collectionClip: {fileID: 8300000, guid: b1381cb18abaee440b6c74b24861a56f, type: 3}
+  genericPickupClip: {fileID: 8300000, guid: d0055b65979fa6247bde6644957a117e, type: 3}
+  interactClip: {fileID: 8300000, guid: 7aa3e2dde62f1c047845b0a084980aa0, type: 3}
+  interactDeniedClip: {fileID: 8300000, guid: ea88a90e083d54e40b01add25f8178ef, type: 3}
+  deathClip: {fileID: 8300000, guid: 27bb3abf59f9dd345abf8d037b34bd19, type: 3}
+  uiHoverClip: {fileID: 8300000, guid: 7aa3e2dde62f1c047845b0a084980aa0, type: 3}
+  uiClickClip: {fileID: 8300000, guid: ea88a90e083d54e40b01add25f8178ef, type: 3}
+  explorationBgmClip: {fileID: 8300000, guid: 145c0f85e2f246142abbbf8ae362d33e, type: 3}
+  actionBgmClip: {fileID: 8300000, guid: 298d83c4b5163a246a48e10d2f17f0ce, type: 3}
+  bgmCrossfadeSeconds: 1
+  bgmScheduleLeadSeconds: 0.1

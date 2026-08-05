@@ -44,7 +44,7 @@ public class HealthBehaviour : MonoBehaviour
         {
             player.ModifyHealth(-DamageAmount);
             lastDamageTime = Time.time; // Update the last damage time
-            if (!InterimAudioDirector.TryPlayMove(InterimAudioCue.BasicAttackHit, transform.position) && audioSource != null)
+            if (!AudioDirector.TryPlayMove(AudioCue.BasicAttackHit, transform.position) && audioSource != null)
             {
                 audioSource.Play(); // Play the lava damage sound
             }

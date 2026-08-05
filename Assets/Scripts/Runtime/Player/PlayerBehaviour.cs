@@ -10,10 +10,12 @@
 * The script also includes audio feedback for firing projectiles and interacting with objects.
 */
 
+using Game.Audio;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
+using System.Collections;
 
 public class PlayerBehaviour : MonoBehaviour
 {
@@ -47,7 +49,15 @@ public class PlayerBehaviour : MonoBehaviour
 
     [SerializeField] TMP_Text congratulatoryText;
 
+    [SerializeField] float fadeToBlackTime = 1f;
+    [SerializeField] Image blackImage;
+    [SerializeField] float timeTillDeath = 2f;
+    [HideInInspector] public bool isDead;
+
     private Vector3 spawnPoint;
+
+    Animator animator;
+    Rigidbody rb;
 
     /// <summary>
     /// Initializes the player by setting up the UI texts and hiding the keycard image.
@@ -62,6 +72,8 @@ public class PlayerBehaviour : MonoBehaviour
         // fireAudioSource = GetComponent<AudioSource>();
         // congratulatoryText.gameObject.SetActive(false);
         spawnPoint = transform.position;
+        animator = GetComponent<Animator>();
+        rb = GetComponent<Rigidbody>();
     }
 
     /// <summary>
@@ -151,11 +163,71 @@ public class PlayerBehaviour : MonoBehaviour
             if (currentHealth <= 0)
             {
                 Debug.Log("You died.");
-                currentHealth = maxHealth;
-                healthUI.value = currentHealth;
-                transform.position = spawnPoint;
+                currentHealth = 0;
+                animator.SetBool("IsDead", true);
+                AudioDirector.BeginDeathSequence(fadeToBlackTime);
+                StartCoroutine(FadeInAndOutOfBlack(Color.black));
             }
         }
+    }
+
+    void Respawn()
+    {
+        animator.SetBool("IsDead", false);
+        currentHealth = maxHealth;
+        healthUI.value = currentHealth;
+        transform.position = spawnPoint;
+    }
+
+    private void SetPlayerEnabled(bool enabled)
+    {
+        GetComponent<PlayerInput>().enabled = enabled;
+        GetComponent<ThirdPersonController>().enabled = enabled;
+        GetComponent<Attack>().enabled = enabled;
+        // Add any other scripts that should be disabled
+    }
+
+    public IEnumerator FadeInAndOutOfBlack(Color color)
+    {
+        isDead = true;
+        GetComponent<ThirdPersonController>().SetSlideVelocity(Vector3.zero);
+        rb.linearVelocity = Vector3.zero;
+        // Disable player input
+        SetPlayerEnabled(false);
+
+        // Fade to black
+        yield return new WaitForSeconds(timeTillDeath);
+        blackImage.enabled = true;
+        color.a = 0f;
+        
+        while (color.a < 1f)
+        {
+            color.a += Time.deltaTime / fadeToBlackTime;
+            blackImage.color = color;
+            yield return null;
+        }
+        color.a = 1f;
+        blackImage.color = color;
+        // Make Rigidbody kinematic right when the screen goes black to prevent being pushed when respawning
+        rb.isKinematic = true;
+        Respawn();
+        yield return new WaitForSeconds(fadeToBlackTime);
+        AudioDirector.EndDeathSequence(fadeToBlackTime);
+
+        // Fade out of black        
+        while (color.a > 0f)
+        {
+            color.a -= Time.deltaTime / fadeToBlackTime;
+            blackImage.color = color;
+            yield return null;
+        }
+        color.a = 0f;
+        blackImage.color = color;
+        // Make Rigidbody not kinematic
+        rb.isKinematic = false;
+        // Reenable player input
+        SetPlayerEnabled(true);
+        isDead = false;
     }
 
     void OnTriggerEnter(Collider other)
@@ -166,12 +238,6 @@ public class PlayerBehaviour : MonoBehaviour
             currentKeycard.Collect(this);
             keycardsCollected++;
             currentKeycard = null; // Reset current keycard after interaction
-        }
-
-        if (other.CompareTag("Finish"))
-        {
-            Destroy(other.gameObject);
-            congratulatoryText.text = "Congrats! You win!!1!!one!!!";
         }
     }
 }
