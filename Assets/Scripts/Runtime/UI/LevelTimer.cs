@@ -3,212 +3,305 @@ using UnityEngine;
 
 public class LevelTimer : MonoBehaviour
 {
+    [Header("Timer Display")]
+    [SerializeField]
+    private TMP_Text timerText;
+
     [Header("Player")]
-    [SerializeField] private Transform playerTransform;
-    [SerializeField] private float movementThreshold = 0.1f;
+    [SerializeField]
+    private Transform playerTransform;
 
-    [Header("Level 1 Completion Goals")]
-    [SerializeField] private GoalBehaviour goal1;
-    [SerializeField] private GoalBehaviour goal2;
-    [SerializeField] private GoalBehaviour goal3;
+    [SerializeField]
+    private float movementStartDistance = 0.1f;
 
-    [Header("Timer UI")]
-    [SerializeField] private TMP_Text timerText;
+    [Header("Pause Timer While These Are Open")]
+    [SerializeField]
+    private GameObject[] pauseTimerWhileActive;
+
+    [Header("Firebase")]
+    [SerializeField]
+    private FirebaseGameCompletionService
+        firebaseGameCompletionService;
 
     private Vector3 startingPlayerPosition;
 
-    private bool playerPositionRecorded;
-    private bool timerStarted;
-    private bool timerStopped;
-
     private float elapsedTime;
 
-    public bool TimerStarted
-    {
-        get { return timerStarted; }
-    }
-
-    public bool TimerStopped
-    {
-        get { return timerStopped; }
-    }
+    private bool timerStarted;
+    private bool timerCompleted;
+    private bool startingPositionRecorded;
 
     public float ElapsedTime
     {
-        get { return elapsedTime; }
+        get
+        {
+            return elapsedTime;
+        }
     }
 
-    public int FinalTimeMilliseconds
+    public int ElapsedMilliseconds
     {
         get
         {
-            return Mathf.RoundToInt(
+            return Mathf.FloorToInt(
                 elapsedTime * 1000f
             );
         }
     }
 
+    public bool TimerStarted
+    {
+        get
+        {
+            return timerStarted;
+        }
+    }
+
+    public bool TimerCompleted
+    {
+        get
+        {
+            return timerCompleted;
+        }
+    }
+
     private void Start()
     {
-        FindPlayer();
+        FindPlayerIfMissing();
+        FindFirebaseServiceIfMissing();
 
-        if (playerTransform != null)
-        {
-            RecordStartingPlayerPosition();
-        }
-
-        elapsedTime = 0f;
-        timerStarted = false;
-        timerStopped = false;
-
-        RefreshTimerText();
+        RecordStartingPosition();
+        UpdateTimerText();
     }
 
     private void Update()
     {
-        if (timerStopped)
+        if (timerCompleted)
         {
             return;
         }
 
-        if (playerTransform == null)
-        {
-            FindPlayer();
+        FindPlayerIfMissing();
 
-            if (playerTransform == null)
-            {
-                return;
-            }
+        if (!startingPositionRecorded)
+        {
+            RecordStartingPosition();
         }
 
-        if (!playerPositionRecorded)
+        if (IsTimerPaused())
         {
-            RecordStartingPlayerPosition();
+            return;
         }
 
         if (!timerStarted)
         {
             CheckForPlayerMovement();
-            return;
         }
 
-        if (AreAllGoalsCollected())
+        if (!timerStarted)
         {
-            StopTimer();
             return;
         }
 
-        elapsedTime += Time.unscaledDeltaTime;
+        elapsedTime += Time.deltaTime;
 
-        RefreshTimerText();
+        UpdateTimerText();
     }
 
-    private void FindPlayer()
+    private void FindPlayerIfMissing()
     {
+        if (playerTransform != null)
+        {
+            return;
+        }
+
         GameObject playerObject =
-            GameObject.FindGameObjectWithTag("Player");
+            GameObject.FindGameObjectWithTag(
+                "Player"
+            );
 
         if (playerObject != null)
         {
-            playerTransform = playerObject.transform;
+            playerTransform =
+                playerObject.transform;
         }
     }
 
-    private void RecordStartingPlayerPosition()
+    private void FindFirebaseServiceIfMissing()
     {
+        if (firebaseGameCompletionService != null)
+        {
+            return;
+        }
+
+        firebaseGameCompletionService =
+            FindObjectOfType<
+                FirebaseGameCompletionService
+            >();
+    }
+
+    private void RecordStartingPosition()
+    {
+        if (playerTransform == null)
+        {
+            return;
+        }
+
         startingPlayerPosition =
             playerTransform.position;
 
-        playerPositionRecorded = true;
+        startingPositionRecorded = true;
     }
 
     private void CheckForPlayerMovement()
     {
-        Vector3 movement =
-            playerTransform.position -
-            startingPlayerPosition;
-
-        // Ignore vertical movement so falling slightly at spawn
-        // does not begin the timer.
-        movement.y = 0f;
-
-        float requiredDistanceSquared =
-            movementThreshold * movementThreshold;
-
-        if (movement.sqrMagnitude <
-            requiredDistanceSquared)
+        if (playerTransform == null ||
+            !startingPositionRecorded)
         {
             return;
         }
 
-        StartTimer();
-    }
+        Vector2 startingHorizontalPosition =
+            new Vector2(
+                startingPlayerPosition.x,
+                startingPlayerPosition.z
+            );
 
-    public void StartTimer()
-    {
-        if (timerStarted || timerStopped)
+        Vector2 currentHorizontalPosition =
+            new Vector2(
+                playerTransform.position.x,
+                playerTransform.position.z
+            );
+
+        float horizontalDistance =
+            Vector2.Distance(
+                startingHorizontalPosition,
+                currentHorizontalPosition
+            );
+
+        if (horizontalDistance <
+            movementStartDistance)
         {
             return;
         }
 
         timerStarted = true;
-        elapsedTime = 0f;
 
-        RefreshTimerText();
-
-        Debug.Log("Level 1 timer started.");
+        Debug.Log(
+            "Game completion timer started."
+        );
     }
 
-    public void StopTimer()
+    private bool IsTimerPaused()
     {
-        if (!timerStarted || timerStopped)
+        if (Time.timeScale <= 0f)
+        {
+            return true;
+        }
+
+        if (pauseTimerWhileActive == null)
+        {
+            return false;
+        }
+
+        foreach (
+            GameObject pauseObject
+            in pauseTimerWhileActive
+        )
+        {
+            if (pauseObject != null &&
+                pauseObject.activeInHierarchy)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public void CompleteLevel()
+    {
+        if (timerCompleted)
         {
             return;
         }
 
-        timerStopped = true;
+        timerCompleted = true;
+        timerStarted = false;
 
-        RefreshTimerText();
+        UpdateTimerText();
+
+        int finalTimeMilliseconds =
+            ElapsedMilliseconds;
+
+        string formattedFinalTime =
+            GetFormattedTime();
 
         Debug.Log(
-            "Level 1 completed in " +
-            FormatTime(elapsedTime)
+            "Game completed in " +
+            formattedFinalTime +
+            " (" +
+            finalTimeMilliseconds +
+            " milliseconds)."
         );
+
+        FindFirebaseServiceIfMissing();
+
+        if (firebaseGameCompletionService == null)
+        {
+            Debug.LogError(
+                "FirebaseGameCompletionService " +
+                "could not be found."
+            );
+
+            return;
+        }
+
+        firebaseGameCompletionService
+            .SaveBestCompletionTime(
+                finalTimeMilliseconds,
+                formattedFinalTime
+            );
     }
 
     public void ResetTimer()
     {
         elapsedTime = 0f;
+
         timerStarted = false;
-        timerStopped = false;
+        timerCompleted = false;
+        startingPositionRecorded = false;
 
-        if (playerTransform != null)
-        {
-            RecordStartingPlayerPosition();
-        }
-        else
-        {
-            playerPositionRecorded = false;
-        }
-
-        RefreshTimerText();
+        FindPlayerIfMissing();
+        RecordStartingPosition();
+        UpdateTimerText();
     }
 
-    private bool AreAllGoalsCollected()
+    public string GetFormattedTime()
     {
-        if (goal1 == null ||
-            goal2 == null ||
-            goal3 == null)
-        {
-            return false;
-        }
+        int totalMilliseconds =
+            Mathf.FloorToInt(
+                elapsedTime * 1000f
+            );
 
-        return goal1.isCollected &&
-               goal2.isCollected &&
-               goal3.isCollected;
+        int minutes =
+            totalMilliseconds / 60000;
+
+        int seconds =
+            totalMilliseconds / 1000 % 60;
+
+        int milliseconds =
+            totalMilliseconds % 1000;
+
+        return string.Format(
+            "{0:00}:{1:00}.{2:000}",
+            minutes,
+            seconds,
+            milliseconds
+        );
     }
 
-    private void RefreshTimerText()
+    private void UpdateTimerText()
     {
         if (timerText == null)
         {
@@ -216,31 +309,6 @@ public class LevelTimer : MonoBehaviour
         }
 
         timerText.text =
-            FormatTime(elapsedTime);
-    }
-
-    public static string FormatTime(float timeInSeconds)
-    {
-        int totalMilliseconds =
-            Mathf.Max(
-                0,
-                Mathf.RoundToInt(
-                    timeInSeconds * 1000f
-                )
-            );
-
-        int minutes =
-            totalMilliseconds / 60000;
-
-        int seconds =
-            totalMilliseconds % 60000 / 1000;
-
-        int milliseconds =
-            totalMilliseconds % 1000;
-
-        return
-            $"{minutes:00}:" +
-            $"{seconds:00}." +
-            $"{milliseconds:000}";
+            GetFormattedTime();
     }
 }
