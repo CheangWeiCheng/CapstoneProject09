@@ -8,6 +8,7 @@ public class GoalBehaviour : MonoBehaviour
     [SerializeField] DoorBehaviour door;
     [SerializeField] AudioClip goalAudioClip; // Reference to the AudioClip component for playing sounds
     [HideInInspector] public bool isCollected = false; // Flag to prevent double collection
+    [SerializeField] bool isFinalGoal = false; // Flag to indicate if this is the final goal
 
     /// <summary>
     /// Method to collect the goal
@@ -27,9 +28,9 @@ public class GoalBehaviour : MonoBehaviour
             AudioSource.PlayClipAtPoint(goalAudioClip, transform.position); // Play the goal collection sound
         }
         isCollected = true; // Mark as collected
-        statue.material = newStatueMaterial;
+        if (statue != null) statue.material = newStatueMaterial;
         if (door != null) door.UnlockDoor();
-        StartCoroutine(player.FadeInAndOutOfBlack(Color.white));
+        StartCoroutine(player.FadeInAndOutOfBlack(Color.white, isFinalGoal));
         GetComponent<MeshRenderer>().enabled = false;
     }
 

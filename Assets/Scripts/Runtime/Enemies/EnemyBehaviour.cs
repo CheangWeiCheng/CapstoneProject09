@@ -53,6 +53,7 @@ public class EnemyBehaviour : MonoBehaviour
     public bool isInPhaseTwo = false;
     [SerializeField] private float maxShield = 50f;
     float currentShield;
+    [SerializeField] private GameObject finalStar;
 
     // Components cached for performance
     private Rigidbody rb;
@@ -389,6 +390,19 @@ public class EnemyBehaviour : MonoBehaviour
         if (killCounter != null)
         {
             killCounter.RegisterKill();
+        }
+        if (isBoss && finalStar != null)
+        {
+            Collider starCollider = finalStar.GetComponent<Collider>();
+            if (starCollider != null)
+            {
+                starCollider.enabled = true; // Enable the collider for the final star when the boss is defeated
+            }
+            MeshRenderer starRenderer = finalStar.GetComponent<MeshRenderer>();
+            if (starRenderer != null)
+            {
+                starRenderer.enabled = true; // Make the final star visible when the boss is defeated
+            }
         }
         Destroy(gameObject);
     }

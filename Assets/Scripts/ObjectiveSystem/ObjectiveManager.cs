@@ -18,6 +18,7 @@ public class ObjectiveManager : MonoBehaviour
         CollectFirstStar,
         CollectSecondStar,
         CollectThirdStar,
+        CollectFinalStar,
         Complete
     }
 
@@ -28,6 +29,7 @@ public class ObjectiveManager : MonoBehaviour
     [SerializeField] private GoalBehaviour goal1;
     [SerializeField] private GoalBehaviour goal2;
     [SerializeField] private GoalBehaviour goal3;
+    [SerializeField] private GoalBehaviour goal4;
 
     [Header("Current Objective HUD")]
     [SerializeField] private GameObject objectiveHudRoot;
@@ -322,6 +324,13 @@ public class ObjectiveManager : MonoBehaviour
 
             case ObjectiveStep.CollectThirdStar:
                 if (goal3 != null && goal3.isCollected)
+                {
+                    CompleteCurrentObjective(starReward);
+                }
+                break;
+
+            case ObjectiveStep.CollectFinalStar:
+                if (goal4 != null && goal4.isCollected)
                 {
                     CompleteCurrentObjective(starReward);
                 }
@@ -629,6 +638,14 @@ public class ObjectiveManager : MonoBehaviour
                 );
                 break;
 
+            case ObjectiveStep.CollectFinalStar:
+                ShowObjective(
+                    "Collect the Final Star",
+                    "",
+                    starReward
+                );
+                break;
+
             case ObjectiveStep.Complete:
                 SetText(
                     objectiveTitleText,
@@ -818,6 +835,14 @@ public class ObjectiveManager : MonoBehaviour
             case ObjectiveStep.CollectThirdStar:
                 return
                     "Collect the Third Star\n" +
+                    "\n" +
+                    "Reward: +" +
+                    starReward +
+                    " Coins";
+
+            case ObjectiveStep.CollectFinalStar:
+                return
+                    "Collect the Final Star\n" +
                     "\n" +
                     "Reward: +" +
                     starReward +

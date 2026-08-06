@@ -47,7 +47,7 @@ public class PlayerBehaviour : MonoBehaviour
 
     // [SerializeField] float interactionDistance = 2f;
 
-    [SerializeField] TMP_Text congratulatoryText;
+    [SerializeField] Canvas congratulatoryText;
 
     [SerializeField] float fadeToBlackTime = 1f;
     [SerializeField] Image blackImage;
@@ -187,7 +187,7 @@ public class PlayerBehaviour : MonoBehaviour
         // Add any other scripts that should be disabled
     }
 
-    public IEnumerator FadeInAndOutOfBlack(Color color)
+    public IEnumerator FadeInAndOutOfBlack(Color color, bool isFinal = false)
     {
         isDead = true;
         GetComponent<ThirdPersonController>().SetSlideVelocity(Vector3.zero);
@@ -213,6 +213,11 @@ public class PlayerBehaviour : MonoBehaviour
         Respawn();
         yield return new WaitForSeconds(fadeToBlackTime);
         AudioDirector.EndDeathSequence(fadeToBlackTime);
+
+        if (isFinal)
+        {
+            congratulatoryText.gameObject.SetActive(true);
+        }
 
         // Fade out of black        
         while (color.a > 0f)
