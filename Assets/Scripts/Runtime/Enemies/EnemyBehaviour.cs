@@ -53,7 +53,7 @@ public class EnemyBehaviour : MonoBehaviour
     public bool isInPhaseTwo = false;
     [SerializeField] private float maxShield = 50f;
     float currentShield;
-    [SerializeField] private GameObject finalStar;
+    [SerializeField] private GameObject portal;
 
     // Components cached for performance
     private Rigidbody rb;
@@ -391,17 +391,17 @@ public class EnemyBehaviour : MonoBehaviour
         {
             killCounter.RegisterKill();
         }
-        if (isBoss && finalStar != null)
+        if (isBoss && portal != null)
         {
-            Collider starCollider = finalStar.GetComponent<Collider>();
-            if (starCollider != null)
+            Collider collider = portal.GetComponent<Collider>();
+            if (collider != null)
             {
-                starCollider.enabled = true; // Enable the collider for the final star when the boss is defeated
+                collider.enabled = true; // Enable the collider for the portal when the boss is defeated
             }
-            MeshRenderer starRenderer = finalStar.GetComponent<MeshRenderer>();
-            if (starRenderer != null)
+            Canvas canvas = portal.GetComponent<Canvas>();
+            if (canvas != null)
             {
-                starRenderer.enabled = true; // Make the final star visible when the boss is defeated
+                canvas.enabled = true; // Make the portal visible when the boss is defeated
             }
         }
         Destroy(gameObject);

@@ -18,7 +18,7 @@ public class ObjectiveManager : MonoBehaviour
         CollectFirstStar,
         CollectSecondStar,
         CollectThirdStar,
-        CollectFinalStar,
+        KillKing,
         Complete
     }
 
@@ -329,7 +329,7 @@ public class ObjectiveManager : MonoBehaviour
                 }
                 break;
 
-            case ObjectiveStep.CollectFinalStar:
+            case ObjectiveStep.KillKing:
                 if (goal4 != null && goal4.isCollected)
                 {
                     CompleteCurrentObjective(starReward);
@@ -638,9 +638,9 @@ public class ObjectiveManager : MonoBehaviour
                 );
                 break;
 
-            case ObjectiveStep.CollectFinalStar:
+            case ObjectiveStep.KillKing:
                 ShowObjective(
-                    "Collect the Final Star",
+                    "Defeat the King",
                     "",
                     starReward
                 );
@@ -840,9 +840,9 @@ public class ObjectiveManager : MonoBehaviour
                     starReward +
                     " Coins";
 
-            case ObjectiveStep.CollectFinalStar:
+            case ObjectiveStep.KillKing:
                 return
-                    "Collect the Final Star\n" +
+                    "Defeat the King\n" +
                     "\n" +
                     "Reward: +" +
                     starReward +

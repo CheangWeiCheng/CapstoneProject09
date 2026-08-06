@@ -31,7 +31,10 @@ public class GoalBehaviour : MonoBehaviour
         if (statue != null) statue.material = newStatueMaterial;
         if (door != null) door.UnlockDoor();
         StartCoroutine(player.FadeInAndOutOfBlack(Color.white, isFinalGoal));
-        GetComponent<MeshRenderer>().enabled = false;
+        if (GetComponent<MeshRenderer>() != null)
+        {
+            GetComponent<MeshRenderer>().enabled = false;
+        }
     }
 
     void OnTriggerEnter(Collider other)
