@@ -1,18 +1,12 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class LevelTimer : MonoBehaviour
 {
     [Header("Timer Display")]
     [SerializeField]
     private TMP_Text timerText;
-
-    [Header("Player")]
-    [SerializeField]
-    private Transform playerTransform;
-
-    [SerializeField]
-    private float movementStartDistance = 0.1f;
 
     [Header("Pause Timer While These Are Open")]
     [SerializeField]
@@ -23,13 +17,14 @@ public class LevelTimer : MonoBehaviour
     private FirebaseGameCompletionService
         firebaseGameCompletionService;
 
-    private Vector3 startingPlayerPosition;
+    [Header("Movement Detection")]
+    [SerializeField]
+    private float gamepadDeadzone = 0.15f;
 
     private float elapsedTime;
 
     private bool timerStarted;
     private bool timerCompleted;
-    private bool startingPositionRecorded;
 
     public float ElapsedTime
     {
@@ -67,11 +62,15 @@ public class LevelTimer : MonoBehaviour
 
     private void Start()
     {
-        FindPlayerIfMissing();
-        FindFirebaseServiceIfMissing();
+        elapsedTime = 0f;
+        timerStarted = false;
+        timerCompleted = false;
 
-        RecordStartingPosition();
         UpdateTimerText();
+
+        Debug.Log(
+            "Game completion timer is ready."
+        );
     }
 
     private void Update()
@@ -81,106 +80,88 @@ public class LevelTimer : MonoBehaviour
             return;
         }
 
-        FindPlayerIfMissing();
-
-        if (!startingPositionRecorded)
-        {
-            RecordStartingPosition();
-        }
-
-        if (IsTimerPaused())
+        /*
+         * Login screen, pause menu, or anything else
+         * that pauses the whole game.
+         */
+        if (Time.timeScale <= 0f)
         {
             return;
         }
 
-        if (!timerStarted)
-        {
-            CheckForPlayerMovement();
-        }
-
-        if (!timerStarted)
+        /*
+         * Shop, inventory, leaderboard, etc. can also
+         * explicitly pause the timer through the Inspector.
+         */
+        if (IsTimerPausedByUI())
         {
             return;
         }
 
+        /*
+         * Timer has not started yet.
+         * Wait for actual movement input.
+         */
+        if (!timerStarted)
+        {
+            if (!HasMovementInput())
+            {
+                return;
+            }
+
+            StartTimer();
+        }
+
+        /*
+         * Once started, count normally.
+         */
         elapsedTime += Time.deltaTime;
 
         UpdateTimerText();
     }
 
-    private void FindPlayerIfMissing()
+    private bool HasMovementInput()
     {
-        if (playerTransform != null)
+        /*
+         * Keyboard movement:
+         * W A S D
+         */
+        if (Keyboard.current != null)
         {
-            return;
+            if (
+                Keyboard.current.wKey.isPressed ||
+                Keyboard.current.aKey.isPressed ||
+                Keyboard.current.sKey.isPressed ||
+                Keyboard.current.dKey.isPressed
+            )
+            {
+                return true;
+            }
         }
 
-        GameObject playerObject =
-            GameObject.FindGameObjectWithTag(
-                "Player"
-            );
-
-        if (playerObject != null)
+        /*
+         * Controller movement:
+         * Left Stick
+         */
+        if (Gamepad.current != null)
         {
-            playerTransform =
-                playerObject.transform;
+            Vector2 leftStick =
+                Gamepad.current.leftStick.ReadValue();
+
+            if (leftStick.magnitude >=
+                gamepadDeadzone)
+            {
+                return true;
+            }
         }
+
+        return false;
     }
 
-    private void FindFirebaseServiceIfMissing()
+    private void StartTimer()
     {
-        if (firebaseGameCompletionService != null)
-        {
-            return;
-        }
-
-        firebaseGameCompletionService =
-            FindObjectOfType<
-                FirebaseGameCompletionService
-            >();
-    }
-
-    private void RecordStartingPosition()
-    {
-        if (playerTransform == null)
-        {
-            return;
-        }
-
-        startingPlayerPosition =
-            playerTransform.position;
-
-        startingPositionRecorded = true;
-    }
-
-    private void CheckForPlayerMovement()
-    {
-        if (playerTransform == null ||
-            !startingPositionRecorded)
-        {
-            return;
-        }
-
-        Vector2 startingHorizontalPosition =
-            new Vector2(
-                startingPlayerPosition.x,
-                startingPlayerPosition.z
-            );
-
-        Vector2 currentHorizontalPosition =
-            new Vector2(
-                playerTransform.position.x,
-                playerTransform.position.z
-            );
-
-        float horizontalDistance =
-            Vector2.Distance(
-                startingHorizontalPosition,
-                currentHorizontalPosition
-            );
-
-        if (horizontalDistance <
-            movementStartDistance)
+        if (timerStarted ||
+            timerCompleted)
         {
             return;
         }
@@ -188,17 +169,12 @@ public class LevelTimer : MonoBehaviour
         timerStarted = true;
 
         Debug.Log(
-            "Game completion timer started."
+            "GAME TIMER STARTED."
         );
     }
 
-    private bool IsTimerPaused()
+    private bool IsTimerPausedByUI()
     {
-        if (Time.timeScale <= 0f)
-        {
-            return true;
-        }
-
         if (pauseTimerWhileActive == null)
         {
             return false;
@@ -209,8 +185,10 @@ public class LevelTimer : MonoBehaviour
             in pauseTimerWhileActive
         )
         {
-            if (pauseObject != null &&
-                pauseObject.activeInHierarchy)
+            if (
+                pauseObject != null &&
+                pauseObject.activeInHierarchy
+            )
             {
                 return true;
             }
@@ -221,8 +199,23 @@ public class LevelTimer : MonoBehaviour
 
     public void CompleteLevel()
     {
+        CompleteGame();
+    }
+
+    public void CompleteGame()
+    {
         if (timerCompleted)
         {
+            return;
+        }
+
+        if (!timerStarted)
+        {
+            Debug.LogWarning(
+                "Game completion attempted before " +
+                "the timer had started."
+            );
+
             return;
         }
 
@@ -238,20 +231,15 @@ public class LevelTimer : MonoBehaviour
             GetFormattedTime();
 
         Debug.Log(
-            "Game completed in " +
-            formattedFinalTime +
-            " (" +
-            finalTimeMilliseconds +
-            " milliseconds)."
+            "GAME COMPLETED: " +
+            formattedFinalTime
         );
-
-        FindFirebaseServiceIfMissing();
 
         if (firebaseGameCompletionService == null)
         {
             Debug.LogError(
-                "FirebaseGameCompletionService " +
-                "could not be found."
+                "Firebase Game Completion Service " +
+                "has not been assigned to LevelTimer."
             );
 
             return;
@@ -267,14 +255,14 @@ public class LevelTimer : MonoBehaviour
     public void ResetTimer()
     {
         elapsedTime = 0f;
-
         timerStarted = false;
         timerCompleted = false;
-        startingPositionRecorded = false;
 
-        FindPlayerIfMissing();
-        RecordStartingPosition();
         UpdateTimerText();
+
+        Debug.Log(
+            "Game completion timer reset."
+        );
     }
 
     public string GetFormattedTime()
