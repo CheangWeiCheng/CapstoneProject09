@@ -12557,15 +12557,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4652475749631053973, guid: 52a94d7b7d991c54fbca68e27136cdb4, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.017837012
+      value: 0.017837003
       objectReference: {fileID: 0}
     - target: {fileID: 4652475749631053973, guid: 52a94d7b7d991c54fbca68e27136cdb4, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.000000022278403
+      value: 3.0825424e-15
       objectReference: {fileID: 0}
     - target: {fileID: 4652475749631053973, guid: 52a94d7b7d991c54fbca68e27136cdb4, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -3.9744333e-10
+      value: -5.4992066e-17
       objectReference: {fileID: 0}
     - target: {fileID: 5086267855840221838, guid: 52a94d7b7d991c54fbca68e27136cdb4, type: 3}
       propertyPath: m_AnchorMax.y
@@ -12958,7 +12958,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Button
+  m_text:
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -15873,7 +15873,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: ea9046e7df4c0fc4c979d0eacfff8fe7, type: 3}
+  m_Sprite: {fileID: 21300000, guid: caef7c7e9f267434589a265313eeb4f5, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -15909,7 +15909,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -500, y: 280}
-  m_SizeDelta: {x: 250, y: 125}
+  m_SizeDelta: {x: 250, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!4 &748168036 stripped
 Transform:
@@ -37736,19 +37736,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1898748821}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: ObjectiveManager, Assembly-CSharp
-        m_MethodName: HideObjectiveHud
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument:
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1898748821
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -39153,19 +39141,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1966440888}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: ObjectiveManager, Assembly-CSharp
-        m_MethodName: ShowObjectiveHud
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument:
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1966440888
 MonoBehaviour:
   m_ObjectHideFlags: 0
