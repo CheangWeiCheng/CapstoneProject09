@@ -1252,7 +1252,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3b4f4f14f89e1f44bea14fb6f1e0095, type: 3}
   m_Name:
   m_EditorClassIdentifier: Assembly-CSharp::CoinUI
-  coinText: {fileID: 0}
+  coinText: {fileID: 2776873068341923470}
 --- !u!1 &617616309078971478
 GameObject:
   m_ObjectHideFlags: 0
