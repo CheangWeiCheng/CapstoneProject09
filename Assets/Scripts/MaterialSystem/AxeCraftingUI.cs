@@ -1,11 +1,14 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 
 public class AxeCraftingUI : MonoBehaviour
 {
     [Header("Material Inventory")]
     [SerializeField] private MaterialInventory materialInventory;
+
+    [Header("Inventory Menu")]
+    [SerializeField] private InventoryMenuController inventoryMenuController;
 
     [Header("Material Count Text")]
     [SerializeField] private TMP_Text shatteredArmorText;
@@ -21,39 +24,79 @@ public class AxeCraftingUI : MonoBehaviour
     [SerializeField] private Button craftAxeButton;
     [SerializeField] private TMP_Text craftButtonText;
 
-    void Start()
+    private void Start()
     {
-        if (materialInventory == null)
-        {
-            materialInventory = FindFirstObjectByType<MaterialInventory>();
-        }
-
+        FindMaterialInventory();
         RefreshUI();
+
+        if (materialInventory != null &&
+            materialInventory.axeUnlocked &&
+            inventoryMenuController != null)
+        {
+            inventoryMenuController.NotifyAxeCrafted(materialInventory);
+        }
     }
 
-    void OnEnable()
+    private void OnEnable()
     {
-        if (materialInventory == null)
-        {
-            materialInventory = FindFirstObjectByType<MaterialInventory>();
-        }
-
+        FindMaterialInventory();
         RefreshUI();
+
+        if (materialInventory != null &&
+            materialInventory.axeUnlocked &&
+            inventoryMenuController != null)
+        {
+            inventoryMenuController.NotifyAxeCrafted(materialInventory);
+        }
     }
 
     public void CraftAxe()
     {
         if (materialInventory == null)
         {
-            Debug.LogWarning("MaterialInventory is missing.");
+            Debug.LogError(
+                "AXE CRAFTING: MaterialInventory is missing."
+            );
+
             return;
         }
 
         bool crafted = materialInventory.CraftAxe();
 
-        if (crafted)
+        if (!crafted)
         {
-            Debug.Log("Axe crafted from materials.");
+            Debug.LogWarning(
+                "AXE CRAFTING: CraftAxe returned false."
+            );
+
+            RefreshUI();
+            return;
+        }
+
+        Debug.Log(
+            "AXE CRAFTING: Axe crafted successfully."
+        );
+
+        Debug.Log(
+            "AXE CRAFTING: Axe Unlocked = " +
+            materialInventory.axeUnlocked
+        );
+
+        if (inventoryMenuController != null)
+        {
+            inventoryMenuController.NotifyAxeCrafted(
+                materialInventory
+            );
+
+            Debug.Log(
+                "AXE CRAFTING: InventoryMenuController notified."
+            );
+        }
+        else
+        {
+            Debug.LogError(
+                "AXE CRAFTING: InventoryMenuController is not assigned."
+            );
         }
 
         RefreshUI();
@@ -74,45 +117,129 @@ public class AxeCraftingUI : MonoBehaviour
                 craftAxeButton.interactable = false;
             }
 
-            if (lockedAxeImage != null) lockedAxeImage.SetActive(true);
-            if (unlockedAxeImage != null) unlockedAxeImage.SetActive(false);
+            if (lockedAxeImage != null)
+            {
+                lockedAxeImage.SetActive(true);
+            }
+
+            if (unlockedAxeImage != null)
+            {
+                unlockedAxeImage.SetActive(false);
+            }
 
             return;
         }
 
-        SetText(shatteredArmorText, materialInventory.shatteredArmor + "/" + materialInventory.RequiredShatteredArmor);
-        SetText(arrowSticksText, materialInventory.arrowSticks + "/" + materialInventory.RequiredArrowSticks);
-        SetText(tatteredClothText, materialInventory.tatteredCloth + "/" + materialInventory.RequiredTatteredCloth);
+        SetText(
+            shatteredArmorText,
+            materialInventory.shatteredArmor +
+            "/" +
+            materialInventory.RequiredShatteredArmor
+        );
+
+        SetText(
+            arrowSticksText,
+            materialInventory.arrowSticks +
+            "/" +
+            materialInventory.RequiredArrowSticks
+        );
+
+        SetText(
+            tatteredClothText,
+            materialInventory.tatteredCloth +
+            "/" +
+            materialInventory.RequiredTatteredCloth
+        );
 
         if (materialInventory.axeUnlocked)
         {
-            SetText(axeStatusText, "OWNED");
-            SetText(craftButtonText, "OWNED");
-
-            if (craftAxeButton != null)
-            {
-                craftAxeButton.interactable = false;
-            }
-
-            if (lockedAxeImage != null) lockedAxeImage.SetActive(false);
-            if (unlockedAxeImage != null) unlockedAxeImage.SetActive(true);
+            ShowOwnedState();
         }
         else
         {
-            SetText(axeStatusText, "LOCKED");
-            SetText(craftButtonText, "CRAFT AXE");
-
-            if (craftAxeButton != null)
-            {
-                craftAxeButton.interactable = materialInventory.CanCraftAxe();
-            }
-
-            if (lockedAxeImage != null) lockedAxeImage.SetActive(true);
-            if (unlockedAxeImage != null) unlockedAxeImage.SetActive(false);
+            ShowLockedState();
         }
     }
 
-    private void SetText(TMP_Text textObject, string value)
+    private void ShowOwnedState()
+    {
+        SetText(
+            axeStatusText,
+            "OWNED"
+        );
+
+        SetText(
+            craftButtonText,
+            "OWNED"
+        );
+
+        if (craftAxeButton != null)
+        {
+            craftAxeButton.interactable = false;
+        }
+
+        if (lockedAxeImage != null)
+        {
+            lockedAxeImage.SetActive(false);
+        }
+
+        if (unlockedAxeImage != null)
+        {
+            unlockedAxeImage.SetActive(true);
+        }
+    }
+
+    private void ShowLockedState()
+    {
+        SetText(
+            axeStatusText,
+            "LOCKED"
+        );
+
+        SetText(
+            craftButtonText,
+            "CRAFT AXE"
+        );
+
+        if (craftAxeButton != null)
+        {
+            craftAxeButton.interactable =
+                materialInventory.CanCraftAxe();
+        }
+
+        if (lockedAxeImage != null)
+        {
+            lockedAxeImage.SetActive(true);
+        }
+
+        if (unlockedAxeImage != null)
+        {
+            unlockedAxeImage.SetActive(false);
+        }
+    }
+
+    private void FindMaterialInventory()
+    {
+        if (materialInventory != null)
+        {
+            return;
+        }
+
+        materialInventory =
+            FindFirstObjectByType<MaterialInventory>();
+
+        if (materialInventory == null)
+        {
+            Debug.LogError(
+                "AXE CRAFTING: Could not find MaterialInventory."
+            );
+        }
+    }
+
+    private void SetText(
+        TMP_Text textObject,
+        string value
+    )
     {
         if (textObject != null)
         {
