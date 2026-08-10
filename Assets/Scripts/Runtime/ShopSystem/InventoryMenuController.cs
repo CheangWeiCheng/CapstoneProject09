@@ -106,11 +106,68 @@ public class InventoryMenuController : MonoBehaviour
         ClearSelectedButton();
     }
 
+    public void NotifyAxeCrafted(
+        MaterialInventory craftingMaterialInventory
+    )
+    {
+        Debug.Log(
+            "INVENTORY: Axe craft notification received."
+        );
+
+        if (craftingMaterialInventory != null)
+        {
+            if (materialInventory != craftingMaterialInventory)
+            {
+                UnsubscribeFromMaterialInventory();
+
+                materialInventory =
+                    craftingMaterialInventory;
+
+                SubscribeToMaterialInventory();
+
+                Debug.Log(
+                    "INVENTORY: MaterialInventory changed to " +
+                    materialInventory.gameObject.name
+                );
+            }
+        }
+
+        bool axeUnlocked =
+            materialInventory != null &&
+            materialInventory.axeUnlocked;
+
+        Debug.Log(
+            "INVENTORY: Axe Unlocked = " +
+            axeUnlocked
+        );
+
+        if (axeItem == null)
+        {
+            Debug.LogError(
+                "INVENTORY: Axe Item is not assigned."
+            );
+
+            return;
+        }
+
+        axeItem.SetActive(axeUnlocked);
+
+        Debug.Log(
+            "INVENTORY: Axe Image active = " +
+            axeItem.activeSelf
+        );
+
+        RefreshInventory();
+    }
+
     public void UseHealthPotion()
     {
         if (PlayerInventory.Instance == null)
         {
-            Debug.LogWarning("PlayerInventory missing.");
+            Debug.LogWarning(
+                "PlayerInventory missing."
+            );
+
             return;
         }
 
@@ -119,11 +176,15 @@ public class InventoryMenuController : MonoBehaviour
 
         if (usedPotion)
         {
-            Debug.Log("Used Health Potion.");
+            Debug.Log(
+                "Used Health Potion."
+            );
         }
         else
         {
-            Debug.Log("No Health Potion.");
+            Debug.Log(
+                "No Health Potion."
+            );
         }
 
         RefreshInventory();
@@ -133,7 +194,10 @@ public class InventoryMenuController : MonoBehaviour
     {
         if (PlayerInventory.Instance == null)
         {
-            Debug.LogWarning("PlayerInventory missing.");
+            Debug.LogWarning(
+                "PlayerInventory missing."
+            );
+
             return;
         }
 
@@ -142,11 +206,15 @@ public class InventoryMenuController : MonoBehaviour
 
         if (usedPotion)
         {
-            Debug.Log("Used Damage Potion.");
+            Debug.Log(
+                "Used Damage Potion."
+            );
         }
         else
         {
-            Debug.Log("No Damage Potion.");
+            Debug.Log(
+                "No Damage Potion."
+            );
         }
 
         RefreshInventory();
@@ -156,7 +224,10 @@ public class InventoryMenuController : MonoBehaviour
     {
         if (PlayerInventory.Instance == null)
         {
-            Debug.LogWarning("PlayerInventory missing.");
+            Debug.LogWarning(
+                "PlayerInventory missing."
+            );
+
             return;
         }
 
@@ -165,11 +236,15 @@ public class InventoryMenuController : MonoBehaviour
 
         if (usedPotion)
         {
-            Debug.Log("Used Super Health Potion.");
+            Debug.Log(
+                "Used Super Health Potion."
+            );
         }
         else
         {
-            Debug.Log("No Super Health Potion.");
+            Debug.Log(
+                "No Super Health Potion."
+            );
         }
 
         RefreshInventory();
@@ -186,10 +261,26 @@ public class InventoryMenuController : MonoBehaviour
     {
         if (PlayerInventory.Instance == null)
         {
-            SetText(coinCountText, "0");
-            SetText(damagePotionCountText, "0");
-            SetText(healthPotionCountText, "0");
-            SetText(superHealthPotionCountText, "0");
+            SetText(
+                coinCountText,
+                "0"
+            );
+
+            SetText(
+                damagePotionCountText,
+                "0"
+            );
+
+            SetText(
+                healthPotionCountText,
+                "0"
+            );
+
+            SetText(
+                superHealthPotionCountText,
+                "0"
+            );
+
             return;
         }
 
@@ -220,9 +311,21 @@ public class InventoryMenuController : MonoBehaviour
 
         if (materialInventory == null)
         {
-            SetText(shatteredArmorCountText, "0");
-            SetText(arrowSticksCountText, "0");
-            SetText(tatteredClothCountText, "0");
+            SetText(
+                shatteredArmorCountText,
+                "0"
+            );
+
+            SetText(
+                arrowSticksCountText,
+                "0"
+            );
+
+            SetText(
+                tatteredClothCountText,
+                "0"
+            );
+
             return;
         }
 
@@ -244,14 +347,27 @@ public class InventoryMenuController : MonoBehaviour
 
     private void RefreshWeaponVisibility()
     {
+        if (axeItem == null)
+        {
+            Debug.LogWarning(
+                "INVENTORY: Axe Item is not assigned."
+            );
+
+            return;
+        }
+
         bool axeIsUnlocked =
             materialInventory != null &&
             materialInventory.axeUnlocked;
 
-        if (axeItem != null)
-        {
-            axeItem.SetActive(axeIsUnlocked);
-        }
+        axeItem.SetActive(axeIsUnlocked);
+
+        Debug.Log(
+            "INVENTORY AXE REFRESH: Unlocked = " +
+            axeIsUnlocked +
+            " | Image Active = " +
+            axeItem.activeSelf
+        );
     }
 
     private void FindMaterialInventory()
@@ -274,14 +390,21 @@ public class InventoryMenuController : MonoBehaviour
                 RefreshInventory;
         }
 
-        if (materialInventory != null)
-        {
-            materialInventory.OnMaterialsChanged -=
-                RefreshInventory;
+        SubscribeToMaterialInventory();
+    }
 
-            materialInventory.OnMaterialsChanged +=
-                RefreshInventory;
+    private void SubscribeToMaterialInventory()
+    {
+        if (materialInventory == null)
+        {
+            return;
         }
+
+        materialInventory.OnMaterialsChanged -=
+            RefreshInventory;
+
+        materialInventory.OnMaterialsChanged +=
+            RefreshInventory;
     }
 
     private void UnsubscribeFromInventoryEvents()
@@ -292,11 +415,18 @@ public class InventoryMenuController : MonoBehaviour
                 RefreshInventory;
         }
 
-        if (materialInventory != null)
+        UnsubscribeFromMaterialInventory();
+    }
+
+    private void UnsubscribeFromMaterialInventory()
+    {
+        if (materialInventory == null)
         {
-            materialInventory.OnMaterialsChanged -=
-                RefreshInventory;
+            return;
         }
+
+        materialInventory.OnMaterialsChanged -=
+            RefreshInventory;
     }
 
     private void SetText(
