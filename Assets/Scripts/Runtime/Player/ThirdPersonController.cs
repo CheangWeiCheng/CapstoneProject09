@@ -11,6 +11,7 @@
 using Game.Audio;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections.Generic;
 
 public class ThirdPersonController : MonoBehaviour
 {
@@ -95,6 +96,10 @@ public class ThirdPersonController : MonoBehaviour
     [SerializeField] private float brakeInputThreshold = 0.8f; // How far opposite you need to flick
     private float brakeMultiplier = 1f;
 
+    [Header("Ground Check Settings")]
+    [SerializeField] float groundCheckDistance = 0.5f;
+    [SerializeField] float groundCheckRadius = 0.2f;
+
     // Component References
     private Rigidbody rb;
     private Attack attack;
@@ -124,6 +129,8 @@ public class ThirdPersonController : MonoBehaviour
     [HideInInspector] public bool pauseFastFall;
     [HideInInspector] public bool landedFromGroundSlam;
     [HideInInspector] public bool attackHasSetEndTime;
+    private HashSet<GameObject> touchingEnemies = new HashSet<GameObject>();
+    bool touchingEnemy => touchingEnemies.Count > 0;
     bool isBraking = false;
     public bool WasRecentlyDashing(float leniency) => isDashing || (Time.time - dashEndTime < leniency) || (dashCancelled && (Time.time - dashCancelTime < dashDuration));
 
@@ -132,13 +139,11 @@ public class ThirdPersonController : MonoBehaviour
     private bool jumpCanceled; // Key for variable jump height
     private bool highJumpRequested; // For crouch jump boost
 
-    [SerializeField] float groundCheckDistance = .5f;
-
-    public bool IsGrounded => Physics.SphereCast(transform.position + (Vector3.up * 0.4f), 0.2f, Vector3.down, out _, groundCheckDistance);
+    public bool IsGrounded => Physics.SphereCast(transform.position + (Vector3.up * 0.4f), groundCheckRadius, Vector3.down, out _, groundCheckDistance);
 
     public bool OnSlope()
     {
-        if (Physics.SphereCast(transform.position + (Vector3.up * 0.4f), 0.2f, Vector3.down, out slopeHit, groundCheckDistance))
+        if (Physics.SphereCast(transform.position + (Vector3.up * 0.4f), groundCheckRadius, Vector3.down, out slopeHit, groundCheckDistance))
         {
             float slopeAngle = Vector3.Angle(slopeHit.normal, Vector3.up);
             return slopeAngle < maxSlopeAngle && slopeAngle != 0;
@@ -346,6 +351,9 @@ public class ThirdPersonController : MonoBehaviour
     {        
         HandleTimers();
         HandleGroundedState();
+
+        // Clean up destroyed enemies
+        touchingEnemies.RemoveWhere(enemy => enemy == null);
     }
 
     void FixedUpdate()
@@ -462,8 +470,9 @@ public class ThirdPersonController : MonoBehaviour
             rb.AddForce(-slopeHit.normal * slopeDownForce, ForceMode.Force);
         }
         
-        // 3. Apply velocity directly (this is the key change)
-        rb.linearVelocity = new Vector3(targetVelocity.x, rb.linearVelocity.y, targetVelocity.z);
+        // 3. Apply velocity
+        float enemyFriction = touchingEnemy ? 0.5f : 1f; // Reduce speed when touching an enemy
+        rb.linearVelocity = new Vector3(targetVelocity.x * enemyFriction, rb.linearVelocity.y, targetVelocity.z * enemyFriction);
     }
 
     private void ApplyRotation()
@@ -1028,6 +1037,30 @@ public class ThirdPersonController : MonoBehaviour
         animator.SetFloat("Speed", moveInput.magnitude * moveSpeed, 0.1f, Time.fixedDeltaTime);
         animator.SetBool("IsFalling", !IsGrounded && rb.linearVelocity.y < 0);
         animator.SetBool("IsCrouching", isCrouching && IsGrounded);
+    }
+    
+    private void OnDrawGizmosSelected()
+    {
+        // Visualize ground check in editor
+        Gizmos.color = Color.yellow;
+        Vector3 rayOrigin = transform.position + (Vector3.up * 0.5f);
+        Gizmos.DrawWireSphere(rayOrigin + (Vector3.down * groundCheckDistance), groundCheckRadius);
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            touchingEnemies.Add(collision.gameObject);
+        }
+    }
+
+    void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Enemy"))
+        {
+            touchingEnemies.Remove(collision.gameObject);
+        }
     }
     #endregion
 }

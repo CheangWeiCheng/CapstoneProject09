@@ -2182,8 +2182,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6154263307417948182}
   - component: {fileID: 5515759266452870933}
-  - component: {fileID: 4733245589610321929}
-  - component: {fileID: 2266132283456052725}
+  - component: {fileID: 2295231071504962648}
   - component: {fileID: 2646204627883904823}
   - component: {fileID: 9222531370258314381}
   - component: {fileID: 7194537625942503649}
@@ -2239,7 +2238,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!136 &4733245589610321929
+--- !u!136 &2295231071504962648
 CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2262,27 +2261,6 @@ CapsuleCollider:
   m_Height: 2.2
   m_Direction: 1
   m_Center: {x: 0, y: 1.1, z: 0}
---- !u!65 &2266132283456052725
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4412704303688925277}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1.2, z: 1}
-  m_Center: {x: 0, y: 1.1, z: 0}
 --- !u!54 &2646204627883904823
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2291,7 +2269,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4412704303688925277}
   serializedVersion: 5
-  m_Mass: 1
+  m_Mass: 40
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -2354,7 +2332,7 @@ MonoBehaviour:
   currentPayback: 0
   enragedAura: {fileID: 9089279763134965528}
   groundCheckDistance: 0.5
-  groundSphereRadius: 0.2
+  groundSphereRadius: 0.4
   healthUI: {fileID: 6774398700572143845}
   shieldUI: {fileID: 8975055617743040879}
   killCounter: {fileID: 0}
