@@ -217,6 +217,8 @@ public class PlayerBehaviour : MonoBehaviour
         if (isFinal)
         {
             congratulatoryText.gameObject.SetActive(true);
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
         }
 
         // Fade out of black        

@@ -17,6 +17,7 @@ public class ObjectiveManager : MonoBehaviour
         CraftAxe,
         CollectFirstStar,
         CollectSecondStar,
+        FindKey,
         CollectThirdStar,
         KillKing,
         Complete
@@ -26,6 +27,7 @@ public class ObjectiveManager : MonoBehaviour
     [SerializeField] private KillCounter killCounter;
     [SerializeField] private MaterialInventory materialInventory;
     [SerializeField] private PlayerInventory playerInventory;
+    [SerializeField] private KeycardBehaviour key;
     [SerializeField] private GoalBehaviour goal1;
     [SerializeField] private GoalBehaviour goal2;
     [SerializeField] private GoalBehaviour goal3;
@@ -71,6 +73,7 @@ public class ObjectiveManager : MonoBehaviour
     [SerializeField] private int craftAxeReward = 8;
 
     [Header("Goal Objective")]
+    [SerializeField] private int findKeyReward = 5;
     [SerializeField] private int starReward = 10;
 
     [Header("Objective Complete")]
@@ -319,6 +322,13 @@ public class ObjectiveManager : MonoBehaviour
                 if (goal2 != null && goal2.isCollected)
                 {
                     CompleteCurrentObjective(starReward);
+                }
+                break;
+
+            case ObjectiveStep.FindKey:
+                if (key != null && key.isCollected)
+                {
+                    CompleteCurrentObjective(findKeyReward);
                 }
                 break;
 
@@ -630,6 +640,14 @@ public class ObjectiveManager : MonoBehaviour
                 );
                 break;
 
+            case ObjectiveStep.FindKey:
+                ShowObjective(
+                    "Find the Key",
+                    "",
+                    findKeyReward
+                );
+                break;
+
             case ObjectiveStep.CollectThirdStar:
                 ShowObjective(
                     "Collect the Third Star",
@@ -830,6 +848,14 @@ public class ObjectiveManager : MonoBehaviour
                     "\n" +
                     "Reward: +" +
                     starReward +
+                    " Coins";
+
+            case ObjectiveStep.FindKey:
+                return
+                    "Find the Key\n" +
+                    "\n" +
+                    "Reward: +" +
+                    findKeyReward +
                     " Coins";
 
             case ObjectiveStep.CollectThirdStar:

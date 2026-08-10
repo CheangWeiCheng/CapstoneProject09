@@ -13,9 +13,8 @@ using UnityEngine;
 
 public class KeycardBehaviour : MonoBehaviour
 {
-    [SerializeField]
-    AudioClip keycardAudioClip; // Reference to the AudioClip component for playing sounds
-    bool isCollected = false; // Flag to prevent double collection
+    [SerializeField] AudioClip keycardAudioClip; // Reference to the AudioClip component for playing sounds
+    [HideInInspector] public bool isCollected = false; // Flag to prevent double collection
 
     /// <summary>
     /// Method to collect the keycard
