@@ -2490,7 +2490,6 @@ GameObject:
   - component: {fileID: 8118034482167298341}
   - component: {fileID: 4750154383674248586}
   - component: {fileID: 3271487891995312091}
-  - component: {fileID: 2388080346548077180}
   - component: {fileID: 3976316634333705776}
   - component: {fileID: 6312008096043183494}
   - component: {fileID: 202752764523473548}
@@ -2571,27 +2570,6 @@ CapsuleCollider:
   m_Height: 1.6
   m_Direction: 1
   m_Center: {x: 0, y: 0.8, z: 0}
---- !u!65 &2388080346548077180
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3221714927541643151}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.6, y: 1.2, z: 0.6}
-  m_Center: {x: 0, y: 1, z: 0}
 --- !u!54 &3976316634333705776
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2600,7 +2578,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3221714927541643151}
   serializedVersion: 5
-  m_Mass: 40
+  m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -2628,7 +2606,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 3221714927541643151}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.5
+  m_Radius: 0.4
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
@@ -2637,7 +2615,7 @@ NavMeshAgent:
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
-  m_Height: 2
+  m_Height: 1.8
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
@@ -2671,6 +2649,7 @@ MonoBehaviour:
   bossPhaseChangeThreshold: 0.5
   isInPhaseTwo: 0
   maxShield: 50
+  portal: {fileID: 0}
   attack: {fileID: 0}
   currentState: 0
   counterChance: 0.5

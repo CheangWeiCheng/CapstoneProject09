@@ -2269,7 +2269,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4412704303688925277}
   serializedVersion: 5
-  m_Mass: 40
+  m_Mass: 1
   m_LinearDamping: 0
   m_AngularDamping: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
@@ -2340,6 +2340,7 @@ MonoBehaviour:
   bossPhaseChangeThreshold: 0.5
   isInPhaseTwo: 0
   maxShield: 50
+  portal: {fileID: 0}
   attack: {fileID: 0}
   currentState: 0
   counterChance: 0.5

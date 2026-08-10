@@ -626,7 +626,7 @@ public class ObjectiveManager : MonoBehaviour
 
             case ObjectiveStep.CollectFirstStar:
                 ShowObjective(
-                    "Collect the First Star",
+                    "Get the 1st Star",
                     "",
                     starReward
                 );
@@ -634,7 +634,7 @@ public class ObjectiveManager : MonoBehaviour
 
             case ObjectiveStep.CollectSecondStar:
                 ShowObjective(
-                    "Collect the Second Star",
+                    "Get the 2nd Star",
                     "",
                     starReward
                 );
@@ -650,7 +650,7 @@ public class ObjectiveManager : MonoBehaviour
 
             case ObjectiveStep.CollectThirdStar:
                 ShowObjective(
-                    "Collect the Third Star",
+                    "Get the 3rd Star",
                     "",
                     starReward
                 );
@@ -836,7 +836,7 @@ public class ObjectiveManager : MonoBehaviour
 
             case ObjectiveStep.CollectFirstStar:
                 return
-                    "Collect the First Star\n" +
+                    "Get the 1st Star\n" +
                     "\n" +
                     "Reward: +" +
                     starReward +
@@ -844,7 +844,7 @@ public class ObjectiveManager : MonoBehaviour
 
             case ObjectiveStep.CollectSecondStar:
                 return
-                    "Collect the Second Star\n" +
+                    "Get the 2nd Star\n" +
                     "\n" +
                     "Reward: +" +
                     starReward +
@@ -860,7 +860,7 @@ public class ObjectiveManager : MonoBehaviour
 
             case ObjectiveStep.CollectThirdStar:
                 return
-                    "Collect the Third Star\n" +
+                    "Get the 3rd Star\n" +
                     "\n" +
                     "Reward: +" +
                     starReward +
