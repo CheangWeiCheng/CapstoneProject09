@@ -570,10 +570,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1499536667315719303}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 7239809952411848637}
+        m_TargetAssemblyTypeName: PauseMenuViewController, Game.Runtime
+        m_MethodName: OpenInventory
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -582,10 +582,10 @@ MonoBehaviour:
           m_StringArgument:
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 2341612258224118189}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 7239809952411848637}
+        m_TargetAssemblyTypeName: PauseMenuViewController, Game.Runtime
+        m_MethodName: ReturnToPauseMainMenu
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1880,7 +1880,7 @@ GameObject:
   - component: {fileID: 6342095010447648465}
   - component: {fileID: 8253921313771778740}
   m_Layer: 5
-  m_Name: Back Button
+  m_Name: Back Button (Inventory)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3854,10 +3854,10 @@ RectTransform:
   - {fileID: 5203106813667827791}
   m_Father: {fileID: 2600758734492881111}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 1650, y: 1050}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5383102348485204382
 CanvasRenderer:
@@ -3887,7 +3887,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 91c34a1e7a32ffa40b594452b39d1fed, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f2dcffa0bec05a34f9c846bd81a43339, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -16192,7 +16192,7 @@ GameObject:
   - component: {fileID: 8004360554175971335}
   - component: {fileID: 7455850016862280579}
   m_Layer: 5
-  m_Name: Back Button
+  m_Name: Back Button (Attack)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -16215,8 +16215,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -700, y: 340}
-  m_SizeDelta: {x: 175, y: 175}
+  m_AnchoredPosition: {x: -650, y: 320}
+  m_SizeDelta: {x: 175, y: 150}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2842809299632210865
 CanvasRenderer:
@@ -16300,22 +16300,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7195767152529091467}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument:
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 2341612258224118189}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 7239809952411848637}
+        m_TargetAssemblyTypeName: PauseMenuViewController, Game.Runtime
+        m_MethodName: ReturnToPauseMainMenu
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -17520,6 +17508,7 @@ GameObject:
   - component: {fileID: 2600758734492881111}
   - component: {fileID: 3933660319535020641}
   - component: {fileID: 495602833345618885}
+  - component: {fileID: 7239809952411848637}
   m_Layer: 5
   m_Name: Pause Menu Panel
   m_TagString: Untagged
@@ -17541,8 +17530,8 @@ RectTransform:
   m_Children:
   - {fileID: 5054336906118741929}
   - {fileID: 2220755783820300257}
-  - {fileID: 5337761452009365755}
   - {fileID: 1869249492816407711}
+  - {fileID: 5337761452009365755}
   - {fileID: 6426111974230737064}
   m_Father: {fileID: 5334922638583611510}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -17589,6 +17578,38 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &7239809952411848637
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3051158638950102478}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e07d4b537a35bf438baaf755befe940, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Game.Runtime::PauseMenuViewController
+  pauseMenuPanel: {fileID: 3051158638950102478}
+  mainMenuView: {fileID: 2341612258224118189}
+  pauseMenuPanelImage: {fileID: 495602833345618885}
+  inventoryUI: {fileID: 1499536667315719303}
+  shopUI: {fileID: 8311743611885650843}
+  guideUI: {fileID: 1745989977430687382}
+  attackUI: {fileID: 7195767152529091467}
+  leaderboardUI: {fileID: 1210607881352872346}
+  settingsUI: {fileID: 0}
+  inventoryButton: {fileID: 2047970554454977922}
+  shopButton: {fileID: 0}
+  guideButton: {fileID: 4678525404711112653}
+  attackGuideButton: {fileID: 294456204308882855}
+  leaderboardButton: {fileID: 2279212379757894102}
+  settingsButton: {fileID: 0}
+  backToPauseMenuButtons:
+  - {fileID: 8253921313771778740}
+  - {fileID: 4916265618066289060}
+  - {fileID: 7498848568552870588}
+  - {fileID: 7455850016862280579}
 --- !u!1 &3076292982868451618
 GameObject:
   m_ObjectHideFlags: 0
@@ -20533,10 +20554,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1745989977430687382}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 7239809952411848637}
+        m_TargetAssemblyTypeName: PauseMenuViewController, Game.Runtime
+        m_MethodName: OpenGuide
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -20545,10 +20566,10 @@ MonoBehaviour:
           m_StringArgument:
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 2341612258224118189}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 7239809952411848637}
+        m_TargetAssemblyTypeName: PauseMenuViewController, Game.Runtime
+        m_MethodName: ReturnToPauseMainMenu
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -20678,10 +20699,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7195767152529091467}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 7239809952411848637}
+        m_TargetAssemblyTypeName: PauseMenuViewController, Game.Runtime
+        m_MethodName: OpenAttackGuide
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -20690,10 +20711,10 @@ MonoBehaviour:
           m_StringArgument:
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 2341612258224118189}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 7239809952411848637}
+        m_TargetAssemblyTypeName: PauseMenuViewController, Game.Runtime
+        m_MethodName: ReturnToPauseMainMenu
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -21086,7 +21107,7 @@ GameObject:
   - component: {fileID: 8252793285858446915}
   - component: {fileID: 7498848568552870588}
   m_Layer: 5
-  m_Name: Back Button
+  m_Name: Back Button (Guide)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -21109,8 +21130,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -700, y: 350}
-  m_SizeDelta: {x: 175, y: 175}
+  m_AnchoredPosition: {x: -640, y: 330}
+  m_SizeDelta: {x: 175, y: 155}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3773340028565151290
 CanvasRenderer:
@@ -21194,22 +21215,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1745989977430687382}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument:
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 2341612258224118189}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 7239809952411848637}
+        m_TargetAssemblyTypeName: PauseMenuViewController, Game.Runtime
+        m_MethodName: ReturnToPauseMainMenu
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -22476,7 +22485,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5269467613821132563}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.017837008, y: 0.000000022278401, z: -3.974436e-10, w: 0.9998409}
+  m_LocalRotation: {x: 0.017837, y: 3.0915061e-15, z: -5.5745785e-16, w: 0.9998409}
   m_LocalPosition: {x: 0, y: 0.9021175, z: -2.8611507}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -25087,7 +25096,7 @@ GameObject:
   - component: {fileID: 5966225953910837524}
   - component: {fileID: 4916265618066289060}
   m_Layer: 5
-  m_Name: Back Button
+  m_Name: Back Button (LeaderBoard)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -25111,7 +25120,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -700, y: 310}
-  m_SizeDelta: {x: 200, y: 140}
+  m_SizeDelta: {x: 200, y: 180}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2462863369954840077
 CanvasRenderer:
@@ -25141,7 +25150,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 65e2bedd36bce6a4fadead909da70504, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ea9046e7df4c0fc4c979d0eacfff8fe7, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -25195,22 +25204,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1210607881352872346}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument:
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 2341612258224118189}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 7239809952411848637}
+        m_TargetAssemblyTypeName: PauseMenuViewController, Game.Runtime
+        m_MethodName: OpenLeaderboard
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -26379,7 +26376,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6749228042563782258}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.017837012, y: 0.000000022278403, z: -3.9744333e-10, w: 0.9998409}
+  m_LocalRotation: {x: 0.017837003, y: 3.0825424e-15, z: -5.4992066e-17, w: 0.9998409}
   m_LocalPosition: {x: 0, y: 0.9021175, z: -2.8611507}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -27395,7 +27392,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1900, y: 1000}
+  m_SizeDelta: {x: 1700, y: 1000}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &593676022241786957
 CanvasRenderer:
@@ -27425,7 +27422,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 1c5fc7acb115fb842aef81e975a7b87d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 18971403ad6987749b33192af4600d42, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -36990,10 +36987,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1210607881352872346}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 7239809952411848637}
+        m_TargetAssemblyTypeName: PauseMenuViewController, Game.Runtime
+        m_MethodName: OpenLeaderboard
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -37002,10 +36999,10 @@ MonoBehaviour:
           m_StringArgument:
           m_BoolArgument: 1
         m_CallState: 2
-      - m_Target: {fileID: 2341612258224118189}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 7239809952411848637}
+        m_TargetAssemblyTypeName: PauseMenuViewController, Game.Runtime
+        m_MethodName: OpenLeaderboard
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
