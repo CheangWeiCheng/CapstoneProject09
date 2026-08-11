@@ -420,11 +420,7 @@ public class Attack : MonoBehaviour
             if (target != null)
             {
                 LungeAtTarget(target, force);
-                playerController.LockOnTarget(target);
                 hasValidTarget = true;
-                lungeTrigger.sphere.enabled = true;
-                lungeTrigger.currentAttackTarget = target;
-                lungeTrigger.timer = lungeTrigger.duration;
             }
         }
         if (!hasValidTarget)
@@ -506,6 +502,8 @@ public class Attack : MonoBehaviour
         directionToEnemy = (targetPosition - AttackOrigin).normalized;
         
         playerController.SetAttackForce(directionToEnemy, force, true);
+        playerController.LockOnTarget(target);
+        LungeTriggerActivate(target);
 
         if (animator != null)
         {
@@ -521,14 +519,14 @@ public class Attack : MonoBehaviour
         Launcher(force, true, countsAsDashAttack);
     }
 
-    public void Launcher(float force, bool shouldTriggerCooldown, bool countsAsDashAttack = false)
+    public void Launcher(float launchForce, bool shouldTriggerCooldown, bool countsAsDashAttack = false)
     {
         AudioDirector.TryPlayMove(
             isCharging ? AudioCue.ChargedCrouchAttack : AudioCue.LauncherJump,
             transform.position
         );
         PlayEffect(isCharging ? finisherEffect : attackEffect);
-        appliedJuggleForce = force;
+        appliedJuggleForce = launchForce;
         currentAttackType = AttackType.Launcher;
         weaponHitbox.ActivateHitbox();
         attackDurationTimer = currentWeapon.hitboxLifetime;
@@ -538,6 +536,7 @@ public class Attack : MonoBehaviour
         }
 
         float range = countsAsDashAttack ? dashRange : defaultRange;
+        float force = countsAsDashAttack ? dashForce : defaultForce;
         Collider[] hits = Physics.OverlapSphere(AttackOrigin, range, enemyLayer);
         bool hasValidTarget = false;
         if (hits.Length > 0)
@@ -545,14 +544,7 @@ public class Attack : MonoBehaviour
             GameObject target = GetBestTarget(hits);
             if (target != null)
             {
-                playerController.LockOnTarget(target);
-                if (countsAsDashAttack)
-                {
-                    LungeAtTarget(target, dashForce);
-                    lungeTrigger.sphere.enabled = true;
-                    lungeTrigger.currentAttackTarget = target;
-                    lungeTrigger.timer = lungeTrigger.duration;
-                }
+                LungeAtTarget(target, force);
                 hasValidTarget = true;
             }
         }
@@ -691,6 +683,7 @@ public class Attack : MonoBehaviour
         }
         
         float range = countsAsDashSlam ? dashRange : defaultRange;
+        float force = countsAsDashSlam ? dashForce : defaultForce;
         Collider[] hits = Physics.OverlapSphere(AttackOrigin, range, enemyLayer);
         bool hasValidTarget = false;
         if (hits.Length > 0)
@@ -698,14 +691,7 @@ public class Attack : MonoBehaviour
             GameObject target = GetBestTarget(hits);
             if (target != null)
             {
-                playerController.LockOnTarget(target);
-                if (countsAsDashSlam)
-                {
-                    LungeAtTarget(target, dashForce);
-                    lungeTrigger.sphere.enabled = true;
-                    lungeTrigger.currentAttackTarget = target;
-                    lungeTrigger.timer = lungeTrigger.duration;
-                }
+                LungeAtTarget(target, force);
                 hasValidTarget = true;
             }
         }
@@ -732,6 +718,7 @@ public class Attack : MonoBehaviour
         }
         
         float range = countsAsDashSlam ? dashRange : defaultRange;
+        float force = countsAsDashSlam ? dashForce : defaultForce;
         Collider[] hits = Physics.OverlapSphere(AttackOrigin, range, enemyLayer);
         bool hasValidTarget = false;
         if (hits.Length > 0)
@@ -739,14 +726,7 @@ public class Attack : MonoBehaviour
             GameObject target = GetBestTarget(hits);
             if (target != null)
             {
-                playerController.LockOnTarget(target);
-                if (countsAsDashSlam)
-                {
-                    LungeAtTarget(target, dashForce);
-                    lungeTrigger.sphere.enabled = true;
-                    lungeTrigger.currentAttackTarget = target;
-                    lungeTrigger.timer = lungeTrigger.duration;
-                }
+                LungeAtTarget(target, force);
                 hasValidTarget = true;
             }
         }
@@ -849,6 +829,13 @@ public class Attack : MonoBehaviour
         {
             playerController.SetSlideVelocity(dashAtkDir * playerController.dashSpeed);
         }
+    }
+
+    private void LungeTriggerActivate(GameObject target)
+    {
+        lungeTrigger.sphere.enabled = true;
+        lungeTrigger.currentAttackTarget = target;
+        lungeTrigger.timer = lungeTrigger.duration;
     }
 
     private void OnDrawGizmos()
