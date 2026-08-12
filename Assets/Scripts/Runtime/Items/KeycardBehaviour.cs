@@ -35,6 +35,14 @@ public class KeycardBehaviour : MonoBehaviour
         }
         isCollected = true; // Mark as collected
         Debug.Log("keycard collected!");
-        Destroy(gameObject);
+        if (GetComponent<MeshRenderer>() != null)
+        {
+            GetComponent<MeshRenderer>().enabled = false;
+        }
+        // Destroy all children of the GameObject
+        foreach (Transform child in transform)
+        {
+            Destroy(child.gameObject);
+        }
     }
 }
