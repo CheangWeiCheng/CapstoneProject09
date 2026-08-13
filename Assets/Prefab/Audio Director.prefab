@@ -101,6 +101,7 @@ MonoBehaviour:
   goldPickupClip: {fileID: 8300000, guid: a7464666e77266e4da58d27b32df1f8b, type: 3}
   goldPurchaseClip: {fileID: 8300000, guid: a7464666e77266e4da58d27b32df1f8b, type: 3}
   collectionClip: {fileID: 8300000, guid: b1381cb18abaee440b6c74b24861a56f, type: 3}
+  celebrationClip: {fileID: 0}
   genericPickupClip: {fileID: 8300000, guid: d0055b65979fa6247bde6644957a117e, type: 3}
   interactClip: {fileID: 8300000, guid: 7aa3e2dde62f1c047845b0a084980aa0, type: 3}
   interactDeniedClip: {fileID: 8300000, guid: ea88a90e083d54e40b01add25f8178ef, type: 3}

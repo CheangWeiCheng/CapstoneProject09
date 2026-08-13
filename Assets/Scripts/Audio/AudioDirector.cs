@@ -48,6 +48,7 @@ namespace Game.Audio
         Bgm,
         ArcherShot,
         Collection,
+        Celebration,
         GenericPickup,
         ArcherHit
     }
@@ -122,6 +123,8 @@ namespace Game.Audio
         [SerializeField] private AudioClip goldPickupClip;
         [SerializeField] private AudioClip goldPurchaseClip;
         [SerializeField] private AudioClip collectionClip;
+        [Tooltip("Optional major-collection fanfare. Goal/statue pickups use this; ordinary coins and enemy loot do not.")]
+        [SerializeField] private AudioClip celebrationClip;
         [SerializeField] private AudioClip genericPickupClip;
         [SerializeField] private AudioClip interactClip;
         [SerializeField] private AudioClip interactDeniedClip;
@@ -381,6 +384,11 @@ namespace Game.Audio
         public static bool TryPlayCollection(Vector3 position, float volumeScale = 1f)
         {
             return TryPlayInteraction(AudioCue.Collection, position, volumeScale);
+        }
+
+        public static bool TryPlayCelebration(Vector3 position, float volumeScale = 1f)
+        {
+            return TryPlayInteraction(AudioCue.Celebration, position, volumeScale);
         }
 
         public static bool TryPlayGenericPickup(Vector3 position, float volumeScale = 1f)
@@ -840,6 +848,8 @@ namespace Game.Audio
                     return goldPurchaseClip != null ? goldPurchaseClip : goldPickupClip;
                 case AudioCue.Collection:
                     return collectionClip;
+                case AudioCue.Celebration:
+                    return celebrationClip;
                 case AudioCue.GenericPickup:
                     return genericPickupClip;
                 case AudioCue.Interact:

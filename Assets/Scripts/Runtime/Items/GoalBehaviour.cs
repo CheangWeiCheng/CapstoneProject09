@@ -23,7 +23,9 @@ public class GoalBehaviour : MonoBehaviour
     {
         // Logic for collecting the goal
         if (isCollected) return; // Prevent double collection
-        if (!AudioDirector.TryPlayCollection(transform.position) && goalAudioClip)
+        // Major progression collectible: use the optional celebration slot in
+        // Audio Director, while preserving this object's existing fallback.
+        if (!AudioDirector.TryPlayCelebration(transform.position) && goalAudioClip)
         {
             AudioSource.PlayClipAtPoint(goalAudioClip, transform.position); // Play the goal collection sound
         }
