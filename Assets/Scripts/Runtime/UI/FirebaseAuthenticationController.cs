@@ -785,7 +785,15 @@ public class FirebaseAuthenticationController : MonoBehaviour
             "FIREBASE AUTH: Authentication complete. Closing Login Screen."
         );
 
-        gameObject.SetActive(false);
+        if (loginPanelController != null)
+        {
+            loginPanelController.CompleteAuthentication();
+        }
+        else
+        {
+            // Preserve the old failure-safe behavior if scene wiring is absent.
+            gameObject.SetActive(false);
+        }
     }
 
     private void FocusLoginEmail()
