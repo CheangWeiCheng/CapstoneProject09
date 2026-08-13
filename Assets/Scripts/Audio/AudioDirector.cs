@@ -77,6 +77,7 @@ namespace Game.Audio
         [SerializeField] private AudioSource movementSource;
         [SerializeField] private AudioSource sfxSource;
         [SerializeField] private AudioSource uiSource;
+        [SerializeField] private AudioSource menuBgmSource;
         [FormerlySerializedAs("bgmSource")]
         [SerializeField] private AudioSource explorationBgmSource;
         [SerializeField] private AudioSource actionBgmSource;
@@ -133,11 +134,13 @@ namespace Game.Audio
         [SerializeField] private AudioClip uiClickClip;
 
         [Header("Adaptive BGM")]
+        [SerializeField] private AudioClip menuBgmClip;
         [FormerlySerializedAs("bgmClip")]
         [SerializeField] private AudioClip explorationBgmClip;
         [SerializeField] private AudioClip actionBgmClip;
         [SerializeField, Min(0f)] private float bgmCrossfadeSeconds = 1f;
         [SerializeField, Min(0f)] private float bgmScheduleLeadSeconds = 0.1f;
+        [SerializeField, Min(0f)] private float menuToWorldFadeSeconds = 1.5f;
 
         private readonly Dictionary<AudioCue, float> lastCueTimes = new Dictionary<AudioCue, float>();
         private readonly HashSet<int> activeCombatReporters = new HashSet<int>();
@@ -150,6 +153,9 @@ namespace Game.Audio
         private float targetActionMix;
         private bool qaMixOverrideActive;
         private bool bgmPlaying;
+        private float menuMix = 1f;
+        private float targetMenuMix = 1f;
+        private float activeMenuFadeSeconds;
         private bool deathTransitionActive;
         private float nonDeathVolumeScale = 1f;
         private float targetNonDeathVolumeScale = 1f;
@@ -180,7 +186,7 @@ namespace Game.Audio
             EnsureSources();
             ApplyVolumes();
 
-            if (audioEnabled && autoPlayBgm) PlayBgm();
+            if (audioEnabled && autoPlayBgm) PlayMenuBgm();
         }
 
         private void LateUpdate()
@@ -192,6 +198,7 @@ namespace Game.Audio
             }
 
             UpdateBgmCrossfade();
+            UpdateMenuTransition();
             UpdateDeathFade();
             CleanUpWorldSounds();
         }
@@ -212,7 +219,7 @@ namespace Game.Audio
                 return;
             }
 
-            if (autoPlayBgm) PlayBgm();
+            if (autoPlayBgm) PlayMenuBgm();
         }
 
         // if you feed this file to an ai for a settings menu, ask it to wire the two public volume functions below to zero-to-one sliders.
@@ -297,7 +304,7 @@ namespace Game.Audio
         }
 
         /// <summary>
-        /// Starts the V4 Exploration and Action loops on one DSP timeline.
+        /// Starts the synchronized Keep in Motion Exploration and Momentum loops.
         /// </summary>
         public bool PlayBgm(AudioClip overrideClip = null, bool loop = true)
         {
@@ -330,8 +337,45 @@ namespace Game.Audio
             }
 
             bgmPlaying = true;
+            menuMix = 0f;
+            targetMenuMix = 0f;
             ApplyVolumes();
             return true;
+        }
+
+        private bool PlayMenuBgm()
+        {
+            if (!AudioEnabled || menuBgmClip == null) return false;
+
+            EnsureSources();
+            StopBgm();
+            menuBgmSource.clip = menuBgmClip;
+            menuBgmSource.loop = true;
+            menuBgmSource.timeSamples = 0;
+            menuMix = 1f;
+            targetMenuMix = 1f;
+            menuBgmSource.Play();
+            ApplyBgmVolumes();
+            return true;
+        }
+
+        /// <summary>
+        /// Optional login/menu hook. It silently does nothing when no director exists.
+        /// </summary>
+        public static void EnterWorld(float fadeSeconds = -1f)
+        {
+            if (Instance != null) Instance.BeginMenuToWorldTransition(fadeSeconds);
+        }
+
+        private void BeginMenuToWorldTransition(float fadeSeconds)
+        {
+            if (!AudioEnabled) return;
+
+            if (!bgmPlaying && !PlayBgm()) return;
+            menuMix = menuBgmSource != null && menuBgmSource.isPlaying ? 1f : 0f;
+            targetMenuMix = 0f;
+            activeMenuFadeSeconds = fadeSeconds >= 0f ? fadeSeconds : menuToWorldFadeSeconds;
+            ApplyBgmVolumes();
         }
 
         public static bool TryPlayCollection(Vector3 position, float volumeScale = 1f)
@@ -390,6 +434,7 @@ namespace Game.Audio
 
         public void StopBgm()
         {
+            if (menuBgmSource != null) menuBgmSource.Stop();
             if (explorationBgmSource != null) explorationBgmSource.Stop();
             if (actionBgmSource != null) actionBgmSource.Stop();
             bgmPlaying = false;
@@ -471,6 +516,22 @@ namespace Game.Audio
                     targetActionMix,
                     Time.unscaledDeltaTime / bgmCrossfadeSeconds
                 );
+
+            ApplyBgmVolumes();
+        }
+
+        private void UpdateMenuTransition()
+        {
+            if (Mathf.Approximately(menuMix, targetMenuMix)) return;
+
+            menuMix = activeMenuFadeSeconds <= 0f
+                ? targetMenuMix
+                : Mathf.MoveTowards(menuMix, targetMenuMix, Time.unscaledDeltaTime / activeMenuFadeSeconds);
+
+            if (menuMix <= 0f && menuBgmSource != null && menuBgmSource.isPlaying)
+            {
+                menuBgmSource.Stop();
+            }
 
             ApplyBgmVolumes();
         }
@@ -801,6 +862,7 @@ namespace Game.Audio
             movementSource = GetOrCreateSource(movementSource, "Movement Source", false, 0.7f);
             sfxSource = GetOrCreateSource(sfxSource, "SFX Source", false, 0f);
             uiSource = GetOrCreateSource(uiSource, "UI Source", false, 0f);
+            menuBgmSource = GetOrCreateSource(menuBgmSource, "Menu BGM Source", true, 0f);
             explorationBgmSource = GetOrCreateSource(
                 explorationBgmSource,
                 "Exploration BGM Source",
@@ -854,14 +916,21 @@ namespace Game.Audio
         {
             float musicVolume = Mathf.Clamp01(masterVolume * bgmVolume * bgmSettingsVolume * nonDeathVolumeScale);
 
+            if (menuBgmSource != null)
+            {
+                menuBgmSource.volume = musicVolume * menuMix;
+            }
+
+            float worldMix = 1f - menuMix;
+
             if (explorationBgmSource != null)
             {
-                explorationBgmSource.volume = musicVolume * (1f - currentActionMix);
+                explorationBgmSource.volume = musicVolume * worldMix * (1f - currentActionMix);
             }
 
             if (actionBgmSource != null)
             {
-                actionBgmSource.volume = musicVolume * currentActionMix;
+                actionBgmSource.volume = musicVolume * worldMix * currentActionMix;
             }
         }
 
@@ -916,8 +985,9 @@ namespace Game.Audio
             AssignIfEmpty(ref uiHoverClip, "Piano_Ui (1)");
             AssignIfEmpty(ref uiClickClip, "Piano_Ui (7)");
             AssignIfEmpty(ref deathClip, "Dark Souls ' You Died ' Sound Effect [j_nV2jcTFvA]");
-            AssignIfEmpty(ref explorationBgmClip, "armamation_clockwork_keep_v4_exploration_loop", "Assets/Audio/Scores");
-            AssignIfEmpty(ref actionBgmClip, "armamation_clockwork_keep_v4_action_loop", "Assets/Audio/Scores");
+            AssignIfEmpty(ref menuBgmClip, "armamation_clockwork_keep_v4_exploration_loop", "Assets/Audio/Scores");
+            AssignIfEmpty(ref explorationBgmClip, "keep_in_motion_v6_exploration_loop", "Assets/Audio/Scores");
+            AssignIfEmpty(ref actionBgmClip, "keep_in_motion_v6_momentum_loop", "Assets/Audio/Scores");
         }
 
         private static void AssignIfEmpty(ref AudioClip clip, string exactFileName)

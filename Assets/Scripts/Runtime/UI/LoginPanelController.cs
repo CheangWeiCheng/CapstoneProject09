@@ -1,4 +1,5 @@
 using TMPro;
+using Game.Audio;
 using UnityEngine;
 
 public class LoginPanelController : MonoBehaviour
@@ -72,6 +73,7 @@ public class LoginPanelController : MonoBehaviour
 
     public void CompleteAuthentication()
     {
+        AudioDirector.EnterWorld();
         authenticationScreenOpen = false;
 
         Time.timeScale = 1f;
