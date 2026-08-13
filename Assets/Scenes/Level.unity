@@ -12417,6 +12417,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5621342035936944253, guid: 52a94d7b7d991c54fbca68e27136cdb4, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6080908059876496579, guid: 52a94d7b7d991c54fbca68e27136cdb4, type: 3}
       propertyPath: m_hasFontAssetChanged
       value: 0
@@ -12493,6 +12497,38 @@ PrefabInstance:
       propertyPath: congratulatoryText
       value: 
       objectReference: {fileID: 345716972}
+    - target: {fileID: 8652099965185628816, guid: 52a94d7b7d991c54fbca68e27136cdb4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8652099965185628816, guid: 52a94d7b7d991c54fbca68e27136cdb4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 8652099965185628816, guid: 52a94d7b7d991c54fbca68e27136cdb4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1298121596}
+    - target: {fileID: 8652099965185628816, guid: 52a94d7b7d991c54fbca68e27136cdb4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8652099965185628816, guid: 52a94d7b7d991c54fbca68e27136cdb4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: set_enabled
+      objectReference: {fileID: 0}
+    - target: {fileID: 8652099965185628816, guid: 52a94d7b7d991c54fbca68e27136cdb4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Attack, Game.Runtime
+      objectReference: {fileID: 0}
+    - target: {fileID: 8652099965185628816, guid: 52a94d7b7d991c54fbca68e27136cdb4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_BoolArgument
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8652099965185628816, guid: 52a94d7b7d991c54fbca68e27136cdb4, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 8935101010927290052, guid: 52a94d7b7d991c54fbca68e27136cdb4, type: 3}
       propertyPath: m_Name
       value: Ito_NestedPrefab
@@ -27542,6 +27578,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.InputSystem::UnityEngine.InputSystem.PlayerInput
+--- !u!114 &1298121596 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5621342035936944253, guid: 52a94d7b7d991c54fbca68e27136cdb4, type: 3}
+  m_PrefabInstance: {fileID: 486199253}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91ccf8471db3a224c8b5448a712d363e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: '::'
 --- !u!1 &1299760124
 GameObject:
   m_ObjectHideFlags: 0
