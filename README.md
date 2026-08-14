@@ -1,7 +1,7 @@
-# CapstoneProject09
+# Armamation
 
 ## 🎮 Game Overview
-This game is a third-person 3D platformer/hack and slash.
+ARMAMATION is a third-person action adventure game developed as part of the Capstone Project. The game follows Ito Hatchure, who is unexpectedly transported from his modern world into a mysterious medieval castle through a portal created by a malfunctioning vending machine. Ito is pulled into the portal together with his baseball bat and the vending machine, leaving him with only these familiar objects to survive in an unfamiliar environment.
 
 ## 🛠️ Installation Guide
 1. Download and install Unity from https://unity.com/download
@@ -30,14 +30,21 @@ Platform: Windows
 | **RAM**        | 16GB                                          |
 
 ## 🕹️ Key Controls
-| Action       | Keybind            |
-|--------------|--------------------|
-| Move         | WASD               |
-| Look         | Mouse              |
-| Jump         | Space              |
-| Attack       | Left Mouse Button  |
-| Crouch       | Right Mouse Button |
-| Interact     | E                  |
+| Action            | Keybind             |
+|-------------------|---------------------|
+| Move              | WASD                |
+| Look              | Mouse               |
+| Jump              | Space               |
+| Dash              | Shift               |
+| Attack            | Left Mouse Button   |
+| Crouch            | Right Mouse Button  |
+| Switch Weapons    | Middle Mouse Button |
+| Interact          | E                   |
+| Health Potion     | 1                   |
+| Damage Potion     | 2                   |
+| Max Health Potion | 3                   |
+| Toggle Quest HUD  | V                   |
+| View Quest List   | Q                   |
 
 ## ⚠️ Known Limitations
 - N/A
