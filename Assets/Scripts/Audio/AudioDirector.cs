@@ -196,10 +196,30 @@ namespace Game.Audio
         {
             // Demo/development bypass: if the authentication GameObject starts
             // disabled, do not leave the menu cue playing over the level.
-            if (FindFirstObjectByType<LoginPanelController>() == null)
+            if (!HasActiveAuthenticationScreen())
             {
                 BeginMenuToWorldTransition(menuToWorldFadeSeconds);
             }
+        }
+
+        private static bool HasActiveAuthenticationScreen()
+        {
+            // Game.Audio intentionally has no dependency on Game.Runtime. Use the
+            // component name so the demo bypass remains assembly-safe.
+            MonoBehaviour[] activeBehaviours = FindObjectsByType<MonoBehaviour>(
+                FindObjectsInactive.Exclude,
+                FindObjectsSortMode.None
+            );
+
+            foreach (MonoBehaviour behaviour in activeBehaviours)
+            {
+                if (behaviour != null && behaviour.GetType().Name == "LoginPanelController")
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         private void LateUpdate()
