@@ -192,6 +192,16 @@ namespace Game.Audio
             if (audioEnabled && autoPlayBgm) PlayMenuBgm();
         }
 
+        private void Start()
+        {
+            // Demo/development bypass: if the authentication GameObject starts
+            // disabled, do not leave the menu cue playing over the level.
+            if (FindFirstObjectByType<LoginPanelController>() == null)
+            {
+                BeginMenuToWorldTransition(menuToWorldFadeSeconds);
+            }
+        }
+
         private void LateUpdate()
         {
             if (movementSource != null && movementSource.isPlaying &&

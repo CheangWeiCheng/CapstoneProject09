@@ -115,6 +115,9 @@ public class LoginPanelController : MonoBehaviour
             return;
         }
 
+        // Disabling the menu is the team's development/demo login bypass.
+        // Treat it as entering the world so V4 cannot remain over gameplay.
+        AudioDirector.EnterWorld();
         Time.timeScale = 1f;
     }
 }
