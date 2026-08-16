@@ -47,7 +47,8 @@ Platform: Windows
 | View Quest List   | Q                   |
 
 ## ⚠️ Known Limitations
-- N/A
+- Some props in the bedrooms are missing their colliders.
+- The Attacks option in the menu appears to use the wrong image for the attack move set.
 
 ## 📚 Asset Credits
 ### Images
